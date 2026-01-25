@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. TOK Human Sciences: Physics Envy, Mathiness, and the Reliability of Numbers in Economics</title>
+
+    <!-- PptxGenJS (BUNDLE build includes required browser deps). Primary + fallback CDN. -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        // Fallback if jsDelivr is blocked/unavailable
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.4em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        .video-section {
+            padding: 40px;
+            background: #f7fafc;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .continue-prompt::before { content: "⬇️ "; font-size: 1.5em; }
+        .continue-prompt::after { content: " ⬇️"; font-size: 1.5em; }
+
+        .tabs {
+            display: flex;
+            background: #edf2f7;
+            border-bottom: 2px solid #cbd5e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 20px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover { background: #e2e8f0; color: #2d3748; }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .key-terms {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-terms h3 { color: #c53030; margin-bottom: 15px; }
+
+        .key-terms ul { list-style: none; padding-left: 0; }
+
+        .key-terms li {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+        }
+
+        .key-terms li:last-child { border-bottom: none; }
+
+        .key-terms strong { color: #742a2a; }
+
+        .question-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .question-box h4 { color: #2c5282; margin-bottom: 10px; }
+
+        .study-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .study-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .study-card h3 { color: #667eea; margin-bottom: 15px; }
+
+        .study-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .study-card a:hover { text-decoration: underline; }
+
+        .response-area {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .response-area textarea,
+        .question-box textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        ol, ul { margin-left: 20px; line-height: 1.8; }
+        ol li, ul li { margin: 10px 0; }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .exit-ticket {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .exit-ticket h3 { margin-bottom: 15px; }
+
+        .exit-ticket textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .generate-section {
+            background: #f0fff4;
+            border: 3px solid #48bb78;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .generate-section h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .generate-section p {
+            color: #2f855a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+
+        .generate-btn:active { transform: translateY(0); }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+
+        .download-btn:active { transform: translateY(0); }
+
+        /* Slide Viewer Styles */
+        .slide-viewer {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .slide-viewer.show { display: block; }
+
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover { background: #5568d3; }
+
+        .slide-nav-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter { color: white; font-size: 1.1em; }
+
+        .slide {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a5568;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border: none;
+            font-size: 2.6em;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: white;
+            font-size: 1.4em;
+            opacity: 0.95;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .save-indicator.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Progress saved</div>
+
+    <div class="container">
+        <header>
+            <h1>📈 Numbers, Trust, and Certainty in Economics</h1>
+            <p>Physics Envy, Mathiness, and the Limits of Mathematical Modelling</p>
+        </header>
+
+        <div class="video-section">
+            <h2>📺 Watch First: Economics and the Push for Physics-Level Precision</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/-C_5hzJCHaY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="continue-prompt">
+                Continue below to explore the activities and questions
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="intro">Introduction</button>
+            <button class="tab-button" data-tab="questions">Guided Questions</button>
+            <button class="tab-button" data-tab="studies">Research & Presentation</button>
+            <button class="tab-button" data-tab="wrapup">Wrap-Up</button>
+            <button class="tab-button" data-tab="exit">Exit Ticket</button>
+        </div>
+
+        <div id="intro" class="tab-content active">
+            <h2 class="section-header">What You Should Know</h2>
+
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                In the human sciences, economists often use <span class="highlight">mathematical models</span> to describe and predict economic behaviour.
+                Mathematics can add clarity and precision to an argument by showing how variables relate.
+                But unlike physics, economic systems involve <span class="highlight">human decision-making</span>, changing social contexts, and messy real-world constraints.
+                That makes it harder to achieve the same kind of certainty we associate with physical laws.
+            </p>
+
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                This raises a TOK issue: numbers can look precise and authoritative, but precision is not the same as truth or reliability.
+                The way a model is built — its assumptions, what it leaves out, and how it is tested — affects whether we should trust its conclusions.
+            </p>
+
+            <div class="key-terms">
+                <h3>🔑 Key TOK Terms</h3>
+                <ul>
+                    <li><strong>Model:</strong> A simplified representation of reality used to explain or predict.</li>
+                    <li><strong>Assumption:</strong> A starting claim taken as true to make a model work.</li>
+                    <li><strong>Evidence:</strong> Data or reasons used to support a conclusion.</li>
+                    <li><strong>Interpretation:</strong> How we make meaning from evidence and results.</li>
+                    <li><strong>Certainty:</strong> How confident we are that a knowledge claim is true.</li>
+                    <li><strong>Trust:</strong> Whether we accept a claim as reliable enough to act on.</li>
+                    <li><strong>Scope:</strong> The limits of where a knowledge claim applies.</li>
+                </ul>
+            </div>
+
+            <div class="key-terms" style="background:#f0fff4;border-left-color:#48bb78;">
+                <h3 style="color:#22543d;">Two Critiques You Will Use</h3>
+                <ul>
+                    <li><strong>Physics envy:</strong> When economics tries to copy physics by using heavy maths to look more “scientific,” even when human behaviour makes that precision unrealistic.</li>
+                    <li><strong>Mathiness:</strong> When mathematical symbols and formal language are used in a way that hides weak assumptions or weak links to evidence.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="questions" class="tab-content">
+            <h2 class="section-header">Guided Questions</h2>
+
+            <h3 style="color: #667eea; margin-top: 30px;">A. Core Understanding</h3>
+
+            <div class="question-box">
+                <h4>1. What does <em>physics envy</em> mean in economics? How does it relate to economists’ use of mathematics?</h4>
+                <textarea id="q1" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>2. What is <em>mathiness</em>, and why is it considered a problem in economic research?</h4>
+                <textarea id="q2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>3. Why can mathematics create the <em>appearance</em> of certainty even when assumptions are weak or unrealistic?</h4>
+                <textarea id="q3" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">B. Economics vs Natural Sciences</h3>
+
+            <div class="question-box">
+                <h4>4. Physics often studies repeatable patterns under controlled conditions. Why is this form of certainty difficult in economics?</h4>
+                <textarea id="q4" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>5. Many economic models assume rational decision-makers and equilibrium. Why does it matter that real people often behave differently?</h4>
+                <textarea id="q5" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">C. TOK Reflection</h3>
+
+            <div class="question-box">
+                <h4>6. How does reliance on mathematical models affect the <strong>trustworthiness</strong> of economic knowledge claims?</h4>
+                <textarea id="q6" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>7. When economists use complex maths for policy decisions, what trade-offs arise between <em>certainty</em> and <em>interpretability</em>?</h4>
+                <textarea id="q7" placeholder="Type your answer here..."></textarea>
+            </div>
+        </div>
+
+        <div id="studies" class="tab-content">
+            <h2 class="section-header">Research & Presentation</h2>
+
+            <p style="margin-bottom: 30px; line-height: 1.8;">
+                Your group will prepare a short presentation that uses TOK vocabulary (trust, certainty, evidence, model, scope, interpretation).
+                You must evaluate how reliance on numbers shapes economic knowledge.
+            </p>
+
+            <div class="study-card">
+                <h3>Background Reading & Research Links</h3>
+                <ul style="line-height: 2; margin-top: 10px;">
+                    <li><a href="https://en.wikipedia.org/wiki/Mathiness" target="_blank">Mathiness (overview)</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Physics_envy" target="_blank">Physics envy (overview)</a></li>
+                    <li><a href="https://paulromer.net/mathiness/Mathiness.pdf" target="_blank">Paul Romer: “Mathiness” (primary source)</a></li>
+                    <li><a href="https://criticaldebateshsgj.scholasticahq.com/post/2840-the-overreliance-on-mathematics-in-economics-by-hudson-chen" target="_blank">Overreliance on mathematics in economics (example critique)</a></li>
+                    <li><a href="https://www.cam.ac.uk/research/features/does-economics-need-less-maths-or-more" target="_blank">Does economics need less maths or more? (discussion)</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/The_World_in_the_Model%3A_How_Economists_Work_and_Think" target="_blank">The World in the Model (models in economics)</a></li>
+                </ul>
+            </div>
+
+            <div class="study-card">
+                <h3>Choose One Focus Topic</h3>
+
+                <div class="question-box">
+                    <h4>(a) Case Study: Mathiness in Practice</h4>
+                    <p style="line-height: 1.7;">
+                        Pick an economic model or paper that has been criticised for using maths that hides weak assumptions.
+                        Explain what the maths makes the audience believe, and whether it increases or decreases trust.
+                    </p>
+                    <textarea id="study1" placeholder="Plan your case study, key points, and TOK evaluation..."></textarea>
+                </div>
+
+                <div class="question-box">
+                    <h4>(b) Historical Example: Predictive Failures</h4>
+                    <p style="line-height: 1.7;">
+                        Choose an economic event that was poorly predicted (for example, a major financial crisis).
+                        Analyse whether models created false certainty or overconfidence.
+                    </p>
+                    <textarea id="study2" placeholder="Identify your event, what models missed, and what this means for trust..."></textarea>
+                </div>
+
+                <div class="question-box">
+                    <h4>(c) Comparing Approaches</h4>
+                    <p style="line-height: 1.7;">
+                        Compare one formal mathematical approach (e.g., equilibrium modelling) with a more behavioural or qualitative approach.
+                        Decide which produces more trustworthy knowledge claims and why.
+                    </p>
+                    <textarea id="study3" placeholder="Compare the approaches, then evaluate using TOK terms..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>Prepare for Class Discussion</h3>
+                <ul style="margin-bottom: 15px; line-height: 1.8;">
+                    <li>Can a model be mathematically elegant but epistemically weak?</li>
+                    <li>How should economists balance quantitative models with qualitative insights about human behaviour?</li>
+                    <li>How does reliance on numbers both increase and limit trust in economic knowledge claims?</li>
+                </ul>
+                <div class="question-box">
+                    <h4>Your group’s discussion points</h4>
+                    <textarea id="study4" placeholder="Write 3–5 discussion points or questions your group wants to raise..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrapup" class="tab-content">
+            <h2 class="section-header">Wrap-Up: Write a Short Explanation</h2>
+
+            <p style="margin-bottom: 20px; line-height: 1.8;">
+                Write one well-structured paragraph that answers all of the following:
+            </p>
+
+            <ul style="margin-bottom: 30px; line-height: 1.8;">
+                <li>Define <strong>physics envy</strong> and <strong>mathiness</strong> in your own words.</li>
+                <li>Explain why economics cannot always reach the same certainty as physics.</li>
+                <li>Evaluate how mathematical precision can increase trust <em>and</em> create false certainty.</li>
+            </ul>
+
+            <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <h3 style="color: #2d3748; margin-bottom: 15px;">Suggested Structure</h3>
+                <ol style="line-height: 1.8;">
+                    <li><strong>Define the terms</strong> (physics envy + mathiness).</li>
+                    <li><strong>Explain the difference</strong> between human systems and physical systems.</li>
+                    <li><strong>TOK evaluation</strong>: trust, certainty, evidence, scope, and interpretation.</li>
+                </ol>
+            </div>
+
+            <div class="response-area">
+                <textarea id="wrapup" placeholder="Write your paragraph here..." style="min-height: 220px;"></textarea>
+            </div>
+        </div>
+
+        <div id="exit" class="tab-content">
+            <h2 class="section-header">Exit Ticket</h2>
+
+            <div class="exit-ticket">
+                <h3>Two-Sentence TOK Reflection</h3>
+                <p style="margin-bottom: 15px; line-height: 1.6;">
+                    In two sentences, explain why economic models that rely heavily on mathematics might give a false sense of <strong>certainty</strong>,
+                    and how that affects our <strong>trust</strong> in economic knowledge claims.
+                </p>
+                <p style="margin-bottom: 15px; font-size: 0.95em; opacity: 0.9;">
+                    Use TOK terms such as <em>certainty, trust, model, evidence,</em> and <em>scope</em>.
+                </p>
+                <textarea id="exitticket"></textarea>
+            </div>
+
+            <div class="generate-section">
+                <h3>🎉 Ready to Create Your Presentation?</h3>
+                <p>Generate professional slides based on your answers above.</p>
+                <div class="button-group">
+                    <button class="generate-btn" id="viewSlidesBtn">📊 View Slideshow</button>
+                    <button class="download-btn" id="downloadPptBtn">📥 Download PowerPoint</button>
+                </div>
+            </div>
+
+            <div class="slide-viewer" id="slideViewer">
+                <div class="slide-controls">
+                    <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
+                    <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+                    <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
+                </div>
+
+                <div id="slidesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        let totalSlidesCount = 0;
+
+        // Auto-save functionality
+        const textareas = ['q1','q2','q3','q4','q5','q6','q7','study1','study2','study3','study4','wrapup','exitticket'];
+
+        function saveData() {
+            const data = {};
+            textareas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+
+            const studentData = { answers: data, timestamp: new Date().toISOString() };
+            localStorage.setItem('tokMathinessEconomics', JSON.stringify(studentData));
+            showSaveIndicator();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('tokMathinessEconomics');
+            if (!saved) return;
+            const studentData = JSON.parse(saved);
+            Object.keys(studentData.answers).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = studentData.answers[id];
+            });
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Add event listeners for auto-save
+        textareas.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('input', () => {
+                clearTimeout(el.saveTimeout);
+                el.saveTimeout = setTimeout(saveData, 1000);
+            });
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadData);
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        function collectAnswers() {
+            return {
+                q1: document.getElementById('q1').value || 'Not answered',
+                q2: document.getElementById('q2').value || 'Not answered',
+                q3: document.getElementById('q3').value || 'Not answered',
+                q4: document.getElementById('q4').value || 'Not answered',
+                q5: document.getElementById('q5').value || 'Not answered',
+                q6: document.getElementById('q6').value || 'Not answered',
+                q7: document.getElementById('q7').value || 'Not answered',
+                study1: document.getElementById('study1').value || 'Not answered',
+                study2: document.getElementById('study2').value || 'Not answered',
+                study3: document.getElementById('study3').value || 'Not answered',
+                study4: document.getElementById('study4').value || 'Not answered',
+                wrapup: document.getElementById('wrapup').value || 'Not answered',
+                exitticket: document.getElementById('exitticket').value || 'Not answered'
+            };
+        }
+
+        function showSlides() {
+            const data = collectAnswers();
+
+            const slidesHTML = `
+                <div class="slide active slide-title">
+                    <h2>Numbers, Trust, and Certainty in Economics</h2>
+                    <p>Physics Envy, Mathiness, and Modelling in the Human Sciences</p>
+                    <p style="margin-top: 28px; font-size: 1em;">A TOK Exploration</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Physics Envy</h2>
+                    <h3>My Explanation:</h3>
+                    <p>${data.q1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Mathiness</h2>
+                    <h3>My Explanation:</h3>
+                    <p>${data.q2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Appearance of Certainty</h2>
+                    <h3>Why Maths Can Mislead:</h3>
+                    <p>${data.q3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Economics vs Physics</h2>
+                    <h3>Why Certainty is Harder:</h3>
+                    <p>${data.q4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Assumptions About People</h2>
+                    <h3>Rationality and Reality:</h3>
+                    <p>${data.q5}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Trustworthiness of Models</h2>
+                    <h3>TOK Evaluation:</h3>
+                    <p>${data.q6}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Policy Trade-Offs</h2>
+                    <h3>Certainty vs Interpretability:</h3>
+                    <p>${data.q7}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Focus Topic</h2>
+                    <h3>(a) Mathiness in Practice</h3>
+                    <p>${data.study1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Focus Topic</h2>
+                    <h3>(b) Predictive Failures</h3>
+                    <p>${data.study2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Focus Topic</h2>
+                    <h3>(c) Comparing Approaches</h3>
+                    <p>${data.study3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Class Discussion Prep</h2>
+                    <h3>Key Points:</h3>
+                    <p>${data.study4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Wrap-Up Paragraph</h2>
+                    <p>${data.wrapup}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Exit Ticket</h2>
+                    <h3>Two-Sentence TOK Reflection:</h3>
+                    <p>${data.exitticket}</p>
+                </div>
+
+                <div class="slide slide-title">
+                    <h2>Questions?</h2>
+                    <p style="font-size: 1.2em;">Thank you for your TOK exploration.</p>
+                </div>
+            `;
+
+            const slidesContainer = document.getElementById('slidesContainer');
+            slidesContainer.innerHTML = slidesHTML;
+
+            const slideViewer = document.getElementById('slideViewer');
+            slideViewer.classList.add('show');
+
+            const slides = slidesContainer.getElementsByClassName('slide');
+            totalSlidesCount = slides.length;
+            document.getElementById('totalSlides').textContent = totalSlidesCount;
+            currentSlideIndex = 0;
+            updateSlideDisplay();
+
+            slideViewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('#slidesContainer .slide');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlideIndex) slide.classList.add('active');
+            });
+
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+
+            const prevBtn = document.getElementById('prevSlideBtn');
+            const nextBtn = document.getElementById('nextSlideBtn');
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === totalSlidesCount - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlidesCount - 1) {
+                currentSlideIndex++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlideDisplay();
+            }
+        }
+
+        // --- PowerPoint export ---
+        async function downloadPowerPoint() {
+            // Guard: library loaded
+            if (typeof window.PptxGenJS === 'undefined') {
+                alert('PowerPoint export library failed to load. Please refresh and try again.');
+                return;
+            }
+
+            const data = collectAnswers();
+
+            // Normalise user text for PPT (keeps line breaks, avoids undefined/null)
+            const safeText = (t) => (t ?? '').toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+            try {
+                const pptx = new window.PptxGenJS();
+                pptx.layout = 'LAYOUT_WIDE';
+
+                pptx.author = 'TOK Student';
+                pptx.subject = 'Numbers, Trust, and Certainty in Economics';
+                pptx.title = 'Physics Envy and Mathiness';
+
+                // Slide 1: Title
+                let slide = pptx.addSlide();
+                slide.background = { color: '667EEA' };
+                slide.addText('Numbers, Trust, and Certainty in Economics', {
+                    x: 0.5, y: 1.8, w: 12.33, h: 1.5,
+                    fontSize: 36, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('Physics Envy, Mathiness, and Modelling in the Human Sciences', {
+                    x: 0.8, y: 3.35, w: 11.7, h: 0.8,
+                    fontSize: 20, color: 'FFFFFF', align: 'center'
+                });
+
+                // Slide 2: Physics Envy
+                slide = pptx.addSlide();
+                slide.addText('Physics Envy', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 32, bold: true, color: '2D3748' });
+                slide.addText('My Explanation:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 24, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q1), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 3: Mathiness
+                slide = pptx.addSlide();
+                slide.addText('Mathiness', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 32, bold: true, color: '2D3748' });
+                slide.addText('My Explanation:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 24, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q2), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 4: Appearance of Certainty
+                slide = pptx.addSlide();
+                slide.addText('Appearance of Certainty', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                slide.addText('Why Maths Can Mislead:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 22, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q3), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 5: Economics vs Physics
+                slide = pptx.addSlide();
+                slide.addText('Economics vs Physics', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                slide.addText('Why Certainty is Harder:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 22, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q4), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 6: Assumptions About People
+                slide = pptx.addSlide();
+                slide.addText('Assumptions About People', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                slide.addText('Rationality and Reality:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 22, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q5), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 7: Trustworthiness of Models
+                slide = pptx.addSlide();
+                slide.addText('Trustworthiness of Models', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                slide.addText('TOK Evaluation:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 22, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q6), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 8: Policy Trade-Offs
+                slide = pptx.addSlide();
+                slide.addText('Policy Trade-Offs', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                slide.addText('Certainty vs Interpretability:', { x: 0.6, y: 1.4, w: 12.0, h: 0.5, fontSize: 22, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.q7), { x: 0.6, y: 2.0, w: 12.0, h: 4.8, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 9: Focus Topic (a)
+                slide = pptx.addSlide();
+                slide.addText('Group Focus Topic (a)', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 28, bold: true, color: '2D3748' });
+                slide.addText('Mathiness in Practice', { x: 0.6, y: 1.3, w: 12.0, h: 0.5, fontSize: 20, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.study1), { x: 0.6, y: 1.9, w: 12.0, h: 5.0, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 10: Focus Topic (b)
+                slide = pptx.addSlide();
+                slide.addText('Group Focus Topic (b)', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 28, bold: true, color: '2D3748' });
+                slide.addText('Predictive Failures', { x: 0.6, y: 1.3, w: 12.0, h: 0.5, fontSize: 20, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.study2), { x: 0.6, y: 1.9, w: 12.0, h: 5.0, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 11: Focus Topic (c)
+                slide = pptx.addSlide();
+                slide.addText('Group Focus Topic (c)', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 28, bold: true, color: '2D3748' });
+                slide.addText('Comparing Approaches', { x: 0.6, y: 1.3, w: 12.0, h: 0.5, fontSize: 20, bold: true, color: '667EEA' });
+                slide.addText(safeText(data.study3), { x: 0.6, y: 1.9, w: 12.0, h: 5.0, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 12: Discussion Prep
+                slide = pptx.addSlide();
+                slide.addText('Class Discussion Prep', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 28, bold: true, color: '2D3748' });
+                slide.addText(safeText(data.study4), { x: 0.6, y: 1.4, w: 12.0, h: 5.4, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 13: Wrap-Up
+                slide = pptx.addSlide();
+                slide.addText('Wrap-Up Paragraph', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 28, bold: true, color: '2D3748' });
+                slide.addText(safeText(data.wrapup), { x: 0.6, y: 1.4, w: 12.0, h: 5.4, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Slide 14: Exit Ticket
+                slide = pptx.addSlide();
+                slide.addText('Exit Ticket', { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 32, bold: true, color: '2D3748' });
+                slide.addText(safeText(data.exitticket), { x: 0.6, y: 1.4, w: 12.0, h: 5.4, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+
+                // Final Slide
+                slide = pptx.addSlide();
+                slide.background = { color: '764BA2' };
+                slide.addText('Questions?', { x: 0.5, y: 2.5, w: 12.33, h: 1, fontSize: 48, bold: true, color: 'FFFFFF', align: 'center' });
+                slide.addText('Thank you for your TOK exploration.', { x: 0.5, y: 3.8, w: 12.33, h: 0.5, fontSize: 20, color: 'FFFFFF', align: 'center' });
+
+                await pptx.writeFile({ fileName: 'TOK_Economics_Mathiness_Presentation.pptx' });
+            } catch (err) {
+                console.error('PowerPoint export error:', err);
+                alert('PowerPoint download failed. Open DevTools → Console to see the error details.');
+            }
+        }
+        // --- end export ---
+
+        // Event listeners
+        document.getElementById('viewSlidesBtn').addEventListener('click', showSlides);
+        document.getElementById('downloadPptBtn').addEventListener('click', downloadPowerPoint);
+        document.getElementById('prevSlideBtn').addEventListener('click', previousSlide);
+        document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slideViewer = document.getElementById('slideViewer');
+            if (slideViewer.classList.contains('show')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                else if (e.key === 'ArrowLeft') previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>
