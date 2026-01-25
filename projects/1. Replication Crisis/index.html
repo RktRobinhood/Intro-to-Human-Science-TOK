@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOK Human Sciences: Replication Crisis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .video-section {
+            padding: 40px;
+            background: #f7fafc;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tabs {
+            display: flex;
+            background: #edf2f7;
+            border-bottom: 2px solid #cbd5e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 20px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .key-terms {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-terms h3 {
+            color: #c53030;
+            margin-bottom: 15px;
+        }
+
+        .key-terms ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-terms li {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+        }
+
+        .key-terms li:last-child {
+            border-bottom: none;
+        }
+
+        .key-terms strong {
+            color: #742a2a;
+        }
+
+        .question-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .question-box h4 {
+            color: #2c5282;
+            margin-bottom: 10px;
+        }
+
+        .study-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .study-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .study-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .study-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .study-card a:hover {
+            text-decoration: underline;
+        }
+
+        .response-area {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .response-area textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+        }
+
+        .section-header {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        ol, ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        ol li, ul li {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .exit-ticket {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .exit-ticket h3 {
+            margin-bottom: 15px;
+        }
+
+        .exit-ticket textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 The Replication Crisis</h1>
+            <p>Exploring Reliability and Statistics in Human Sciences</p>
+        </header>
+
+        <div class="video-section">
+            <h2>📺 Watch First: Why Science Has a Replication Problem</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/42QuXLucH3Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'intro')">Introduction</button>
+            <button class="tab-button" onclick="openTab(event, 'questions')">Guided Questions</button>
+            <button class="tab-button" onclick="openTab(event, 'studies')">Case Studies</button>
+            <button class="tab-button" onclick="openTab(event, 'wrapup')">Wrap-Up</button>
+            <button class="tab-button" onclick="openTab(event, 'exit')">Exit Ticket</button>
+        </div>
+
+        <div id="intro" class="tab-content active">
+            <h2 class="section-header">What You Should Know</h2>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                In the human sciences, researchers collect data about behaviour, thought, and society. Because these areas are complex, human scientists rely heavily on <span class="highlight">statistical analysis</span> to decide whether findings are <em>significant</em> or likely due to chance. However, when many results cannot be repeated by other researchers, we call this the <span class="highlight">replication crisis</span> — a problem with <strong>reliability</strong> of knowledge in science.
+            </p>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                Replication means repeating a study using the same methods to see if the same findings occur again. Replication gives confidence that a finding is real and not just a statistical fluke.
+            </p>
+
+            <div class="key-terms">
+                <h3>🔑 Key TOK Terms</h3>
+                <ul>
+                    <li><strong>Replication:</strong> Repeating a study to see if the same result occurs.</li>
+                    <li><strong>Statistical significance:</strong> A result that is unlikely (below a chosen threshold like <em>p < .05</em>) to have happened by chance.</li>
+                    <li><strong>Validity:</strong> Whether a study measures what it claims to measure.</li>
+                    <li><strong>Reliability:</strong> Whether the same results can be obtained again under similar conditions.</li>
+                    <li><strong>Knowledge claim:</strong> A statement presented as fact based on evidence.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="questions" class="tab-content">
+            <h2 class="section-header">Guided Questions</h2>
+            
+            <h3 style="color: #667eea; margin-top: 30px;">Comprehension</h3>
+            <div class="question-box">
+                <h4>1. What is <em>replication</em> in scientific research?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>2. According to the video, why have many scientific results failed replication attempts?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>3. What role does statistical analysis (e.g., significance levels) play in determining whether an effect is believed to be real?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">Exploration</h3>
+            <div class="question-box">
+                <h4>4. What do you think it means when researchers say a result may have been a <em>false positive</em>?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>5. How does <em>publication bias</em> (journals favouring positive findings) influence what we read in scientific literature?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">TOK Reflection</h3>
+            <div class="question-box">
+                <h4>6. How does a replication failure challenge a <strong>knowledge claim</strong> in the human sciences?</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>7. Why might a finding that is statistically significant not be <em>truthful</em> or reliable? Discuss in terms of the difference between <em>correlation</em> and <em>causation</em>.</h4>
+                <textarea placeholder="Type your answer here..."></textarea>
+            </div>
+        </div>
+
+        <div id="studies" class="tab-content">
+            <h2 class="section-header">Case Studies & Examples</h2>
+            <p style="margin-bottom: 30px; line-height: 1.8;">
+                These examples show how apparently important results <em>didn't hold up</em> when others tried to replicate them.
+            </p>
+
+            <div class="study-card">
+                <h3>(a) The Reproducibility Project — 100 Psychology Studies</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    The <strong>Reproducibility Project</strong> attempted to replicate 100 influential psychology experiments. Only about <span class="highlight">36% of those studies</span> produced results similar to the originals, meaning most findings could not be reliably repeated — and even the replicated effects tended to be weaker.
+                </p>
+                <p style="margin: 15px 0;">
+                    <a href="https://en.wikipedia.org/wiki/Reproducibility_Project" target="_blank">📖 Read more on Wikipedia →</a>
+                </p>
+                <div class="question-box">
+                    <h4>Question:</h4>
+                    <p>What does the low replication rate suggest about the reliability of knowledge claims in psychology?</p>
+                    <textarea placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(b) Ganzfeld ESP Experiments</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    In the 1980s and 1990s, psychologists conducted experiments using the <em>ganzfeld</em> technique to test <strong>extrasensory perception (ESP)</strong>. Initial studies claimed statistically significant evidence for psi phenomena. However, later, larger replication attempts failed to confirm these results.
+                </p>
+                <p style="margin: 15px 0;">
+                    <strong>Example Study:</strong> "Does psi exist? Lack of replication of an anomalous process of information transfer" (Milton & Wiseman, <em>Psychological Bulletin</em>)
+                </p>
+                <p style="margin: 15px 0;">
+                    <a href="https://www.scopus.com/record/display.uri?eid=2-s2.0-0033163132" target="_blank">📖 View study record →</a>
+                </p>
+                <div class="question-box">
+                    <h4>Question:</h4>
+                    <p>Why would a result that <em>seems statistically significant</em> in early studies disappear in later replication attempts?</p>
+                    <textarea placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(c) Publication Bias and Questionable Practices</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    A major review on the replication crisis highlights how <strong>questionable research practices</strong> such as <em>p-hacking</em> (trying many statistical tests until one looks significant) and <em>HARKing</em> (forming hypotheses after seeing the results) distort what appears in published science.
+                </p>
+                <p style="margin: 15px 0;">
+                    <a href="https://www.psychologs.com/replication-crisis-in-psychology/" target="_blank">📖 Read more about questionable practices →</a>
+                </p>
+                <div class="question-box">
+                    <h4>Question:</h4>
+                    <p>If researchers can choose how to analyse data <em>after</em> seeing results, how might that affect what is considered "statistically significant"?</p>
+                    <textarea placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(d) Simpson's Paradox</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Simpson's Paradox occurs when a trend seen in several groups <em>reverses</em> when the groups are combined. This shows how <strong>statistical interpretation</strong> without understanding context can mislead.
+                </p>
+                <p style="margin: 15px 0;">
+                    <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank">📖 Learn about Simpson's Paradox →</a>
+                </p>
+                <div class="question-box">
+                    <h4>Question:</h4>
+                    <p>How does Simpson's paradox show a limitation of statistics in producing reliable knowledge claims?</p>
+                    <textarea placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrapup" class="tab-content">
+            <h2 class="section-header">Wrap-Up: Write a Short Explanation</h2>
+            <p style="margin-bottom: 20px; line-height: 1.8;">
+                Answer the following in a paragraph:
+            </p>
+            <ul style="margin-bottom: 30px; line-height: 1.8;">
+                <li>Define the <strong>replication crisis</strong> in your own words.</li>
+                <li>Explain why the role of <strong>statistics</strong> (e.g., significance tests) is especially important in human sciences.</li>
+                <li>Discuss whether <strong>failed replications</strong> weaken the reliability of a knowledge claim about human behaviour.</li>
+            </ul>
+
+            <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <h3 style="color: #2d3748; margin-bottom: 15px;">Suggested Structure for Your Paragraph</h3>
+                <ol style="line-height: 1.8;">
+                    <li><strong>Explanation of replication crisis</strong> (mention reproducibility and reliability).</li>
+                    <li><strong>Role of statistics</strong> in deciding what scientists consider evidence.</li>
+                    <li><strong>Impact on human sciences</strong> (e.g., why failed replications matter to psychology or policy).</li>
+                </ol>
+            </div>
+
+            <div class="response-area">
+                <textarea placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
+            </div>
+        </div>
+
+        <div id="exit" class="tab-content">
+            <h2 class="section-header">Exit Ticket</h2>
+            
+            <div class="exit-ticket">
+                <h3>Quick Response</h3>
+                <p style="margin-bottom: 15px; line-height: 1.6;">
+                    In one or two sentences, answer:
+                </p>
+                <p style="margin-bottom: 20px; font-size: 1.1em; font-weight: 600;">
+                    Why can statistically significant results still fail to reflect reliable knowledge in the human sciences?
+                </p>
+                <p style="margin-bottom: 15px; font-size: 0.9em; opacity: 0.9;">
+                    (Think about sample size, replication, and research practices.)
+                </p>
+                <textarea></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
