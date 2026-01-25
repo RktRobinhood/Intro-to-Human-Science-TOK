@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOK Human Sciences: Replication Crisis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PptxGenJS/3.12.0/pptxgen.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -63,6 +64,7 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
         }
 
         .video-container iframe {
@@ -71,6 +73,33 @@
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .continue-prompt::before {
+            content: "⬇️ ";
+            font-size: 1.5em;
+        }
+
+        .continue-prompt::after {
+            content: " ⬇️";
+            font-size: 1.5em;
         }
 
         .tabs {
@@ -201,15 +230,17 @@
             min-height: 100px;
         }
 
-        .response-area textarea {
+        .response-area textarea,
+        .question-box textarea {
             width: 100%;
-            min-height: 120px;
+            min-height: 150px;
             padding: 15px;
             border: 1px solid #cbd5e0;
             border-radius: 5px;
             font-family: inherit;
-            font-size: 1em;
+            font-size: 1.05em;
             resize: vertical;
+            line-height: 1.6;
         }
 
         .section-header {
@@ -254,8 +285,38 @@
             border: none;
             border-radius: 5px;
             font-family: inherit;
-            font-size: 1em;
-            min-height: 80px;
+            font-size: 1.05em;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .generate-section {
+            background: #f0fff4;
+            border: 3px solid #48bb78;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .generate-section h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .generate-section p {
+            color: #2f855a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .generate-btn {
@@ -267,7 +328,6 @@
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
             box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
             transition: all 0.3s ease;
         }
@@ -281,12 +341,39 @@
             transform: translateY(0);
         }
 
+        .download-btn {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
         /* Slide Viewer Styles */
         .slide-viewer {
             background: #1a202c;
             border-radius: 10px;
             padding: 20px;
             margin-top: 30px;
+            display: none;
+        }
+
+        .slide-viewer.show {
+            display: block;
         }
 
         .slide-controls {
@@ -388,30 +475,28 @@
             opacity: 0.95;
         }
 
-        .download-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: #f6ad55;
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
             color: white;
-            border: none;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
         }
 
-        .download-btn:hover {
-            background: #ed8936;
+        .save-indicator.show {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <div class="save-indicator" id="saveIndicator">✓ Progress saved</div>
+
     <div class="container">
         <header>
             <h1>🔬 The Replication Crisis</h1>
@@ -423,15 +508,17 @@
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/42QuXLucH3Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+            <div class="continue-prompt">
+                Continue below to explore the activities and questions
+            </div>
         </div>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="openTab(event, 'intro')">Introduction</button>
-            <button class="tab-button" onclick="openTab(event, 'questions')">Guided Questions</button>
-            <button class="tab-button" onclick="openTab(event, 'studies')">Case Studies</button>
-            <button class="tab-button" onclick="openTab(event, 'wrapup')">Wrap-Up</button>
-            <button class="tab-button" onclick="openTab(event, 'exit')">Exit Ticket</button>
-            <button class="tab-button" onclick="openTab(event, 'slides')">📊 My Slides</button>
+            <button class="tab-button active" onclick="switchTab(event, 'intro')">Introduction</button>
+            <button class="tab-button" onclick="switchTab(event, 'questions')">Guided Questions</button>
+            <button class="tab-button" onclick="switchTab(event, 'studies')">Case Studies</button>
+            <button class="tab-button" onclick="switchTab(event, 'wrapup')">Wrap-Up</button>
+            <button class="tab-button" onclick="switchTab(event, 'exit')">Exit Ticket</button>
         </div>
 
         <div id="intro" class="tab-content active">
@@ -609,30 +696,23 @@
                 <textarea id="exitticket"></textarea>
             </div>
 
-            <button class="generate-btn" onclick="generateSlides()">🎨 Generate My Presentation Slides</button>
-        </div>
-
-        <div id="slides" class="tab-content">
-            <h2 class="section-header">Your Presentation Slides</h2>
-            <p style="margin-bottom: 20px; line-height: 1.8;">
-                Click "Generate My Presentation Slides" on the Exit Ticket tab to create slides based on your answers!
-            </p>
-            
-            <div id="slideshow" style="display: none;">
-                <div class="slide-viewer">
-                    <div class="slide-controls">
-                        <button class="slide-nav-btn" onclick="previousSlide()">← Previous</button>
-                        <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
-                        <button class="slide-nav-btn" onclick="nextSlide()">Next →</button>
-                    </div>
-                    
-                    <div id="slidesContainer"></div>
-                    
-                    <div class="download-controls">
-                        <button class="download-btn" onclick="copyAllSlides()">📋 Copy All Slides as Text</button>
-                        <button class="download-btn" onclick="printSlides()">🖨️ Print Slides</button>
-                    </div>
+            <div class="generate-section">
+                <h3>🎉 Ready to Create Your Presentation?</h3>
+                <p>Generate professional slides based on all your answers above!</p>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="showSlides()">📊 View Slideshow</button>
+                    <button class="download-btn" onclick="downloadPowerPoint()">📥 Download PowerPoint</button>
                 </div>
+            </div>
+
+            <div class="slide-viewer" id="slideViewer">
+                <div class="slide-controls">
+                    <button class="slide-nav-btn" onclick="previousSlide()">← Previous</button>
+                    <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+                    <button class="slide-nav-btn" onclick="nextSlide()">Next →</button>
+                </div>
+                
+                <div id="slidesContainer"></div>
             </div>
         </div>
     </div>
@@ -641,7 +721,70 @@
         let currentSlideIndex = 0;
         let totalSlidesCount = 0;
 
-        function openTab(evt, tabName) {
+        // Auto-save functionality
+        const textareas = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'study1', 'study2', 'study3', 'study4', 'wrapup', 'exitticket'];
+        
+        function saveData() {
+            const data = {};
+            textareas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    data[id] = el.value;
+                }
+            });
+            
+            try {
+                const studentData = {
+                    answers: data,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('tokReplicationCrisis', JSON.stringify(studentData));
+                showSaveIndicator();
+            } catch (e) {
+                console.error('Error saving data:', e);
+            }
+        }
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('tokReplicationCrisis');
+                if (saved) {
+                    const studentData = JSON.parse(saved);
+                    Object.keys(studentData.answers).forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.value = studentData.answers[id];
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        // Add event listeners for auto-save
+        textareas.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', () => {
+                    clearTimeout(el.saveTimeout);
+                    el.saveTimeout = setTimeout(saveData, 1000);
+                });
+            }
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadData);
+
+        function switchTab(evt, tabName) {
             const tabContents = document.getElementsByClassName('tab-content');
             for (let i = 0; i < tabContents.length; i++) {
                 tabContents[i].classList.remove('active');
@@ -655,115 +798,3 @@
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
-
-        function generateSlides() {
-            // Collect all answers
-            const data = {
-                q1: document.getElementById('q1').value || 'Not answered',
-                q2: document.getElementById('q2').value || 'Not answered',
-                q3: document.getElementById('q3').value || 'Not answered',
-                q4: document.getElementById('q4').value || 'Not answered',
-                q5: document.getElementById('q5').value || 'Not answered',
-                q6: document.getElementById('q6').value || 'Not answered',
-                q7: document.getElementById('q7').value || 'Not answered',
-                study1: document.getElementById('study1').value || 'Not answered',
-                study2: document.getElementById('study2').value || 'Not answered',
-                study3: document.getElementById('study3').value || 'Not answered',
-                study4: document.getElementById('study4').value || 'Not answered',
-                wrapup: document.getElementById('wrapup').value || 'Not answered',
-                exitticket: document.getElementById('exitticket').value || 'Not answered'
-            };
-
-            // Generate slides HTML
-            const slidesHTML = `
-                <div class="slide active slide-title">
-                    <h2>The Replication Crisis</h2>
-                    <p>Understanding Reliability in Human Sciences</p>
-                    <p style="margin-top: 30px; font-size: 1em;">A TOK Exploration</p>
-                </div>
-
-                <div class="slide">
-                    <h2>What is Replication?</h2>
-                    <h3>My Understanding:</h3>
-                    <p>${data.q1}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Why Studies Fail to Replicate</h2>
-                    <h3>Key Reasons:</h3>
-                    <p>${data.q2}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Role of Statistical Analysis</h2>
-                    <h3>Significance Testing:</h3>
-                    <p>${data.q3}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>False Positives in Research</h2>
-                    <h3>What Does It Mean?</h3>
-                    <p>${data.q4}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Publication Bias</h2>
-                    <h3>Impact on Scientific Literature:</h3>
-                    <p>${data.q5}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Case Study: Reproducibility Project</h2>
-                    <h3>100 Psychology Studies - Only 36% Replicated</h3>
-                    <h3>What This Tells Us:</h3>
-                    <p>${data.study1}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Case Study: Ganzfeld ESP Experiments</h2>
-                    <h3>When Significance Disappears:</h3>
-                    <p>${data.study2}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Questionable Research Practices</h2>
-                    <h3>P-Hacking and HARKing:</h3>
-                    <p>${data.study3}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Simpson's Paradox</h2>
-                    <h3>Statistical Limitations:</h3>
-                    <p>${data.study4}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Replication and Knowledge Claims</h2>
-                    <h3>TOK Reflection:</h3>
-                    <p>${data.q6}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Correlation vs. Causation</h2>
-                    <h3>Why Statistical Significance Isn't Everything:</h3>
-                    <p>${data.q7}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Summary: The Replication Crisis</h2>
-                    <p>${data.wrapup}</p>
-                </div>
-
-                <div class="slide">
-                    <h2>Key Takeaway</h2>
-                    <h3>Reliable Knowledge in Human Sciences:</h3>
-                    <p>${data.exitticket}</p>
-                </div>
-
-                <div class="slide slide-title">
-                    <h2>Questions?</h2>
-                    <p style="font-size: 1.2em;">Thank you for exploring the replication crisis!</p>
-                </div>
-            `;
-
-            // Insert
