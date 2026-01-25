@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. TOK Human Sciences: WEIRD Bias</title>
+
+    <!-- PptxGenJS: robust browser-safe loader (primary + fallback) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            max-width: 1200px; margin: 0 auto; background: white;
+            border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white; padding: 40px; text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        .video-section { padding: 40px; background: #f7fafc; border-bottom: 3px solid #667eea; }
+        .video-section h2 { color: #2d3748; margin-bottom: 20px; font-size: 1.8em; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px; }
+        .video-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white; padding: 25px; border-radius: 10px; text-align: center;
+            font-size: 1.2em; font-weight: 600; box-shadow: 0 5px 20px rgba(72,187,120,0.3);
+        }
+
+        .tabs { display: flex; background: #edf2f7; border-bottom: 2px solid #cbd5e0; overflow-x: auto; }
+        .tab-button {
+            padding: 20px 30px; background: none; border: none; cursor: pointer;
+            font-size: 1em; font-weight: 600; color: #4a5568; border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .tab-button.active { color: #667eea; border-bottom-color: #667eea; background: white; }
+        .tab-content { display: none; padding: 40px; }
+        .tab-content.active { display: block; }
+
+        .section-header {
+            color: #2d3748; font-size: 1.5em; margin: 30px 0 20px;
+            border-bottom: 2px solid #667eea; padding-bottom: 10px;
+        }
+
+        .question-box, .key-terms { padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .question-box { background: #ebf8ff; border-left: 4px solid #4299e1; }
+        .key-terms { background: #fff5f5; border-left: 4px solid #fc8181; }
+
+        textarea {
+            width: 100%; min-height: 120px; padding: 12px;
+            font-family: inherit; font-size: 1.05em; line-height: 1.5;
+            border: 1px solid #cbd5e0; border-radius: 6px;
+        }
+
+        .note { color: #4a5568; line-height: 1.7; }
+        .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #edf2f7; color: #2d3748; font-weight: 600; font-size: 0.9em; }
+
+        .resource-list a { color: #667eea; text-decoration: none; font-weight: 600; }
+        .resource-list a:hover { text-decoration: underline; }
+
+        .generate-section {
+            background: #f0fff4; border: 3px solid #48bb78; border-radius: 10px;
+            padding: 30px; margin-top: 30px; text-align: center;
+        }
+        .button-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .generate-btn, .download-btn { padding: 15px 30px; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; }
+        .generate-btn { background: #38a169; color: white; }
+        .download-btn { background: #ed8936; color: white; }
+
+        .slide-viewer { display: none; background: #1a202c; border-radius: 10px; padding: 20px; margin-top: 30px; }
+        .slide-viewer.show { display: block; }
+
+        .slide-controls { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .slide-nav-btn { background: #667eea; color: white; border: none; padding: 10px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .slide-nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-counter { color: white; font-weight: 600; }
+
+        .slide { display: none; background: white; padding: 50px; border-radius: 10px; }
+        .slide.active { display: block; }
+        .slide h2 { margin-bottom: 14px; color: #2d3748; }
+        .slide p { color: #4a5568; line-height: 1.6; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>🧠 The WEIRD Bias</h1>
+        <p>Sample Bias, Generalizability, and Knowledge Claims in Human Sciences</p>
+    </header>
+
+    <div class="video-section">
+        <h2>📺 Watch First: WEIRD Psychology — What’s Wrong With Our Samples?</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/460knOSnYak" allowfullscreen></iframe>
+        </div>
+        <div class="continue-prompt">Continue below to explore the activities and questions</div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" data-tab="intro">Introduction</button>
+        <button class="tab-button" data-tab="questions">Guided Questions</button>
+        <button class="tab-button" data-tab="sources">Sources</button>
+        <button class="tab-button" data-tab="activity">Group Activity</button>
+        <button class="tab-button" data-tab="writing">Writing Task</button>
+        <button class="tab-button" data-tab="exit">Exit Ticket</button>
+    </div>
+
+    <div id="intro" class="tab-content active">
+        <h2 class="section-header">1) Introduction — What You Should Know</h2>
+        <p class="note">
+            In many psychological studies, researchers rely heavily on participants from <span class="pill">WEIRD</span> societies:
+            <strong>Western, Educated, Industrialized, Rich, and Democratic</strong>. Although WEIRD populations make up a small
+            portion of the global population, they are often over-represented in research—especially studies using university students.
+        </p>
+        <p class="note" style="margin-top: 12px;">
+            This raises key questions about <strong>sample bias</strong> and <strong>generalizability</strong>—whether findings from one group can be
+            applied to humans in general. In TOK, this connects to <strong>knowledge claims</strong> about human behaviour and how the
+            <strong>validity</strong> and <strong>reliability</strong> of those claims depend on who is studied.
+        </p>
+
+        <div class="key-terms">
+            <h3 style="color:#c53030; margin-bottom: 10px;">🔑 Key Terms to Understand</h3>
+            <ul style="margin-left: 18px; line-height: 1.7;">
+                <li><strong>WEIRD</strong>: Western, Educated, Industrialized, Rich, Democratic.</li>
+                <li><strong>Sample bias</strong>: When the research sample isn’t representative of the population you want to understand.</li>
+                <li><strong>Generalizability</strong>: The degree to which findings can be applied beyond the specific study group.</li>
+                <li><strong>Validity</strong>: Whether a study measures what it claims to measure.</li>
+                <li><strong>Reliability</strong>: Whether results can be repeated under similar conditions.</li>
+                <li><strong>Knowledge claim</strong>: A statement presented as factual based on evidence.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="questions" class="tab-content">
+        <h2 class="section-header">2) Guided Questions — Watch and Respond</h2>
+
+        <div class="question-box">
+            <h4 style="color:#2c5282; margin-bottom: 8px;">Understanding the Video</h4>
+
+            <p class="note"><strong>1.</strong> What is the <em>WEIRD bias</em> in psychological research?</p>
+            <textarea id="q1" placeholder="Write your answer..."></textarea>
+
+            <p class="note" style="margin-top: 12px;"><strong>2.</strong> Why do psychologists study so many participants from WEIRD societies, especially university students?</p>
+            <textarea id="q2" placeholder="Write your answer..."></textarea>
+
+            <p class="note" style="margin-top: 12px;"><strong>3.</strong> How might using WEIRD samples affect claims about <em>universal</em> human behaviour?</p>
+            <textarea id="q3" placeholder="Write your answer..."></textarea>
+        </div>
+
+        <div class="question-box">
+            <h4 style="color:#2c5282; margin-bottom: 8px;">Thinking with TOK Concepts</h4>
+
+            <p class="note"><strong>4.</strong> How does <em>sample bias</em> affect the <em>validity</em> of psychological research?</p>
+            <textarea id="q4" placeholder="Write your answer..."></textarea>
+
+            <p class="note" style="margin-top: 12px;"><strong>5.</strong> If a study is statistically significant in a WEIRD sample, why might it not hold in other cultural contexts?</p>
+            <textarea id="q5" placeholder="Write your answer..."></textarea>
+
+            <p class="note" style="margin-top: 12px;"><strong>6.</strong> What does the WEIRD bias suggest about the <em>reliability</em> of knowledge claims in psychology?</p>
+            <textarea id="q6" placeholder="Write your answer..."></textarea>
+        </div>
+
+        <div class="question-box">
+            <h4 style="color:#2c5282; margin-bottom: 8px;">Deep Reflection</h4>
+
+            <p class="note"><strong>7.</strong> To what extent can findings based on WEIRD samples be described as <em>universal psychological laws</em>? Use ideas like <em>scope</em> and <em>generalizability</em>.</p>
+            <textarea id="q7" placeholder="Write your answer..."></textarea>
+
+            <p class="note" style="margin-top: 12px;"><strong>8.</strong> If psychology’s conclusions about human behaviour are based on WEIRD populations, what might this imply about assumptions underlying theories in the field?</p>
+            <textarea id="q8" placeholder="Write your answer..."></textarea>
+        </div>
+    </div>
+
+    <div id="sources" class="tab-content">
+        <h2 class="section-header">3) Articles and Sources You Can Read</h2>
+        <p class="note">Use these links to deepen your understanding and add evidence to your answers:</p>
+
+        <ul class="resource-list" style="margin-left: 18px; line-height: 1.9; margin-top: 12px;">
+            <li><a href="https://simplyputpsych.co.uk/psych-101-1/5w4g8sjhfcsaywy7rx7o2yfyly9jfk" target="_blank">Beginners’ Guide to the WEIRD Problem (Simply Put Psych)</a></li>
+            <li><a href="https://www.apa.org/monitor/2010/05/weird" target="_blank">Are your findings ‘WEIRD’? (APA Monitor)</a></li>
+            <li><a href="https://www.psychologytoday.com/us/blog/evolutionary-social-cognition/202410/demographic-acronym-weird-overused-in-psychology-research" target="_blank">WEIRD overused? (Psychology Today)</a></li>
+            <li><a href="https://oecs.mit.edu/pub/spow8trw" target="_blank">WEIRD (Open Encyclopedia of Cognitive Science)</a></li>
+        </ul>
+    </div>
+
+    <div id="activity" class="tab-content">
+        <h2 class="section-header">4) Class Activity — Exploring Diversity in Research</h2>
+        <p class="note"><strong>Group task:</strong> In small groups, pick one topic and discuss how WEIRD samples might skew findings.</p>
+
+        <ul style="margin-left: 18px; line-height: 1.9; margin-top: 10px;">
+            <li><strong>Perception</strong> (e.g., visual illusions)</li>
+            <li><strong>Decision-making and fairness</strong></li>
+            <li><strong>Social cognition</strong> (e.g., conformity)</li>
+            <li><strong>Moral reasoning</strong></li>
+        </ul>
+
+        <div class="question-box" style="margin-top: 18px;">
+            <p class="note"><strong>Task:</strong> Find evidence of differences between WEIRD and non-WEIRD populations, and explain why it matters for knowledge claims.</p>
+            <p class="note" style="margin-top: 10px;"><strong>Group notes:</strong></p>
+            <textarea id="groupNotes" placeholder="Record your group’s topic, evidence, and explanation..."></textarea>
+
+            <p class="note" style="margin-top: 14px;">
+                <strong>Discussion prompts:</strong> Which behaviours seem most culturally dependent? Which might be more universal? What makes a claim trustworthy in human sciences?
+            </p>
+        </div>
+    </div>
+
+    <div id="writing" class="tab-content">
+        <h2 class="section-header">5) Short Writing Task — Paragraph Response</h2>
+
+        <p class="note">
+            <strong>Prompt:</strong> “How does the WEIRD bias affect the <em>generalizability</em> and <em>validity</em> of psychological knowledge claims about human behaviour?
+            Use examples and TOK concepts such as sample bias, reliability, and scope.”
+        </p>
+
+        <div class="key-terms" style="margin-top: 18px;">
+            <h3 style="color:#c53030; margin-bottom: 10px;">Suggested structure</h3>
+            <ol style="margin-left: 18px; line-height: 1.9;">
+                <li>Define the WEIRD bias.</li>
+                <li>Explain its effect on generalizability.</li>
+                <li>Evaluate whether WEIRD-based findings can count as universal knowledge (use TOK terms).</li>
+            </ol>
+        </div>
+
+        <textarea id="wrapup" placeholder="Write your paragraph here..."></textarea>
+    </div>
+
+    <div id="exit" class="tab-content">
+        <h2 class="section-header">6) Exit Ticket — One-Sentence Response</h2>
+        <p class="note" style="margin-bottom: 10px;">
+            <strong>Question:</strong> Why is it risky to assume that psychological findings from WEIRD participants apply to <em>all humans</em>?
+        </p>
+        <textarea id="exitticket" placeholder="One sentence using terms like sample bias or cultural context..."></textarea>
+
+        <div class="generate-section">
+            <h3 style="margin-bottom: 10px; color: #22543d;">Create Slides</h3>
+            <p class="note" style="color:#2f855a; margin-bottom: 14px;">Generate slides based on your responses and download a PowerPoint.</p>
+            <div class="button-group">
+                <button class="generate-btn" id="viewSlidesBtn">View Slides</button>
+                <button class="download-btn" id="downloadPptBtn">Download PowerPoint</button>
+            </div>
+        </div>
+
+        <div class="slide-viewer" id="slideViewer">
+            <div class="slide-controls">
+                <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
+                <div class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">1</span></div>
+                <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
+            </div>
+            <div id="slidesContainer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentSlideIndex = 0;
+let totalSlidesCount = 0;
+
+function collectAnswers(){
+    const get = (id) => (document.getElementById(id)?.value || '').trim() || 'Not answered';
+    return {
+        q1: get('q1'), q2: get('q2'), q3: get('q3'), q4: get('q4'),
+        q5: get('q5'), q6: get('q6'), q7: get('q7'), q8: get('q8'),
+        groupNotes: get('groupNotes'), wrapup: get('wrapup'), exitticket: get('exitticket')
+    };
+}
+
+function buildSlidesHTML(d){
+    return `
+        <div class="slide active">
+            <h2>The WEIRD Bias</h2>
+            <p><strong>Topic:</strong> Sample bias, generalizability, and knowledge claims in psychology.</p>
+        </div>
+        <div class="slide"><h2>1) What is WEIRD bias?</h2><p>${d.q1}</p></div>
+        <div class="slide"><h2>2) Why WEIRD samples?</h2><p>${d.q2}</p></div>
+        <div class="slide"><h2>3) Universal behaviour claims</h2><p>${d.q3}</p></div>
+        <div class="slide"><h2>4) Sample bias and validity</h2><p>${d.q4}</p></div>
+        <div class="slide"><h2>5) Significance across cultures</h2><p>${d.q5}</p></div>
+        <div class="slide"><h2>6) Reliability of knowledge claims</h2><p>${d.q6}</p></div>
+        <div class="slide"><h2>7) Scope and generalizability</h2><p>${d.q7}</p></div>
+        <div class="slide"><h2>8) Assumptions in psychology</h2><p>${d.q8}</p></div>
+        <div class="slide"><h2>Group activity notes</h2><p>${d.groupNotes}</p></div>
+        <div class="slide"><h2>Paragraph response</h2><p>${d.wrapup}</p></div>
+        <div class="slide"><h2>Exit ticket</h2><p>${d.exitticket}</p></div>
+    `;
+}
+
+function showSlides(){
+    const d = collectAnswers();
+    const container = document.getElementById('slidesContainer');
+    container.innerHTML = buildSlidesHTML(d);
+
+    document.getElementById('slideViewer').classList.add('show');
+
+    const slides = container.querySelectorAll('.slide');
+    totalSlidesCount = slides.length;
+    currentSlideIndex = 0;
+
+    document.getElementById('totalSlides').textContent = totalSlidesCount;
+    updateSlideDisplay();
+
+    document.getElementById('slideViewer').scrollIntoView({behavior:'smooth'});
+}
+
+function updateSlideDisplay(){
+    const slides = document.querySelectorAll('#slidesContainer .slide');
+    slides.forEach((s,i)=>s.classList.toggle('active', i===currentSlideIndex));
+    document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+    document.getElementById('prevSlideBtn').disabled = currentSlideIndex===0;
+    document.getElementById('nextSlideBtn').disabled = currentSlideIndex===slides.length-1;
+}
+
+function nextSlide(){
+    const slides = document.querySelectorAll('#slidesContainer .slide');
+    if(currentSlideIndex < slides.length-1){ currentSlideIndex++; updateSlideDisplay(); }
+}
+
+function previousSlide(){
+    if(currentSlideIndex>0){ currentSlideIndex--; updateSlideDisplay(); }
+}
+
+async function downloadPowerPoint(){
+    if(typeof window.PptxGenJS==='undefined'){
+        alert('PowerPoint export library failed to load. Please refresh and try again.');
+        return;
+    }
+
+    const d = collectAnswers();
+    const safeText = (t) => (t ?? '').toString().replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+
+    try{
+        const pptx = new window.PptxGenJS();
+        pptx.layout = 'LAYOUT_WIDE';
+        pptx.author = 'TOK Student';
+        pptx.subject = 'WEIRD Bias in Psychological Research';
+        pptx.title = 'TOK Human Sciences: WEIRD Bias';
+
+        // Title slide
+        let s = pptx.addSlide();
+        s.background = { color: '667EEA' };
+        s.addText('The WEIRD Bias', { x:0.6, y:2.0, w:12.0, h:1.0, fontSize:44, bold:true, color:'FFFFFF', align:'center' });
+        s.addText('Sample bias, generalizability, and knowledge claims', { x:0.6, y:3.2, w:12.0, h:0.6, fontSize:22, color:'FFFFFF', align:'center' });
+
+        const addQSlide = (title, body) => {
+            const slide = pptx.addSlide();
+            slide.addText(title, { x:0.7, y:0.6, w:12.0, h:0.6, fontSize:30, bold:true, color:'2D3748' });
+            slide.addText(safeText(body), { x:0.7, y:1.4, w:12.0, h:5.5, fontSize:18, color:'4A5568', valign:'top', wrap:true });
+        };
+
+        addQSlide('1) What is WEIRD bias?', d.q1);
+        addQSlide('2) Why so many WEIRD samples?', d.q2);
+        addQSlide('3) Universal behaviour claims', d.q3);
+        addQSlide('4) Sample bias and validity', d.q4);
+        addQSlide('5) Significance across cultures', d.q5);
+        addQSlide('6) Reliability of knowledge claims', d.q6);
+        addQSlide('7) Scope and generalizability', d.q7);
+        addQSlide('8) Assumptions in psychology', d.q8);
+        addQSlide('Group activity notes', d.groupNotes);
+        addQSlide('Paragraph response', d.wrapup);
+        addQSlide('Exit ticket', d.exitticket);
+
+        // Closing slide
+        s = pptx.addSlide();
+        s.background = { color: '764BA2' };
+        s.addText('Questions?', { x:0.6, y:2.5, w:12.0, h:1.0, fontSize:48, bold:true, color:'FFFFFF', align:'center' });
+        s.addText('TOK Human Sciences — WEIRD Bias', { x:0.6, y:3.7, w:12.0, h:0.6, fontSize:20, color:'FFFFFF', align:'center' });
+
+        await pptx.writeFile({ fileName: 'TOK_WEIRD_Bias_Presentation.pptx' });
+    } catch(err){
+        console.error('PowerPoint export error:', err);
+        alert('PowerPoint download failed. Open DevTools → Console to see error details.');
+    }
+}
+
+// Event listeners
+document.getElementById('viewSlidesBtn').onclick = showSlides;
+document.getElementById('downloadPptBtn').onclick = downloadPowerPoint;
+document.getElementById('prevSlideBtn').onclick = previousSlide;
+document.getElementById('nextSlideBtn').onclick = nextSlide;
+
+// Tab behaviour
+document.querySelectorAll('.tab-button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.tab-button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+});
+
+// Keyboard nav for slides
+document.addEventListener('keydown', (e) => {
+    const viewer = document.getElementById('slideViewer');
+    if(!viewer.classList.contains('show')) return;
+    if(e.key === 'ArrowRight') nextSlide();
+    if(e.key === 'ArrowLeft') previousSlide();
+});
+</script>
+</body>
+</html>
