@@ -514,11 +514,11 @@
         </div>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab(event, 'intro')">Introduction</button>
-            <button class="tab-button" onclick="switchTab(event, 'questions')">Guided Questions</button>
-            <button class="tab-button" onclick="switchTab(event, 'studies')">Case Studies</button>
-            <button class="tab-button" onclick="switchTab(event, 'wrapup')">Wrap-Up</button>
-            <button class="tab-button" onclick="switchTab(event, 'exit')">Exit Ticket</button>
+            <button class="tab-button active" data-tab="intro">Introduction</button>
+            <button class="tab-button" data-tab="questions">Guided Questions</button>
+            <button class="tab-button" data-tab="studies">Case Studies</button>
+            <button class="tab-button" data-tab="wrapup">Wrap-Up</button>
+            <button class="tab-button" data-tab="exit">Exit Ticket</button>
         </div>
 
         <div id="intro" class="tab-content active">
@@ -700,16 +700,16 @@
                 <h3>🎉 Ready to Create Your Presentation?</h3>
                 <p>Generate professional slides based on all your answers above!</p>
                 <div class="button-group">
-                    <button class="generate-btn" onclick="showSlides()">📊 View Slideshow</button>
-                    <button class="download-btn" onclick="downloadPowerPoint()">📥 Download PowerPoint</button>
+                    <button class="generate-btn" id="viewSlidesBtn">📊 View Slideshow</button>
+                    <button class="download-btn" id="downloadPptBtn">📥 Download PowerPoint</button>
                 </div>
             </div>
 
             <div class="slide-viewer" id="slideViewer">
                 <div class="slide-controls">
-                    <button class="slide-nav-btn" onclick="previousSlide()">← Previous</button>
+                    <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
                     <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
-                    <button class="slide-nav-btn" onclick="nextSlide()">Next →</button>
+                    <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
                 </div>
                 
                 <div id="slidesContainer"></div>
@@ -733,32 +733,24 @@
                 }
             });
             
-            try {
-                const studentData = {
-                    answers: data,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem('tokReplicationCrisis', JSON.stringify(studentData));
-                showSaveIndicator();
-            } catch (e) {
-                console.error('Error saving data:', e);
-            }
+            const studentData = {
+                answers: data,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('tokReplicationCrisis', JSON.stringify(studentData));
+            showSaveIndicator();
         }
 
         function loadData() {
-            try {
-                const saved = localStorage.getItem('tokReplicationCrisis');
-                if (saved) {
-                    const studentData = JSON.parse(saved);
-                    Object.keys(studentData.answers).forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el) {
-                            el.value = studentData.answers[id];
-                        }
-                    });
-                }
-            } catch (e) {
-                console.error('Error loading data:', e);
+            const saved = localStorage.getItem('tokReplicationCrisis');
+            if (saved) {
+                const studentData = JSON.parse(saved);
+                Object.keys(studentData.answers).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.value = studentData.answers[id];
+                    }
+                });
             }
         }
 
@@ -784,17 +776,29 @@
         // Load saved data on page load
         window.addEventListener('load', loadData);
 
-        function switchTab(evt, tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove('active');
-            }
-            
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
-            }
-            
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show selected tab and activate button
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        function collectAnswers() {
+            return {
+                q1: document.getElementById('q1').value || 'Not answered',
+                q2: document.getElementById('q2').value || 'Not answered',
+                q3: document.getElementById('q3').value || 'Not
