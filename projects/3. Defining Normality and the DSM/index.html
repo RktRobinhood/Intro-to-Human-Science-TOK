@@ -1,1 +1,1022 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. TOK Human Sciences: Defining Normality and the DSM</title>
+
+    <!-- PptxGenJS (BUNDLE build includes required browser deps). Primary + fallback CDN. -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        // Fallback if jsDelivr is blocked/unavailable
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        .video-section {
+            padding: 40px;
+            background: #f7fafc;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 900px) {
+            .video-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .continue-prompt::before { content: "⬇️ "; font-size: 1.5em; }
+        .continue-prompt::after { content: " ⬇️"; font-size: 1.5em; }
+
+        .tabs {
+            display: flex;
+            background: #edf2f7;
+            border-bottom: 2px solid #cbd5e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 20px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover { background: #e2e8f0; color: #2d3748; }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .key-terms {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-terms h3 { color: #c53030; margin-bottom: 15px; }
+
+        .key-terms ul { list-style: none; padding-left: 0; }
+
+        .key-terms li {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+        }
+
+        .key-terms li:last-child { border-bottom: none; }
+
+        .key-terms strong { color: #742a2a; }
+
+        .question-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .question-box h4 { color: #2c5282; margin-bottom: 10px; }
+
+        .study-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .study-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .study-card h3 { color: #667eea; margin-bottom: 15px; }
+
+        .study-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .study-card a:hover { text-decoration: underline; }
+
+        .response-area {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .response-area textarea,
+        .question-box textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        ol, ul { margin-left: 20px; line-height: 1.8; }
+        ol li, ul li { margin: 10px 0; }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .exit-ticket {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .exit-ticket h3 { margin-bottom: 15px; }
+
+        .exit-ticket textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .generate-section {
+            background: #f0fff4;
+            border: 3px solid #48bb78;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .generate-section h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .generate-section p {
+            color: #2f855a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+
+        .generate-btn:active { transform: translateY(0); }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+
+        .download-btn:active { transform: translateY(0); }
+
+        /* Slide Viewer Styles */
+        .slide-viewer {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .slide-viewer.show { display: block; }
+
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover { background: #5568d3; }
+
+        .slide-nav-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter { color: white; font-size: 1.1em; }
+
+        .slide {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a5568;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border: none;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.95;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .save-indicator.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Progress saved</div>
+
+    <div class="container">
+        <header>
+            <h1>🧠 Defining Normality and the DSM</h1>
+            <p>How Classification Shapes Knowledge Claims in Human Sciences</p>
+        </header>
+
+        <div class="video-section">
+            <h2>📺 Watch First: The DSM’s Origin Story</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/UiY6wr--0dE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="continue-prompt">
+                Continue below to explore the activities and questions
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="intro">Introduction</button>
+            <button class="tab-button" data-tab="questions">Guided Questions</button>
+            <button class="tab-button" data-tab="studies">Group Tasks</button>
+            <button class="tab-button" data-tab="wrapup">Wrap-Up</button>
+            <button class="tab-button" data-tab="exit">Exit Ticket</button>
+        </div>
+
+        <div id="intro" class="tab-content active">
+            <h2 class="section-header">What You Should Know</h2>
+
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                In psychology and psychiatry, the <span class="highlight">DSM</span> (Diagnostic and Statistical Manual of Mental Disorders) is a major classification system used to describe
+                and diagnose patterns of thoughts, emotions, and behaviours that are considered <span class="highlight">mental disorders</span>.
+                Importantly, classification is not a neutral “labeling machine” — it is a human tool designed to improve communication, research, and treatment decisions.
+            </p>
+
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                Defining <span class="highlight">normal</span> versus <span class="highlight">disordered</span> behaviour is complicated because definitions depend on:
+                statistical rarity, cultural norms, distress, dysfunction, and professional interpretation.
+                That means boundaries can shift over time as evidence improves, social values change, and new perspectives emerge.
+            </p>
+
+            <div class="key-terms">
+                <h3>🔑 Key TOK Terms</h3>
+                <ul>
+                    <li><strong>Definition:</strong> A rule for membership in a category (what counts, and what does not).</li>
+                    <li><strong>Classification:</strong> Sorting people/behaviours into categories to support explanation and decision-making.</li>
+                    <li><strong>Normality:</strong> A benchmark of typical behaviour (often statistical, cultural, or functional).</li>
+                    <li><strong>Disorder:</strong> A pattern associated with clinically significant distress and/or impairment (often judged contextually).</li>
+                    <li><strong>Interpretation:</strong> How experts apply criteria to real cases; this introduces judgment, even with rules.</li>
+                    <li><strong>Knowledge claim:</strong> A claim presented as true based on evidence and reasoning.</li>
+                </ul>
+            </div>
+
+            <h2 class="section-header">Background Links (Optional)</h2>
+            <div class="study-card">
+                <h3>Reference Links</h3>
+                <ul style="line-height: 1.9;">
+                    <li><a href="https://en.wikipedia.org/wiki/Abnormality_(behavior)" target="_blank">Abnormality (behaviour) — overview of definitions</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Normality_(behavior)" target="_blank">Normality (behaviour) — why “normal” is contextual</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Homosexuality_in_the_DSM" target="_blank">Homosexuality in the DSM — reclassification case study</a></li>
+                </ul>
+                <p style="margin-top: 10px; color: #4a5568; line-height: 1.6;">
+                    Use these for background only. Your answers should focus on the video and your TOK reasoning.
+                </p>
+            </div>
+        </div>
+
+        <div id="questions" class="tab-content">
+            <h2 class="section-header">Guided Questions</h2>
+
+            <h3 style="color: #667eea; margin-top: 30px;">A. Core Understanding</h3>
+            <div class="question-box">
+                <h4>1. What does the DSM do, and why do clinicians use it?</h4>
+                <textarea id="q1" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>2. Based on the video, how have some diagnostic categories changed over time?</h4>
+                <textarea id="q2" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>3. Why is distinguishing normal from disordered behaviour more complex than it first appears?</h4>
+                <textarea id="q3" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">B. Historical Interpretation</h3>
+            <div class="question-box">
+                <h4>4. Give one example (from the video or your knowledge) of a category that shifted. What does this reveal about classification?</h4>
+                <textarea id="q4" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <h3 style="color: #667eea; margin-top: 40px;">C. TOK Reflection</h3>
+            <div class="question-box">
+                <h4>5. What does it mean to define a category like “disorder”? Is this purely scientific, or does it involve shared human interpretation?</h4>
+                <textarea id="q5" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>6. How does DSM revision show that human-sciences knowledge claims depend on both evidence and interpretation?</h4>
+                <textarea id="q6" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>7. When is labeling useful, and when can it be harmful? Give a balanced answer.</h4>
+                <textarea id="q7" placeholder="Type your answer here..."></textarea>
+            </div>
+        </div>
+
+        <div id="studies" class="tab-content">
+            <h2 class="section-header">Group Research & Presentation Tasks</h2>
+            <p style="margin-bottom: 30px; line-height: 1.8;">
+                Choose <span class="highlight">one focus</span>. Your job is to explain how classification works as a knowledge tool, and what its limits are.
+                Use the video as your starting point, then add one additional example or concept.
+            </p>
+
+            <div class="study-card">
+                <h3>(A) Definitions Across DSM Editions</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Track how the definition of one disorder (or a family of disorders) has changed across DSM editions.
+                    Identify what changed (criteria, subtypes, thresholds) and why those changes might have happened.
+                </p>
+                <div class="question-box">
+                    <h4>Your group plan (brief):</h4>
+                    <textarea id="study1" placeholder="What disorder/focus? What evidence or debate will you use?"></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(B) Conceptual Distinction: Normal vs Abnormal</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Compare at least <span class="highlight">two</span> frameworks for defining abnormality (e.g., statistical rarity, violation of social norms, distress/dysfunction).
+                    Explain what each framework assumes about human behaviour, and what it might miss.
+                </p>
+                <div class="question-box">
+                    <h4>Your comparison (brief):</h4>
+                    <textarea id="study2" placeholder="Framework 1 vs Framework 2: strengths, weaknesses, and TOK implications"></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(C) Case Study: The History of a Category</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Choose a diagnostic category that changed significantly (e.g., homosexuality, hysteria, PTSD, autism criteria, ADHD thresholds).
+                    Show how evidence, professional judgment, and social values interacted to reshape its classification.
+                </p>
+                <div class="question-box">
+                    <h4>Your case study (brief):</h4>
+                    <textarea id="study3" placeholder="What category? What changed? What does it show about knowledge in human sciences?"></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>(D) TOK Link: The Power of Labels</h3>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Explore how labels can both help and harm: they can guide treatment and reduce confusion, but also shape identity, stigma, and social response.
+                    Connect this directly to the TOK idea that definitions can constrain and enable interpretation.
+                </p>
+                <div class="question-box">
+                    <h4>Your TOK link (brief):</h4>
+                    <textarea id="study4" placeholder="How do labels change what we notice, value, or judge?"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrapup" class="tab-content">
+            <h2 class="section-header">Wrap-Up: Write a Short Explanation</h2>
+            <p style="margin-bottom: 20px; line-height: 1.8;">
+                Write one paragraph that answers the following:
+            </p>
+            <ul style="margin-bottom: 30px; line-height: 1.8;">
+                <li>Explain what the DSM is meant to do.</li>
+                <li>Explain why defining “disorder” is not purely objective.</li>
+                <li>State whether you think classification improves or risks distorting understanding — and why.</li>
+            </ul>
+
+            <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <h3 style="color: #2d3748; margin-bottom: 15px;">Suggested Structure</h3>
+                <ol style="line-height: 1.8;">
+                    <li><strong>Purpose of DSM</strong> (communication, research, treatment decisions).</li>
+                    <li><strong>Why definitions shift</strong> (evidence, culture, interpretation, utility).</li>
+                    <li><strong>TOK judgment</strong> (benefits vs risks of labeling; links to knowledge claims).</li>
+                </ol>
+            </div>
+
+            <div class="response-area">
+                <textarea id="wrapup" placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
+            </div>
+        </div>
+
+        <div id="exit" class="tab-content">
+            <h2 class="section-header">Exit Ticket</h2>
+
+            <div class="study-card">
+                <h3>Exit Hook: Definitions in Controversy</h3>
+                <p style="line-height: 1.8; margin-bottom: 15px;">
+                    Watch these clips to think about why definitions matter — and how “good” people or behaviours might be framed as
+                    <span class="highlight">dysfunctional</span>, depending on the categories we use.
+                </p>
+
+                <div class="video-grid">
+                    <div>
+                        <p style="font-weight: 700; color: #2d3748; margin-bottom: 10px;">Video 1: Definitions as Debate</p>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/42ivIRd9N8E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p style="font-weight: 700; color: #2d3748; margin-bottom: 10px;">Video 2: Greatness vs “Dysfunction”</p>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/07uUScbMhDo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="line-height: 1.7; color: #4a5568; margin-top: 10px;">
+                    You do not need to agree with these videos. Use them as examples of how categories and definitions can shape interpretation, identity, and judgment.
+                </p>
+            </div>
+
+            <div class="exit-ticket">
+                <h3>Quick Response</h3>
+                <p style="margin-bottom: 15px; line-height: 1.6;">
+                    In one sentence, answer:
+                </p>
+                <p style="margin-bottom: 20px; font-size: 1.1em; font-weight: 600;">
+                    Why does defining “normal” versus “abnormal” behaviour require both evidence and shared human judgment?
+                </p>
+                <p style="margin-bottom: 15px; font-size: 0.9em; opacity: 0.9;">
+                    Use terms like definition, classification, interpretation, normality, and knowledge claim.
+                </p>
+                <textarea id="exitticket"></textarea>
+            </div>
+
+            <div class="generate-section">
+                <h3>🎉 Ready to Create Your Presentation?</h3>
+                <p>Generate professional slides based on all your answers above!</p>
+                <div class="button-group">
+                    <button class="generate-btn" id="viewSlidesBtn">📊 View Slideshow</button>
+                    <button class="download-btn" id="downloadPptBtn">📥 Download PowerPoint</button>
+                </div>
+            </div>
+
+            <div class="slide-viewer" id="slideViewer">
+                <div class="slide-controls">
+                    <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
+                    <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+                    <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
+                </div>
+
+                <div id="slidesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        let totalSlidesCount = 0;
+
+        // Auto-save functionality
+        const textareas = ['q1','q2','q3','q4','q5','q6','q7','study1','study2','study3','study4','wrapup','exitticket'];
+
+        function saveData() {
+            const data = {};
+            textareas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+
+            const studentData = { answers: data, timestamp: new Date().toISOString() };
+            localStorage.setItem('tokDSMNormality', JSON.stringify(studentData));
+            showSaveIndicator();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('tokDSMNormality');
+            if (!saved) return;
+            const studentData = JSON.parse(saved);
+            Object.keys(studentData.answers).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = studentData.answers[id];
+            });
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Add event listeners for auto-save
+        textareas.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('input', () => {
+                clearTimeout(el.saveTimeout);
+                el.saveTimeout = setTimeout(saveData, 1000);
+            });
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadData);
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        function collectAnswers() {
+            return {
+                q1: document.getElementById('q1').value || 'Not answered',
+                q2: document.getElementById('q2').value || 'Not answered',
+                q3: document.getElementById('q3').value || 'Not answered',
+                q4: document.getElementById('q4').value || 'Not answered',
+                q5: document.getElementById('q5').value || 'Not answered',
+                q6: document.getElementById('q6').value || 'Not answered',
+                q7: document.getElementById('q7').value || 'Not answered',
+                study1: document.getElementById('study1').value || 'Not answered',
+                study2: document.getElementById('study2').value || 'Not answered',
+                study3: document.getElementById('study3').value || 'Not answered',
+                study4: document.getElementById('study4').value || 'Not answered',
+                wrapup: document.getElementById('wrapup').value || 'Not answered',
+                exitticket: document.getElementById('exitticket').value || 'Not answered'
+            };
+        }
+
+        function showSlides() {
+            const data = collectAnswers();
+
+            const slidesHTML = `
+                <div class="slide active slide-title">
+                    <h2>Defining Normality and the DSM</h2>
+                    <p>How Classification Shapes Knowledge Claims</p>
+                    <p style="margin-top: 30px; font-size: 1em;">A TOK Human Sciences Exploration</p>
+                </div>
+
+                <div class="slide">
+                    <h2>What Does the DSM Do?</h2>
+                    <h3>My Understanding:</h3>
+                    <p>${data.q1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>How Categories Change Over Time</h2>
+                    <h3>Example Changes:</h3>
+                    <p>${data.q2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Why “Normal vs Disordered” Is Complex</h2>
+                    <h3>Key Reasons:</h3>
+                    <p>${data.q3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>A Shifting Category</h2>
+                    <h3>What It Reveals About Classification:</h3>
+                    <p>${data.q4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Defining “Disorder”</h2>
+                    <h3>Science and Interpretation:</h3>
+                    <p>${data.q5}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Evidence + Interpretation</h2>
+                    <h3>DSM Revisions and Knowledge Claims:</h3>
+                    <p>${data.q6}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Benefits and Harms of Labels</h2>
+                    <h3>Balanced Judgment:</h3>
+                    <p>${data.q7}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Task Plan (A)</h2>
+                    <h3>Definitions Across DSM Editions:</h3>
+                    <p>${data.study1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Task Plan (B)</h2>
+                    <h3>Normal vs Abnormal Frameworks:</h3>
+                    <p>${data.study2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Task Plan (C)</h2>
+                    <h3>Case Study: A Category’s History:</h3>
+                    <p>${data.study3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Task Plan (D)</h2>
+                    <h3>The Power of Labels:</h3>
+                    <p>${data.study4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Wrap-Up Summary</h2>
+                    <p>${data.wrapup}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Key Takeaway</h2>
+                    <h3>Exit Ticket Response:</h3>
+                    <p>${data.exitticket}</p>
+                </div>
+
+                <div class="slide slide-title">
+                    <h2>Questions?</h2>
+                    <p style="font-size: 1.2em;">Thank you for exploring classification and normality!</p>
+                </div>
+            `;
+
+            const slidesContainer = document.getElementById('slidesContainer');
+            slidesContainer.innerHTML = slidesHTML;
+
+            const slideViewer = document.getElementById('slideViewer');
+            slideViewer.classList.add('show');
+
+            const slides = slidesContainer.getElementsByClassName('slide');
+            totalSlidesCount = slides.length;
+            document.getElementById('totalSlides').textContent = totalSlidesCount;
+            currentSlideIndex = 0;
+            updateSlideDisplay();
+
+            slideViewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('#slidesContainer .slide');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlideIndex) slide.classList.add('active');
+            });
+
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+
+            const prevBtn = document.getElementById('prevSlideBtn');
+            const nextBtn = document.getElementById('nextSlideBtn');
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === totalSlidesCount - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlidesCount - 1) {
+                currentSlideIndex++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlideDisplay();
+            }
+        }
+
+        // PowerPoint export (mirrors slideshow)
+        async function downloadPowerPoint() {
+            if (typeof window.PptxGenJS === 'undefined') {
+                alert('PowerPoint export library failed to load. Please refresh and try again.');
+                return;
+            }
+
+            const data = collectAnswers();
+            const safeText = (t) => (t ?? '').toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+            try {
+                const pptx = new window.PptxGenJS();
+                pptx.layout = 'LAYOUT_WIDE';
+
+                pptx.author = 'TOK Student';
+                pptx.subject = 'Defining Normality and the DSM (TOK Human Sciences)';
+                pptx.title = 'Defining Normality and the DSM';
+
+                // Slide 1: Title
+                let slide = pptx.addSlide();
+                slide.background = { color: '667EEA' };
+                slide.addText('Defining Normality and the DSM', {
+                    x: 0.5, y: 1.9, w: 12.33, h: 1.2,
+                    fontSize: 40, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('How Classification Shapes Knowledge Claims', {
+                    x: 0.5, y: 3.2, w: 12.33, h: 0.6,
+                    fontSize: 24, color: 'FFFFFF', align: 'center'
+                });
+
+                const addQSlide = (title, subtitle, body) => {
+                    const s = pptx.addSlide();
+                    s.addText(title, { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                    if (subtitle) {
+                        s.addText(subtitle, { x: 0.6, y: 1.35, w: 12.0, h: 0.5, fontSize: 20, bold: true, color: '667EEA' });
+                        s.addText(safeText(body), { x: 0.6, y: 1.95, w: 12.0, h: 5.0, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+                    } else {
+                        s.addText(safeText(body), { x: 0.6, y: 1.35, w: 12.0, h: 5.6, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+                    }
+                };
+
+                addQSlide('What Does the DSM Do?', 'My Understanding:', data.q1);
+                addQSlide('How Categories Change Over Time', 'Example Changes:', data.q2);
+                addQSlide('Why “Normal vs Disordered” Is Complex', 'Key Reasons:', data.q3);
+                addQSlide('A Shifting Category', 'What It Reveals About Classification:', data.q4);
+                addQSlide('Defining “Disorder”', 'Science and Interpretation:', data.q5);
+                addQSlide('Evidence + Interpretation', 'DSM Revisions and Knowledge Claims:', data.q6);
+                addQSlide('Benefits and Harms of Labels', 'Balanced Judgment:', data.q7);
+
+                addQSlide('Group Task Plan (A)', 'Definitions Across DSM Editions:', data.study1);
+                addQSlide('Group Task Plan (B)', 'Normal vs Abnormal Frameworks:', data.study2);
+                addQSlide('Group Task Plan (C)', "Case Study: A Category’s History:", data.study3);
+                addQSlide('Group Task Plan (D)', 'The Power of Labels:', data.study4);
+
+                addQSlide('Wrap-Up Summary', '', data.wrapup);
+                addQSlide('Key Takeaway', 'Exit Ticket Response:', data.exitticket);
+
+                // Final Slide
+                slide = pptx.addSlide();
+                slide.background = { color: '764BA2' };
+                slide.addText('Questions?', {
+                    x: 0.5, y: 2.5, w: 12.33, h: 1,
+                    fontSize: 48, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('Thank you for exploring classification and normality!', {
+                    x: 0.5, y: 3.8, w: 12.33, h: 0.5,
+                    fontSize: 20, color: 'FFFFFF', align: 'center'
+                });
+
+                await pptx.writeFile({ fileName: 'DSM_Normality_Presentation.pptx' });
+            } catch (err) {
+                console.error('PowerPoint export error:', err);
+                alert('PowerPoint download failed. Open DevTools → Console to see the error details.');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('viewSlidesBtn').addEventListener('click', showSlides);
+        document.getElementById('downloadPptBtn').addEventListener('click', downloadPowerPoint);
+        document.getElementById('prevSlideBtn').addEventListener('click', previousSlide);
+        document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slideViewer = document.getElementById('slideViewer');
+            if (slideViewer.classList.contains('show')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                else if (e.key === 'ArrowLeft') previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>
