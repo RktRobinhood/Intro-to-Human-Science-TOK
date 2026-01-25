@@ -257,6 +257,158 @@
             font-size: 1em;
             min-height: 80px;
         }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Slide Viewer Styles */
+        .slide-viewer {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover {
+            background: #5568d3;
+        }
+
+        .slide-nav-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a5568;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border: none;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.95;
+        }
+
+        .download-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            background: #f6ad55;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #ed8936;
+        }
     </style>
 </head>
 <body>
@@ -279,6 +431,7 @@
             <button class="tab-button" onclick="openTab(event, 'studies')">Case Studies</button>
             <button class="tab-button" onclick="openTab(event, 'wrapup')">Wrap-Up</button>
             <button class="tab-button" onclick="openTab(event, 'exit')">Exit Ticket</button>
+            <button class="tab-button" onclick="openTab(event, 'slides')">📊 My Slides</button>
         </div>
 
         <div id="intro" class="tab-content active">
@@ -308,39 +461,39 @@
             <h3 style="color: #667eea; margin-top: 30px;">Comprehension</h3>
             <div class="question-box">
                 <h4>1. What is <em>replication</em> in scientific research?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q1" placeholder="Type your answer here..."></textarea>
             </div>
 
             <div class="question-box">
                 <h4>2. According to the video, why have many scientific results failed replication attempts?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q2" placeholder="Type your answer here..."></textarea>
             </div>
 
             <div class="question-box">
                 <h4>3. What role does statistical analysis (e.g., significance levels) play in determining whether an effect is believed to be real?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q3" placeholder="Type your answer here..."></textarea>
             </div>
 
             <h3 style="color: #667eea; margin-top: 40px;">Exploration</h3>
             <div class="question-box">
                 <h4>4. What do you think it means when researchers say a result may have been a <em>false positive</em>?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q4" placeholder="Type your answer here..."></textarea>
             </div>
 
             <div class="question-box">
                 <h4>5. How does <em>publication bias</em> (journals favouring positive findings) influence what we read in scientific literature?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q5" placeholder="Type your answer here..."></textarea>
             </div>
 
             <h3 style="color: #667eea; margin-top: 40px;">TOK Reflection</h3>
             <div class="question-box">
                 <h4>6. How does a replication failure challenge a <strong>knowledge claim</strong> in the human sciences?</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q6" placeholder="Type your answer here..."></textarea>
             </div>
 
             <div class="question-box">
                 <h4>7. Why might a finding that is statistically significant not be <em>truthful</em> or reliable? Discuss in terms of the difference between <em>correlation</em> and <em>causation</em>.</h4>
-                <textarea placeholder="Type your answer here..."></textarea>
+                <textarea id="q7" placeholder="Type your answer here..."></textarea>
             </div>
         </div>
 
@@ -361,7 +514,7 @@
                 <div class="question-box">
                     <h4>Question:</h4>
                     <p>What does the low replication rate suggest about the reliability of knowledge claims in psychology?</p>
-                    <textarea placeholder="Type your answer here..."></textarea>
+                    <textarea id="study1" placeholder="Type your answer here..."></textarea>
                 </div>
             </div>
 
@@ -379,7 +532,7 @@
                 <div class="question-box">
                     <h4>Question:</h4>
                     <p>Why would a result that <em>seems statistically significant</em> in early studies disappear in later replication attempts?</p>
-                    <textarea placeholder="Type your answer here..."></textarea>
+                    <textarea id="study2" placeholder="Type your answer here..."></textarea>
                 </div>
             </div>
 
@@ -394,7 +547,7 @@
                 <div class="question-box">
                     <h4>Question:</h4>
                     <p>If researchers can choose how to analyse data <em>after</em> seeing results, how might that affect what is considered "statistically significant"?</p>
-                    <textarea placeholder="Type your answer here..."></textarea>
+                    <textarea id="study3" placeholder="Type your answer here..."></textarea>
                 </div>
             </div>
 
@@ -409,7 +562,7 @@
                 <div class="question-box">
                     <h4>Question:</h4>
                     <p>How does Simpson's paradox show a limitation of statistics in producing reliable knowledge claims?</p>
-                    <textarea placeholder="Type your answer here..."></textarea>
+                    <textarea id="study4" placeholder="Type your answer here..."></textarea>
                 </div>
             </div>
         </div>
@@ -435,7 +588,7 @@
             </div>
 
             <div class="response-area">
-                <textarea placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
+                <textarea id="wrapup" placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
             </div>
         </div>
 
@@ -453,12 +606,41 @@
                 <p style="margin-bottom: 15px; font-size: 0.9em; opacity: 0.9;">
                     (Think about sample size, replication, and research practices.)
                 </p>
-                <textarea></textarea>
+                <textarea id="exitticket"></textarea>
+            </div>
+
+            <button class="generate-btn" onclick="generateSlides()">🎨 Generate My Presentation Slides</button>
+        </div>
+
+        <div id="slides" class="tab-content">
+            <h2 class="section-header">Your Presentation Slides</h2>
+            <p style="margin-bottom: 20px; line-height: 1.8;">
+                Click "Generate My Presentation Slides" on the Exit Ticket tab to create slides based on your answers!
+            </p>
+            
+            <div id="slideshow" style="display: none;">
+                <div class="slide-viewer">
+                    <div class="slide-controls">
+                        <button class="slide-nav-btn" onclick="previousSlide()">← Previous</button>
+                        <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+                        <button class="slide-nav-btn" onclick="nextSlide()">Next →</button>
+                    </div>
+                    
+                    <div id="slidesContainer"></div>
+                    
+                    <div class="download-controls">
+                        <button class="download-btn" onclick="copyAllSlides()">📋 Copy All Slides as Text</button>
+                        <button class="download-btn" onclick="printSlides()">🖨️ Print Slides</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        let currentSlideIndex = 0;
+        let totalSlidesCount = 0;
+
         function openTab(evt, tabName) {
             const tabContents = document.getElementsByClassName('tab-content');
             for (let i = 0; i < tabContents.length; i++) {
@@ -473,6 +655,115 @@
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
-    </script>
-</body>
-</html>
+
+        function generateSlides() {
+            // Collect all answers
+            const data = {
+                q1: document.getElementById('q1').value || 'Not answered',
+                q2: document.getElementById('q2').value || 'Not answered',
+                q3: document.getElementById('q3').value || 'Not answered',
+                q4: document.getElementById('q4').value || 'Not answered',
+                q5: document.getElementById('q5').value || 'Not answered',
+                q6: document.getElementById('q6').value || 'Not answered',
+                q7: document.getElementById('q7').value || 'Not answered',
+                study1: document.getElementById('study1').value || 'Not answered',
+                study2: document.getElementById('study2').value || 'Not answered',
+                study3: document.getElementById('study3').value || 'Not answered',
+                study4: document.getElementById('study4').value || 'Not answered',
+                wrapup: document.getElementById('wrapup').value || 'Not answered',
+                exitticket: document.getElementById('exitticket').value || 'Not answered'
+            };
+
+            // Generate slides HTML
+            const slidesHTML = `
+                <div class="slide active slide-title">
+                    <h2>The Replication Crisis</h2>
+                    <p>Understanding Reliability in Human Sciences</p>
+                    <p style="margin-top: 30px; font-size: 1em;">A TOK Exploration</p>
+                </div>
+
+                <div class="slide">
+                    <h2>What is Replication?</h2>
+                    <h3>My Understanding:</h3>
+                    <p>${data.q1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Why Studies Fail to Replicate</h2>
+                    <h3>Key Reasons:</h3>
+                    <p>${data.q2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Role of Statistical Analysis</h2>
+                    <h3>Significance Testing:</h3>
+                    <p>${data.q3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>False Positives in Research</h2>
+                    <h3>What Does It Mean?</h3>
+                    <p>${data.q4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Publication Bias</h2>
+                    <h3>Impact on Scientific Literature:</h3>
+                    <p>${data.q5}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Case Study: Reproducibility Project</h2>
+                    <h3>100 Psychology Studies - Only 36% Replicated</h3>
+                    <h3>What This Tells Us:</h3>
+                    <p>${data.study1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Case Study: Ganzfeld ESP Experiments</h2>
+                    <h3>When Significance Disappears:</h3>
+                    <p>${data.study2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Questionable Research Practices</h2>
+                    <h3>P-Hacking and HARKing:</h3>
+                    <p>${data.study3}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Simpson's Paradox</h2>
+                    <h3>Statistical Limitations:</h3>
+                    <p>${data.study4}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Replication and Knowledge Claims</h2>
+                    <h3>TOK Reflection:</h3>
+                    <p>${data.q6}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Correlation vs. Causation</h2>
+                    <h3>Why Statistical Significance Isn't Everything:</h3>
+                    <p>${data.q7}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Summary: The Replication Crisis</h2>
+                    <p>${data.wrapup}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Key Takeaway</h2>
+                    <h3>Reliable Knowledge in Human Sciences:</h3>
+                    <p>${data.exitticket}</p>
+                </div>
+
+                <div class="slide slide-title">
+                    <h2>Questions?</h2>
+                    <p style="font-size: 1.2em;">Thank you for exploring the replication crisis!</p>
+                </div>
+            `;
+
+            // Insert
