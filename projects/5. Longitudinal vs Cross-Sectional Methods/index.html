@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5. TOK Human Sciences: Longitudinal vs Cross-Sectional Methods</title>
+
+    <!-- PptxGenJS (BUNDLE build includes required browser deps). Primary + fallback CDN. -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        // Fallback if jsDelivr is blocked/unavailable
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        .video-section {
+            padding: 40px;
+            background: #f7fafc;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .continue-prompt::before { content: "⬇️ "; font-size: 1.5em; }
+        .continue-prompt::after { content: " ⬇️"; font-size: 1.5em; }
+
+        .tabs {
+            display: flex;
+            background: #edf2f7;
+            border-bottom: 2px solid #cbd5e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 20px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover { background: #e2e8f0; color: #2d3748; }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .key-terms {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-terms h3 { color: #c53030; margin-bottom: 15px; }
+
+        .key-terms ul { list-style: none; padding-left: 0; }
+
+        .key-terms li {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+        }
+
+        .key-terms li:last-child { border-bottom: none; }
+
+        .key-terms strong { color: #742a2a; }
+
+        .question-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .question-box h4 { color: #2c5282; margin-bottom: 10px; }
+
+        .study-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .study-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .study-card h3 { color: #667eea; margin-bottom: 15px; }
+
+        .study-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .study-card a:hover { text-decoration: underline; }
+
+        .response-area {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .response-area textarea,
+        .question-box textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        ol, ul { margin-left: 20px; line-height: 1.8; }
+        ol li, ul li { margin: 10px 0; }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .exit-ticket {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .exit-ticket h3 { margin-bottom: 15px; }
+
+        .exit-ticket textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .generate-section {
+            background: #f0fff4;
+            border: 3px solid #48bb78;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .generate-section h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .generate-section p {
+            color: #2f855a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+
+        .generate-btn:active { transform: translateY(0); }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+
+        .download-btn:active { transform: translateY(0); }
+
+        /* Slide Viewer Styles */
+        .slide-viewer {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .slide-viewer.show { display: block; }
+
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover { background: #5568d3; }
+
+        .slide-nav-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter { color: white; font-size: 1.1em; }
+
+        .slide {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a5568;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border: none;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.95;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .save-indicator.show { opacity: 1; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 10px 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        table th, table td {
+            border: 1px solid #e2e8f0;
+            padding: 14px 12px;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        table th {
+            background: #edf2f7;
+            color: #2d3748;
+            font-weight: 700;
+            text-align: left;
+        }
+        table tr:nth-child(even) td {
+            background: #f7fafc;
+        }
+        .mini-note {
+            margin-top: 10px;
+            color: #4a5568;
+            font-size: 0.98em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Progress saved</div>
+
+    <div class="container">
+        <header>
+            <h1>How Human Scientists Study Change</h1>
+            <p>Longitudinal vs. Cross-Sectional Methods (TOK Human Sciences)</p>
+        </header>
+
+        <div class="video-section">
+            <h2>Watch First: The Harvard Study of Adult Development</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/8KkKuTCFvzI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="continue-prompt">
+                Continue below to explore the activities and questions
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="intro">Introduction</button>
+            <button class="tab-button" data-tab="core">Core Ideas</button>
+            <button class="tab-button" data-tab="compare">Comparing Methods</button>
+            <button class="tab-button" data-tab="tasks">Group Tasks</button>
+            <button class="tab-button" data-tab="tok">TOK Reflection</button>
+            <button class="tab-button" data-tab="links">Further Reading</button>
+            <button class="tab-button" data-tab="exit">Exit Ticket</button>
+        </div>
+
+        <div id="intro" class="tab-content active">
+            <h2 class="section-header">What You Should Understand</h2>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                In human sciences, researchers choose methods based on the <span class="highlight">kind of question</span> they want to answer:
+            </p>
+            <ul style="margin-bottom: 20px;">
+                <li><strong>Cross-sectional studies</strong> take a <em>snapshot</em> of many people at one moment in time — useful for comparing groups and describing patterns <em>right now</em>.</li>
+                <li><strong>Longitudinal studies</strong> follow the <em>same</em> people over time — useful for identifying <em>change</em>, <em>stability</em>, and possible <em>causal directions</em>.</li>
+            </ul>
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                Both approaches produce evidence, but they produce <span class="highlight">different kinds of knowledge</span> about how people and societies work.
+            </p>
+
+            <div class="key-terms">
+                <h3>Key Terms</h3>
+                <ul>
+                    <li><strong>Cross-sectional:</strong> Data collected once from many people (a “snapshot”).</li>
+                    <li><strong>Longitudinal:</strong> Data collected repeatedly from the same people over time.</li>
+                    <li><strong>Development / change:</strong> How a variable shifts across time (within individuals or groups).</li>
+                    <li><strong>Stability:</strong> A pattern that remains similar across time (e.g., some traits show rank-order stability).</li>
+                    <li><strong>Knowledge claim:</strong> A statement presented as true based on evidence.</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h4>Video Notes (optional)</h4>
+                <p class="mini-note">As you watch, note any claims the speaker makes that would be impossible without a longitudinal study.</p>
+                <textarea id="vidnotes" placeholder="Type notes here..."></textarea>
+            </div>
+        </div>
+
+        <div id="core" class="tab-content">
+            <h2 class="section-header">Core Ideas & Examples</h2>
+
+            <div class="study-card">
+                <h3>A) Cross-Sectional: Snapshots of People Now</h3>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    A cross-sectional study collects data from a group of people <strong>once</strong>, at a single point in time. It is especially useful for describing patterns and comparing groups (e.g., age groups, income groups, lifestyle groups).
+                </p>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    <strong>Example:</strong> A survey measuring how often people of different ages report feeling stressed <em>today</em> can compare age groups, but it does not show how one person’s stress changes as they age.
+                </p>
+
+                <div class="question-box">
+                    <h4>In your own words, what is a cross-sectional study?</h4>
+                    <textarea id="cs_def" placeholder="Type your answer here..."></textarea>
+                </div>
+
+                <div class="question-box">
+                    <h4>Limits (TOK)</h4>
+                    <p>Why can cross-sectional studies struggle to explain <em>change</em> or <em>cause and effect</em>?</p>
+                    <textarea id="cs_limits" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>B) Longitudinal: Following the Same People Over Time</h3>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    A longitudinal study measures the same people repeatedly over months, years, or decades. This lets researchers see how individuals change, which patterns are stable, and which factors might predict later outcomes.
+                </p>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    <strong>Video link:</strong> The talk you watched uses data from the Harvard Study of Adult Development — a decades-long project — to argue that relationship quality predicts later health and happiness.
+                </p>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    <strong>Other examples:</strong> Birth cohort studies (tracking people born in the same year) and multi-generation social studies can show whether differences persist or shift over time.
+                </p>
+
+                <div class="question-box">
+                    <h4>In your own words, what is a longitudinal study?</h4>
+                    <textarea id="long_def" placeholder="Type your answer here..."></textarea>
+                </div>
+
+                <div class="question-box">
+                    <h4>Strength (TOK)</h4>
+                    <p>What can longitudinal studies tell us about people that a snapshot cannot?</p>
+                    <textarea id="long_strength" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="compare" class="tab-content">
+            <h2 class="section-header">How These Methods Shape What We Know</h2>
+
+            <p style="line-height: 1.8; margin-bottom: 10px;">
+                Cross-sectional and longitudinal designs answer different questions. The method shapes what researchers can claim with confidence.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 22%;">Method</th>
+                        <th style="width: 38%;">What it shows</th>
+                        <th style="width: 40%;">What it cannot show well</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cross-sectional</strong></td>
+                        <td>How things differ <em>now</em> across groups; patterns at one point in time.</td>
+                        <td>How the same people change; timing of change; strong causal directions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Longitudinal</strong></td>
+                        <td>How the <em>same people</em> change over time; stability vs shift; developmental trajectories.</td>
+                        <td>Quick snapshot comparisons; fast, low-cost mapping of “what’s true right now.”</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="study-card">
+                <h3>Changing vs. Stable Patterns</h3>
+                <p style="margin: 10px 0; line-height: 1.8;">
+                    Some patterns change with context (e.g., crime trends across decades, fashion trends), while others show stability (e.g., certain developmental milestones, physiological ageing patterns, and relative consistency in some traits).
+                </p>
+
+                <div class="question-box">
+                    <h4>Changing over time</h4>
+                    <p>Give one example of a human sciences pattern that changes over time, and explain why a longitudinal design might be useful.</p>
+                    <textarea id="change_example" placeholder="Type your answer here..."></textarea>
+                </div>
+
+                <div class="question-box">
+                    <h4>Stable patterns</h4>
+                    <p>Give one example of a human sciences pattern that seems relatively stable, and explain how longitudinal evidence would support that claim.</p>
+                    <textarea id="stable_example" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="tasks" class="tab-content">
+            <h2 class="section-header">Group Tasks — Talk and Present</h2>
+
+            <div class="study-card">
+                <h3>Task 1 — Design a Cross-Sectional Snapshot</h3>
+                <p style="line-height: 1.8;">
+                    Pick a human behaviour (e.g., sleep habits, social media use, political views).
+                </p>
+                <ul>
+                    <li>Decide what data you would collect at one moment.</li>
+                    <li>Explain what claims your study would allow — and what it would <em>not</em> allow.</li>
+                </ul>
+                <div class="question-box">
+                    <h4>Your group plan</h4>
+                    <textarea id="task1" placeholder="Write your plan here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>Task 2 — Plan a Longitudinal Study</h3>
+                <p style="line-height: 1.8;">
+                    Identify something that changes over time (e.g., attitudes toward climate change from teens to seniors, or career aspirations over 20 years).
+                </p>
+                <ul>
+                    <li>Describe who you would follow.</li>
+                    <li>Explain what patterns you could uncover that a snapshot cannot.</li>
+                </ul>
+                <div class="question-box">
+                    <h4>Your group plan</h4>
+                    <textarea id="task2" placeholder="Write your plan here..."></textarea>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>Task 3 — Choose the Best Method for a Real-World Issue</h3>
+                <p style="line-height: 1.8;">
+                    Choose one topic and argue which method is better (cross-sectional or longitudinal), and why:
+                </p>
+                <ul>
+                    <li>Trends in investments over economic cycles</li>
+                    <li>Patterns of crime and social policy over decades</li>
+                    <li>Health and lifestyle behaviours across generations</li>
+                </ul>
+                <div class="question-box">
+                    <h4>Your argument</h4>
+                    <textarea id="task3" placeholder="Write your group argument here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="tok" class="tab-content">
+            <h2 class="section-header">Big TOK Questions — Written Reflection</h2>
+
+            <div class="question-box">
+                <h4>1) How does the choice of method change the certainty researchers can have about what they claim to know?</h4>
+                <textarea id="tok1" placeholder="Write in full sentences..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>2) Why might one study tell us what is true now but another tell us what changes over time?</h4>
+                <textarea id="tok2" placeholder="Write in full sentences..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>3) Are there human universals that stay the same across decades and cultures? Give an example.</h4>
+                <textarea id="tok3" placeholder="Write in full sentences..."></textarea>
+            </div>
+        </div>
+
+        <div id="links" class="tab-content">
+            <h2 class="section-header">Links for Further Reading</h2>
+
+            <div class="study-card">
+                <h3>Longitudinal Study Design</h3>
+                <p><a href="https://www.simplypsychology.org/longitudinal-study.html" target="_blank">Simply Psychology: Longitudinal Study</a></p>
+            </div>
+
+            <div class="study-card">
+                <h3>Cross-Sectional Studies</h3>
+                <p><a href="https://www.simplypsychology.org/what-is-a-cross-sectional-study.html" target="_blank">Simply Psychology: Cross-Sectional Study</a></p>
+            </div>
+
+            <div class="study-card">
+                <h3>Cross-sectional vs Longitudinal (clear overview)</h3>
+                <p><a href="https://www.iwh.on.ca/what-researchers-mean-by/cross-sectional-vs-longitudinal-studies" target="_blank">Institute for Work & Health: Cross-sectional vs. longitudinal</a></p>
+            </div>
+
+            <div class="study-card">
+                <h3>Example Longitudinal Studies</h3>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Lothian_birth-cohort_studies" target="_blank">Lothian birth-cohort studies</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/LifE_Study" target="_blank">LifE Study</a></li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h4>Optional notes: What link (if any) helped you the most, and why?</h4>
+                <textarea id="linksnotes" placeholder="Type notes here..."></textarea>
+            </div>
+        </div>
+
+        <div id="exit" class="tab-content">
+            <h2 class="section-header">Exit Ticket</h2>
+
+            <div class="exit-ticket">
+                <h3>Quick Response</h3>
+                <p style="margin-bottom: 15px; line-height: 1.6;">
+                    In 2–3 sentences, explain:
+                </p>
+                <p style="margin-bottom: 20px; font-size: 1.1em; font-weight: 600;">
+                    What is the difference between cross-sectional and longitudinal research, and why does the choice of method matter for knowledge in the human sciences?
+                </p>
+                <textarea id="exitticket"></textarea>
+            </div>
+
+            <div class="generate-section">
+                <h3>Ready to Create Your Presentation?</h3>
+                <p>Generate slides based on your answers above.</p>
+                <div class="button-group">
+                    <button class="generate-btn" id="viewSlidesBtn">View Slideshow</button>
+                    <button class="download-btn" id="downloadPptBtn">Download PowerPoint</button>
+                </div>
+            </div>
+
+            <div class="slide-viewer" id="slideViewer">
+                <div class="slide-controls">
+                    <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
+                    <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+                    <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
+                </div>
+
+                <div id="slidesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        let totalSlidesCount = 0;
+
+        // Auto-save functionality
+        const textareas = [
+            'vidnotes',
+            'cs_def','cs_limits',
+            'long_def','long_strength',
+            'change_example','stable_example',
+            'task1','task2','task3',
+            'tok1','tok2','tok3',
+            'linksnotes',
+            'exitticket'
+        ];
+
+        const STORAGE_KEY = 'tokLongitudinalCrossSectional';
+
+        function saveData() {
+            const data = {};
+            textareas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+
+            const studentData = { answers: data, timestamp: new Date().toISOString() };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(studentData));
+            showSaveIndicator();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+            const studentData = JSON.parse(saved);
+            Object.keys(studentData.answers).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = studentData.answers[id];
+            });
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Add event listeners for auto-save
+        textareas.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('input', () => {
+                clearTimeout(el.saveTimeout);
+                el.saveTimeout = setTimeout(saveData, 1000);
+            });
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadData);
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        function collectAnswers() {
+            const get = (id) => (document.getElementById(id)?.value || 'Not answered');
+            return {
+                vidnotes: get('vidnotes'),
+                cs_def: get('cs_def'),
+                cs_limits: get('cs_limits'),
+                long_def: get('long_def'),
+                long_strength: get('long_strength'),
+                change_example: get('change_example'),
+                stable_example: get('stable_example'),
+                task1: get('task1'),
+                task2: get('task2'),
+                task3: get('task3'),
+                tok1: get('tok1'),
+                tok2: get('tok2'),
+                tok3: get('tok3'),
+                linksnotes: get('linksnotes'),
+                exitticket: get('exitticket')
+            };
+        }
+
+        function escapeHTML(str) {
+            return (str ?? '').toString()
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/\n/g, '<br>');
+        }
+
+        function showSlides() {
+            const data = collectAnswers();
+
+            const slidesHTML = `
+                <div class="slide active slide-title">
+                    <h2>Longitudinal vs. Cross-Sectional</h2>
+                    <p>How Human Scientists Study Change Over Time</p>
+                    <p style="margin-top: 30px; font-size: 1em;">TOK Human Sciences</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Video Notes</h2>
+                    <h3>Claims that require longitudinal data:</h3>
+                    <p>${escapeHTML(data.vidnotes)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Cross-Sectional Method</h2>
+                    <h3>My definition:</h3>
+                    <p>${escapeHTML(data.cs_def)}</p>
+                    <h3>Limits:</h3>
+                    <p>${escapeHTML(data.cs_limits)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Longitudinal Method</h2>
+                    <h3>My definition:</h3>
+                    <p>${escapeHTML(data.long_def)}</p>
+                    <h3>Strengths:</h3>
+                    <p>${escapeHTML(data.long_strength)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Change vs. Stability</h2>
+                    <h3>Changing pattern example:</h3>
+                    <p>${escapeHTML(data.change_example)}</p>
+                    <h3>Stable pattern example:</h3>
+                    <p>${escapeHTML(data.stable_example)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Tasks</h2>
+                    <h3>Task 1 — Cross-sectional snapshot</h3>
+                    <p>${escapeHTML(data.task1)}</p>
+                    <h3>Task 2 — Longitudinal plan</h3>
+                    <p>${escapeHTML(data.task2)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Group Task 3</h2>
+                    <h3>Best method for a real-world issue:</h3>
+                    <p>${escapeHTML(data.task3)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>TOK Reflection</h2>
+                    <h3>1) Method and certainty</h3>
+                    <p>${escapeHTML(data.tok1)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>TOK Reflection</h2>
+                    <h3>2) “True now” vs “changes over time”</h3>
+                    <p>${escapeHTML(data.tok2)}</p>
+                    <h3>3) Universals?</h3>
+                    <p>${escapeHTML(data.tok3)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Further Reading Notes</h2>
+                    <p>${escapeHTML(data.linksnotes)}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Exit Ticket</h2>
+                    <h3>Key takeaway:</h3>
+                    <p>${escapeHTML(data.exitticket)}</p>
+                </div>
+
+                <div class="slide slide-title">
+                    <h2>Questions?</h2>
+                    <p style="font-size: 1.2em;">Explain which method fits the question you want to answer.</p>
+                </div>
+            `;
+
+            const slidesContainer = document.getElementById('slidesContainer');
+            slidesContainer.innerHTML = slidesHTML;
+
+            const slideViewer = document.getElementById('slideViewer');
+            slideViewer.classList.add('show');
+
+            const slides = slidesContainer.getElementsByClassName('slide');
+            totalSlidesCount = slides.length;
+            document.getElementById('totalSlides').textContent = totalSlidesCount;
+            currentSlideIndex = 0;
+            updateSlideDisplay();
+
+            slideViewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('#slidesContainer .slide');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlideIndex) slide.classList.add('active');
+            });
+
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+
+            const prevBtn = document.getElementById('prevSlideBtn');
+            const nextBtn = document.getElementById('nextSlideBtn');
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === totalSlidesCount - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlidesCount - 1) {
+                currentSlideIndex++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlideDisplay();
+            }
+        }
+
+        // PowerPoint export
+        async function downloadPowerPoint() {
+            if (typeof window.PptxGenJS === 'undefined') {
+                alert('PowerPoint export library failed to load. Please refresh and try again.');
+                return;
+            }
+
+            const data = collectAnswers();
+            const safeText = (t) => (t ?? '').toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+            try {
+                const pptx = new window.PptxGenJS();
+                pptx.layout = 'LAYOUT_WIDE';
+
+                pptx.author = 'TOK Student';
+                pptx.subject = 'Longitudinal vs Cross-Sectional Methods';
+                pptx.title = 'How Human Scientists Study Change';
+
+                // Helper to add a standard content slide
+                const addContentSlide = (title, subtitle, body) => {
+                    const s = pptx.addSlide();
+                    s.addText(title, {
+                        x: 0.6, y: 0.5, w: 12.0, h: 0.8,
+                        fontSize: 30, bold: true, color: '2D3748'
+                    });
+                    if (subtitle) {
+                        s.addText(subtitle, {
+                            x: 0.6, y: 1.35, w: 12.0, h: 0.5,
+                            fontSize: 20, bold: true, color: '667EEA'
+                        });
+                        s.addText(safeText(body), {
+                            x: 0.6, y: 1.95, w: 12.0, h: 5.1,
+                            fontSize: 18, color: '4A5568', valign: 'top', wrap: true
+                        });
+                    } else {
+                        s.addText(safeText(body), {
+                            x: 0.6, y: 1.35, w: 12.0, h: 5.7,
+                            fontSize: 18, color: '4A5568', valign: 'top', wrap: true
+                        });
+                    }
+                };
+
+                // Slide 1: Title
+                let slide = pptx.addSlide();
+                slide.background = { color: '667EEA' };
+                slide.addText('Longitudinal vs. Cross-Sectional', {
+                    x: 0.5, y: 2.0, w: 12.33, h: 1.2,
+                    fontSize: 42, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('How Human Scientists Study Change Over Time', {
+                    x: 0.5, y: 3.2, w: 12.33, h: 0.7,
+                    fontSize: 22, color: 'FFFFFF', align: 'center'
+                });
+
+                addContentSlide('Video Notes', 'Claims that require longitudinal data', data.vidnotes);
+
+                addContentSlide('Cross-Sectional Method', 'My definition', data.cs_def);
+                addContentSlide('Cross-Sectional Method', 'Limits', data.cs_limits);
+
+                addContentSlide('Longitudinal Method', 'My definition', data.long_def);
+                addContentSlide('Longitudinal Method', 'Strengths', data.long_strength);
+
+                addContentSlide('Change vs. Stability', 'Changing pattern example', data.change_example);
+                addContentSlide('Change vs. Stability', 'Stable pattern example', data.stable_example);
+
+                addContentSlide('Group Task 1', 'Cross-sectional snapshot plan', data.task1);
+                addContentSlide('Group Task 2', 'Longitudinal study plan', data.task2);
+                addContentSlide('Group Task 3', 'Best method for a real-world issue', data.task3);
+
+                addContentSlide('TOK Reflection', '1) Method and certainty', data.tok1);
+                addContentSlide('TOK Reflection', '2) “True now” vs “changes over time”', data.tok2);
+                addContentSlide('TOK Reflection', '3) Universals?', data.tok3);
+
+                addContentSlide('Further Reading Notes', '', data.linksnotes);
+
+                addContentSlide('Exit Ticket', 'Key takeaway', data.exitticket);
+
+                // Final Slide
+                slide = pptx.addSlide();
+                slide.background = { color: '764BA2' };
+                slide.addText('Questions?', {
+                    x: 0.5, y: 2.5, w: 12.33, h: 1,
+                    fontSize: 48, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('Which method best fits the question you want to answer?', {
+                    x: 0.5, y: 3.8, w: 12.33, h: 0.6,
+                    fontSize: 20, color: 'FFFFFF', align: 'center'
+                });
+
+                await pptx.writeFile({ fileName: 'Longitudinal_vs_Cross_Sectional_TOK.pptx' });
+            } catch (err) {
+                console.error('PowerPoint export error:', err);
+                alert('PowerPoint download failed. Open DevTools → Console to see the error details.');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('viewSlidesBtn').addEventListener('click', showSlides);
+        document.getElementById('downloadPptBtn').addEventListener('click', downloadPowerPoint);
+        document.getElementById('prevSlideBtn').addEventListener('click', previousSlide);
+        document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slideViewer = document.getElementById('slideViewer');
+            if (slideViewer.classList.contains('show')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                else if (e.key === 'ArrowLeft') previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>
