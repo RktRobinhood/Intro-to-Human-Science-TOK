@@ -95,8 +95,8 @@ const fullHtml = `<!doctype html>
         <li>This lesson must be used to learn the topic and finalize slides; we jump straight into teaching next class.</li>
       </ul>
 
-      <strong>Phase 2: Speed Dating (Next Lesson)</strong>
-      <p>Next class will be set up as speed dating with 5 rounds (20 minutes each):</p>
+      <strong>Phase 2: Speed Dating (Next Lessons)</strong>
+      <p>Next two classes will be set up as speed dating with 5 rounds in total (20 minutes each):</p>
       <ul>
         <li><strong>10 Minutes:</strong> You teach them your topic based on your produced slides.</li>
         <li><strong>10 Minutes:</strong> They teach you their topic.</li>
@@ -134,3 +134,4 @@ const fullHtml = `<!doctype html>
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 console.log("Build Complete: Index and assets generated in /dist");
+
