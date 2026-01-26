@@ -1,48 +1,50 @@
 import fs from "fs";
 import path from "path";
 
-const DIST = path.join(process.cwd(), "dist");
-const PROJECTS_DIR = path.join(process.cwd(), "projects");
-const PICTURES_DIR = path.join(process.cwd(), "pictures");
+// Paths relative to the repo root
+const ROOT = process.cwd();
+const DIST = path.join(ROOT, "dist");
+const PROJECTS_DIR = path.join(ROOT, "projects");
+const PICTURES_DIR = path.join(ROOT, "pictures");
 
-// 1. Setup Folders
-fs.rmSync(DIST, { recursive: true, force: true });
-[DIST, path.join(DIST, "projects"), path.join(DIST, "pictures")].forEach(p => fs.mkdirSync(p, { recursive: true }));
+// 1. Setup Dist (Clean and Recreate)
+if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true, force: true });
+fs.mkdirSync(path.join(DIST, "projects"), { recursive: true });
+fs.mkdirSync(path.join(DIST, "pictures"), { recursive: true });
 
 // 2. Copy Assets
 if (fs.existsSync(PROJECTS_DIR)) fs.cpSync(PROJECTS_DIR, path.join(DIST, "projects"), { recursive: true });
 if (fs.existsSync(PICTURES_DIR)) fs.cpSync(PICTURES_DIR, path.join(DIST, "pictures"), { recursive: true });
 
-// 3. Process Projects (with Natural Numerical Sorting)
+// 3. Process Projects with Natural Numerical Sorting (1, 2, 10...)
 let projectsHTML = "<li>No projects found.</li>";
-
 if (fs.existsSync(PROJECTS_DIR)) {
-  const projectFolders = fs.readdirSync(PROJECTS_DIR).filter(f => 
-    fs.existsSync(path.join(PROJECTS_DIR, f, "index.html"))
-  );
+  const list = fs.readdirSync(PROJECTS_DIR)
+    .filter(f => fs.existsSync(path.join(PROJECTS_DIR, f, "index.html")))
+    .map(folder => {
+      const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
+      const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder;
+      return { title, folder };
+    })
+    // The "numeric: true" option fixes the 1, 2, 10 sorting issue
+    .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }));
 
-  const projectList = projectFolders.map(folder => {
-    const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
-    const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder.replace(/-/g, " ");
-    return { title, folder };
-  });
-
-  // Sort logic: "numeric: true" ensures 10 comes after 2
-  projectList.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }));
-
-  projectsHTML = projectList
-    .map(p => `<li><a href="./projects/${p.folder}/index.html">${p.title}</a></li>`)
-    .join("");
+  if (list.length > 0) {
+    projectsHTML = list.map(p => `<li><a href="./projects/${p.folder}/index.html">${p.title}</a></li>`).join("");
+  }
 }
 
 // 4. Process Gallery Images
 const imgExts = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
-const images = fs.existsSync(PICTURES_DIR) ? fs.readdirSync(PICTURES_DIR)
-  .filter(file => imgExts.includes(path.extname(file).toLowerCase()))
-  .map(img => `<img src="./pictures/${img}" onclick="zoom(this)" alt="Gallery Image" role="button">`)
-  .join("") : "<p>No images found.</p>";
+let galleryHTML = "<p>No images found in /pictures.</p>";
+if (fs.existsSync(PICTURES_DIR)) {
+  const imgs = fs.readdirSync(PICTURES_DIR)
+    .filter(file => imgExts.includes(path.extname(file).toLowerCase()))
+    .map(img => `<img src="./pictures/${img}" onclick="zoom(this)" alt="Gallery Image" role="button">`);
+  if (imgs.length > 0) galleryHTML = imgs.join("");
+}
 
-// 5. Generate HTML
+// 5. Build the Final Page
 const fullHtml = `<!doctype html>
 <html lang="en">
 <head>
@@ -57,7 +59,7 @@ const fullHtml = `<!doctype html>
     .preamble { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 16px; margin-bottom: 50px; }
     .preamble h2 { margin-top: 0; color: var(--accent); font-size: 1.8rem; border: none; opacity: 1; text-transform: none; letter-spacing: normal; }
     .preamble p { margin-bottom: 1.2rem; font-size: 1.05rem; opacity: 0.9; }
-    .preamble ul { display: block; padding-left: 20px; }
+    .preamble ul { display: block; padding-left: 20px; margin: 10px 0; }
     .preamble li { background: transparent; border: none; padding: 5px 0; list-style: disc; display: list-item; text-align: left; }
     .important { border-left: 4px solid var(--accent); padding-left: 15px; font-style: italic; margin-top: 20px; }
 
@@ -74,7 +76,7 @@ const fullHtml = `<!doctype html>
     .gallery img:hover { transform: scale(1.02); }
 
     #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 1000; cursor: zoom-out; }
-    #overlay img { max-width: 95%; max-height: 95%; border-radius: 4px; }
+    #overlay img { max-width: 95%; max-height: 95%; border-radius: 4px; box-shadow: 0 0 40px black; }
   </style>
 </head>
 <body>
@@ -83,25 +85,25 @@ const fullHtml = `<!doctype html>
     
     <div class="preamble">
       <h2>Collaborative Teaching Project</h2>
-      <p>You have been divided into 10 groups. Today, your objective is to master a specific concept within the TOK Human Sciences framework and prepare to teach it to your peers.</p>
+      <p>You will be put into 10 groups. Each group needs to watch their video and complete the tabs underneath that elaborate or extend the topic.</p>
       
       <strong>Phase 1: Research & Preparation (Today)</strong>
       <ul>
-        <li>Access your group's link below, watch the introductory video, and complete the interactive tabs.</li>
-        <li>Finalize a slide deck (aim for 10-15 slides) based on the content provided.</li>
-        <li><strong>Don't just repeat the slides:</strong> Explain the core concept, share what was interesting, and identify areas where you disagree or found the logic confusing.</li>
-        <li>Critique the "hook": If you found a better modern reference or a more engaging video for this topic, include it!</li>
+        <li>Finalize a slide deck (10-15 slides) based on the content and your own extensions.</li>
+        <li><strong>Don't just read your slides:</strong> Try to explain the concept, what was interesting, and what did not make sense or what you disagree with.</li>
+        <li>If you did not like the hook video or follow-up, suggest what might you use instead. Is there a better modern reference?</li>
+        <li>This lesson must be used to learn the topic and finalize slides; we jump straight into teaching next class.</li>
       </ul>
 
-      <strong>Phase 2: Speed Dating (Next Lessons)</strong>
-      <p>The next classes will be high-energy teaching sessions consisting of 5 rounds (20 minutes each). In each round:</p>
+      <strong>Phase 2: Speed Dating (Next Lesson)</strong>
+      <p>Next class will be set up as speed dating with 5 rounds (20 minutes each):</p>
       <ul>
-        <li><strong>10 Minutes:</strong> You teach your topic to a group that hasn't seen it yet.</li>
-        <li><strong>10 Minutes:</strong> They teach their topic to you.</li>
+        <li><strong>10 Minutes:</strong> You teach them your topic based on your produced slides.</li>
+        <li><strong>10 Minutes:</strong> They teach you their topic.</li>
       </ul>
 
       <div class="important">
-        <strong>Digital Accountability:</strong> All materials must be shared digitally within your group. Ensure every member has access to the slides; "the person with the file is absent" is not an excuse. Finish the slides today—next class starts with teaching immediately.
+        <strong>Digital Accountability:</strong> This material needs to be shared digitally among your group. There is no excuse if one group member is missing next time—ensure everyone has the file.
       </div>
     </div>
 
@@ -112,12 +114,12 @@ const fullHtml = `<!doctype html>
 
     <section>
       <h2>Visual Gallery</h2>
-      <div class="gallery">${images}</div>
+      <div class="gallery">${galleryHTML}</div>
     </section>
   </div>
 
   <div id="overlay" onclick="this.style.display='none'">
-    <img id="overlay-img">
+    <img id="overlay-img" src="">
   </div>
 
   <script>
@@ -131,5 +133,4 @@ const fullHtml = `<!doctype html>
 
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
-
-c
+console.log("Build Complete: Index and assets generated in /dist");
