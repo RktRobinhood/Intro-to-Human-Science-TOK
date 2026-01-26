@@ -1,138 +1,76 @@
 import fs from "fs";
 import path from "path";
 
-const ROOT = process.cwd();
-const PROJECTS_DIR = path.join(ROOT, "projects");
-const DIST_DIR = path.join(ROOT, "dist");
-const DIST_PROJECTS = path.join(DIST_DIR, "projects");
+const DIST = path.join(process.cwd(), "dist");
+const PROJECTS_DIR = path.join(process.cwd(), "projects");
+const PICTURES_DIR = path.join(process.cwd(), "pictures");
 
-function ensureDir(p) {
-  fs.mkdirSync(p, { recursive: true });
-}
+// 1. Clean and Create Dist Folders
+fs.rmSync(DIST, { recursive: true, force: true });
+fs.mkdirSync(path.join(DIST, "projects"), { recursive: true });
+fs.mkdirSync(path.join(DIST, "pictures"), { recursive: true });
 
-function rmDirIfExists(p) {
-  if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });
-}
+// 2. Copy Assets
+if (fs.existsSync(PROJECTS_DIR)) fs.cpSync(PROJECTS_DIR, path.join(DIST, "projects"), { recursive: true });
+if (fs.existsSync(PICTURES_DIR)) fs.cpSync(PICTURES_DIR, path.join(DIST, "pictures"), { recursive: true });
 
-function copyRecursive(src, dest) {
-  const stat = fs.statSync(src);
-  if (stat.isDirectory()) {
-    ensureDir(dest);
-    for (const entry of fs.readdirSync(src)) {
-      if (entry === ".DS_Store") continue;
-      copyRecursive(path.join(src, entry), path.join(dest, entry));
-    }
-  } else {
-    ensureDir(path.dirname(dest));
-    fs.copyFileSync(src, dest);
-  }
-}
+// 3. Process Projects
+const projects = fs.existsSync(PROJECTS_DIR) ? fs.readdirSync(PROJECTS_DIR).filter(f => fs.existsSync(path.join(PROJECTS_DIR, f, "index.html"))).map(folder => {
+  const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
+  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder.replace(/-/g, " ");
+  return { title, href: `./projects/${folder}/index.html` };
+}).sort((a, b) => a.title.localeCompare(b.title)) : [];
 
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
+// 4. Process General Pictures
+const validExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
+const images = fs.existsSync(PICTURES_DIR) ? fs.readdirSync(PICTURES_DIR).filter(file => 
+  validExtensions.includes(path.extname(file).toLowerCase())
+) : [];
 
-function titleFromHtml(html) {
-  const m = html.match(/<title>([^<]{1,140})<\/title>/i);
-  return m ? m[1].trim() : null;
-}
+// 5. Generate HTML content
+const projectList = projects.map(p => `<li><a href="${p.href}">${p.title}</a></li>`).join("");
+const imageGallery = images.map(img => `<img src="./pictures/${img}" alt="Gallery Image">`).join("");
 
-function niceName(folder) {
-  return folder
-    .replace(/[-_]+/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-function findProjects() {
-  const projects = [];
-  if (!fs.existsSync(PROJECTS_DIR)) return projects;
-
-  for (const dirent of fs.readdirSync(PROJECTS_DIR, { withFileTypes: true })) {
-    if (!dirent.isDirectory()) continue;
-
-    const folder = dirent.name;
-    const indexPath = path.join(PROJECTS_DIR, folder, "index.html");
-    if (!fs.existsSync(indexPath)) continue;
-
-    const html = fs.readFileSync(indexPath, "utf8");
-    const title = titleFromHtml(html) || niceName(folder);
-
-    projects.push({
-      folder,
-      title,
-      href: `./projects/${folder}/index.html`,
-    });
-  }
-
-  projects.sort((a, b) => a.title.localeCompare(b.title));
-  return projects;
-}
-
-function generateIndex(projects) {
-  const list =
-    projects.length === 0
-      ? `<li><em>No projects found.</em> Add <code>projects/&lt;name&gt;/index.html</code></li>`
-      : projects
-          .map(
-            (p) =>
-              `<li><a href="${p.href}">${escapeHtml(p.title)}</a> <span class="meta">projects/${escapeHtml(
-                p.folder
-              )}/</span></li>`
-          )
-          .join("\n");
-
-  return `<!doctype html>
+const fullHtml = `<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Projects</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Hub</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:24px;background:#0b1020;color:#e9ecff}
-    a{color:#9ac6ff;text-decoration:none} a:hover{text-decoration:underline}
-    .wrap{max-width:920px;margin:0 auto}
-    .card{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;background:rgba(255,255,255,.04)}
-    ul{line-height:1.9;margin:10px 0 0 18px}
-    .meta{opacity:.7;font-size:12px;margin-left:8px}
-    .hint{opacity:.8;margin:10px 0 0;font-size:13px;line-height:1.4}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+    body { font-family: system-ui, sans-serif; background: #0b1020; color: #e9ecff; margin: 0; padding: 40px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    a { color: #9ac6ff; text-decoration: none; font-size: 1.1rem; }
+    a:hover { text-decoration: underline; }
+    
+    section { margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+    h2 { opacity: 0.8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+    .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Projects</h1>
-    <div class="card">
-      <p class="hint">
-        This index is generated automatically on every push. Add new projects as:
-        <code>projects/&lt;name&gt;/index.html</code>
-      </p>
-      <ul>
-        ${list}
-      </ul>
-    </div>
+  <div class="container">
+    <h1>Dashboard</h1>
+    
+    <section>
+      <h2>Projects</h2>
+      <ul>${projectList || "<li>No projects found.</li>"}</ul>
+    </section>
+
+    <section>
+      <h2>Gallery</h2>
+      <div class="gallery">${imageGallery || "<p>No images found in /pictures.</p>"}</div>
+    </section>
   </div>
 </body>
 </html>`;
-}
 
-// ---- Build steps ----
-rmDirIfExists(DIST_DIR);
-ensureDir(DIST_DIR);
+// 6. Write Files
+fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
+fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 
-// Copy projects folder into dist (so links work)
-if (fs.existsSync(PROJECTS_DIR)) {
-  copyRecursive(PROJECTS_DIR, DIST_PROJECTS);
-}
-
-// Write generated index
-const projects = findProjects();
-fs.writeFileSync(path.join(DIST_DIR, "index.html"), generateIndex(projects), "utf8");
-
-// Avoid Jekyll interference (safe even when using Actions)
-fs.writeFileSync(path.join(DIST_DIR, ".nojekyll"), "", "utf8");
-
-console.log(`OK: generated dist/index.html with ${projects.length} project(s).`);
+console.log(`Build Success: ${projects.length} projects and ${images.length} images.`);
