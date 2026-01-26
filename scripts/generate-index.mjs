@@ -80,8 +80,8 @@ const fullHtml = `<!doctype html>
         <li>Critique the "hook": If you found a better modern reference or a more engaging video for this topic, include it!</li>
       </ul>
 
-      <strong>Phase 2: Speed Dating (Next Lesson)</strong>
-      <p>Next class will be a high-energy teaching session consisting of 5 rounds (20 minutes each). In each round:</p>
+      <strong>Phase 2: Speed Dating (Next Lessons)</strong>
+      <p>The next classes will be a high-energy teaching session consisting of 5 rounds (20 minutes each). In each round:</p>
       <ul>
         <li><strong>10 Minutes:</strong> You teach your topic to a group that hasn't seen it yet.</li>
         <li><strong>10 Minutes:</strong> They teach their topic to you.</li>
@@ -120,3 +120,4 @@ fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 
 console.log(`Build complete: ${projects.length} topics and ${images.length} gallery images.`);
+
