@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7. TOK Human Sciences: Case Studies</title>
+
+    <!-- PptxGenJS (BUNDLE build includes required browser deps). Primary + fallback CDN. -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        // Fallback if jsDelivr is blocked/unavailable
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+
+        .video-section {
+            padding: 40px;
+            background: #f7fafc;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .video-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .continue-prompt {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(72, 187, 120, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .continue-prompt::before { content: "⬇️ "; font-size: 1.5em; }
+        .continue-prompt::after { content: " ⬇️"; font-size: 1.5em; }
+
+        .tabs {
+            display: flex;
+            background: #edf2f7;
+            border-bottom: 2px solid #cbd5e0;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 20px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover { background: #e2e8f0; color: #2d3748; }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .key-terms {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-terms h3 { color: #c53030; margin-bottom: 15px; }
+
+        .key-terms ul { list-style: none; padding-left: 0; }
+
+        .key-terms li {
+            padding: 8px 0;
+            border-bottom: 1px solid #fed7d7;
+        }
+
+        .key-terms li:last-child { border-bottom: none; }
+
+        .key-terms strong { color: #742a2a; }
+
+        .question-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .question-box h4 { color: #2c5282; margin-bottom: 10px; }
+
+        .study-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .study-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .study-card h3 { color: #667eea; margin-bottom: 15px; }
+
+        .study-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .study-card a:hover { text-decoration: underline; }
+
+        .response-area {
+            background: #f7fafc;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .response-area textarea,
+        .question-box textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        ol, ul { margin-left: 20px; line-height: 1.8; }
+        ol li, ul li { margin: 10px 0; }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .exit-ticket {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .exit-ticket h3 { margin-bottom: 15px; }
+
+        .exit-ticket textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1.05em;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .generate-section {
+            background: #f0fff4;
+            border: 3px solid #48bb78;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .generate-section h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .generate-section p {
+            color: #2f855a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+
+        .generate-btn:active { transform: translateY(0); }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+
+        .download-btn:active { transform: translateY(0); }
+
+        /* Slide Viewer Styles */
+        .slide-viewer {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .slide-viewer.show { display: block; }
+
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav-btn:hover { background: #5568d3; }
+
+        .slide-nav-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter { color: white; font-size: 1.1em; }
+
+        .slide {
+            background: white;
+            border-radius: 10px;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h2 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a5568;
+        }
+
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border: none;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.95;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .save-indicator.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Progress saved</div>
+
+    <div class="container">
+        <header>
+            <h1>🔎 Case Studies in the Human Sciences</h1>
+            <p>What They Tell Us — and What They Don’t</p>
+        </header>
+
+        <div class="video-section">
+            <h2>📺 Watch First: A Famous Case Study</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/W0TTQroCjoQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="continue-prompt">
+                Continue below to explore the lesson, examples, and activities
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="intro">Core Ideas</button>
+            <button class="tab-button" data-tab="why">Why Use Case Studies?</button>
+            <button class="tab-button" data-tab="examples">Famous Examples</button>
+            <button class="tab-button" data-tab="tok">TOK Connections</button>
+            <button class="tab-button" data-tab="exit">Exit Ticket</button>
+        </div>
+
+<div id="intro" class="tab-content active">
+    <h2 class="section-header">1) What Is a Case Study?</h2>
+    <p style="line-height: 1.8; margin-bottom: 20px;">
+        A <span class="highlight">case study</span> is a detailed, in-depth investigation of a specific person, group, organization, event, or
+        phenomenon in its real-world context. Case studies typically draw on multiple sources (e.g., interviews, observations, documents,
+        and sometimes quantitative data) to build a rich, contextualised picture of the case.
+    </p>
+
+    <div class="key-terms">
+        <h3>🔑 Key TOK / Human Sciences Terms</h3>
+        <ul>
+            <li><strong>Context:</strong> The social/cultural/situational conditions shaping behaviour and meaning.</li>
+            <li><strong>Generalizability:</strong> How confidently findings apply beyond the specific case.</li>
+            <li><strong>Evidence:</strong> Data and observations used to support a claim (often qualitative in case studies).</li>
+            <li><strong>Interpretation:</strong> How researchers make sense of evidence; can introduce subjectivity.</li>
+            <li><strong>Trustworthiness:</strong> How credible findings are (transparency, triangulation, and alternative explanations matter).</li>
+        </ul>
+    </div>
+
+    <div class="study-card">
+        <h3>Follow-up reading (optional)</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Overview: what a case study is and how it is done.
+        </p>
+        <p style="margin: 15px 0;">
+            <a href="https://www.britannica.com/science/case-study" target="_blank">📖 Britannica: Case study →</a>
+        </p>
+    </div>
+
+    <div class="question-box">
+        <h4>Quick check</h4>
+        <p>In 2–3 sentences: define “case study” and explain what makes it different from a survey or experiment.</p>
+        <textarea id="cs_def" placeholder="Type your answer here..."></textarea>
+    </div>
+</div>
+
+<div id="why" class="tab-content">
+    <h2 class="section-header">2) Why Human Scientists Use Case Studies</h2>
+
+    <div class="study-card">
+        <h3>Common reasons</h3>
+        <ul>
+            <li><strong>Complex, real-world phenomena:</strong> behaviour often cannot be meaningfully separated from context.</li>
+            <li><strong>Rich, detailed data:</strong> deep evidence from multiple sources can explain <em>how</em> and <em>why</em> things happen.</li>
+            <li><strong>New concepts and questions:</strong> cases can reveal unexpected patterns that inform theory development.</li>
+            <li><strong>Rare or unique situations:</strong> some phenomena are too uncommon for large-scale studies.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-header">3) What Case Studies Do Well</h2>
+    <div class="study-card">
+        <ul>
+            <li><strong>Mechanisms and processes:</strong> helps trace what happened and how it unfolded.</li>
+            <li><strong>Context preservation:</strong> keeps cultural/social/organizational setting visible.</li>
+            <li><strong>Theory refinement:</strong> can challenge theories or show where they don’t fit.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-header">4) What Case Studies Cannot Do</h2>
+    <div class="study-card">
+        <ul>
+            <li><strong>Limited generalisability:</strong> one case ≠ a whole population.</li>
+            <li><strong>Bias risk:</strong> researcher interpretation and selection can shape conclusions.</li>
+            <li><strong>Causation limits:</strong> often shows patterns/relationships, but rarely proves cause by itself.</li>
+            <li><strong>Time/resources:</strong> deep data collection is demanding compared with surveys.</li>
+        </ul>
+    </div>
+
+    <div class="question-box">
+        <h4>Application</h4>
+        <p>
+            Choose one limitation above and explain how it reduces the <strong>certainty</strong> of knowledge claims in the human sciences.
+        </p>
+        <textarea id="cs_limits" placeholder="Type your answer here..."></textarea>
+    </div>
+</div>
+
+<div id="examples" class="tab-content">
+    <h2 class="section-header">5) Famous Case Study Examples</h2>
+    <p style="margin-bottom: 25px; line-height: 1.8;">
+        These examples show how studying a single case can produce powerful insights — and also why we must be careful about generalising.
+    </p>
+
+    <div class="study-card">
+        <h3>(a) H.M. (Henry Molaison) — Memory</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            After brain surgery for epilepsy, H.M. lost the ability to form new long-term explicit memories. Researchers learned that different
+            memory systems rely on different brain structures, reshaping theories of memory.
+        </p>
+        <div class="question-box">
+            <h4>Question</h4>
+            <p>What did H.M.’s case reveal about memory, and why would it be hard to learn this from a survey?</p>
+            <textarea id="cs_hm" placeholder="Type your answer here..."></textarea>
+        </div>
+    </div>
+
+    <div class="study-card">
+        <h3>(b) Phineas Gage — Brain and Personality</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            After a severe brain injury, Gage’s behaviour and personality reportedly changed. The case became a landmark in linking frontal-lobe
+            function to personality and decision-making.
+        </p>
+        <div class="question-box">
+            <h4>Question</h4>
+            <p>Identify one strength and one limitation of using Phineas Gage as evidence for brain–personality links.</p>
+            <textarea id="cs_gage" placeholder="Type your answer here..."></textarea>
+        </div>
+    </div>
+
+    <div class="study-card">
+        <h3>(c) Genie — Language Acquisition</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Genie experienced extreme social isolation and limited language exposure until adolescence. Her case informed debates about critical
+            periods for language development, while raising serious ethical questions about research and care.
+        </p>
+        <div class="question-box">
+            <h4>Question</h4>
+            <p>How does Genie’s case show both the value and the ethical complexity of case studies?</p>
+            <textarea id="cs_genie" placeholder="Type your answer here..."></textarea>
+        </div>
+    </div>
+
+    <div class="study-card">
+        <h3>(d) Business / Management Case Studies</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Business schools commonly use case studies of organizations, crises, or strategic decisions to practise analysis and decision-making
+            in realistic contexts. This is often teaching-focused, but it also shows how theory meets messy real-world constraints.
+        </p>
+        <div class="question-box">
+            <h4>Question</h4>
+            <p>
+                Give an example of a business case study topic (e.g., a company’s crisis response). What sources of evidence would be useful?
+            </p>
+            <textarea id="cs_business" placeholder="Type your answer here..."></textarea>
+        </div>
+    </div>
+
+    <div class="study-card">
+        <h3>Further student links</h3>
+        <ul>
+            <li><a href="https://www.simplypsychology.org/case-study.html" target="_blank">SimplyPsychology: case studies in psychology →</a></li>
+            <li><a href="https://helpfulprofessor.com/case-study-advantages-and-disadvantages/" target="_blank">Helpful Professor: advantages & disadvantages →</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="tok" class="tab-content">
+    <h2 class="section-header">6) TOK Connections — Knowledge in the Human Sciences</h2>
+
+    <div class="study-card">
+        <h3>Depth vs. Breadth</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Case studies often trade <strong>breadth</strong> (generalization to populations) for <strong>depth</strong> (contextual understanding).
+            We may know a great deal about one case, but be less certain about how common the pattern is.
+        </p>
+    </div>
+
+    <div class="study-card">
+        <h3>Evidence and Interpretation</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Evidence is frequently qualitative and narrative. This can be credible, but it depends on careful interpretation, transparency about
+            methods, and considering alternative explanations.
+        </p>
+    </div>
+
+    <div class="study-card">
+        <h3>Theory Building vs. Theory Testing</h3>
+        <p style="margin: 15px 0; line-height: 1.8;">
+            Case studies often help generate hypotheses and concepts. Other methods (e.g., experiments, surveys) may later test how widely the
+            ideas apply.
+        </p>
+    </div>
+
+    <h2 class="section-header">7) Classroom Activities</h2>
+
+    <div class="question-box">
+        <h4>Activity 1 — Compare Methods</h4>
+        <p>
+            Pick a phenomenon (e.g., language learning). Write three research questions: one best answered by a case study, one by a survey,
+            and one by an experiment. Explain why each method fits.
+        </p>
+        <textarea id="cs_activity1" placeholder="Type your answer here..."></textarea>
+    </div>
+
+    <div class="question-box">
+        <h4>Activity 2 — Evaluate a Famous Case</h4>
+        <p>
+            Choose one (H.M., Phineas Gage, or Genie). Summarise what it taught us, identify at least one limitation, and reflect on how much
+            certainty we can claim from this case.
+        </p>
+        <textarea id="cs_activity2" placeholder="Type your answer here..."></textarea>
+    </div>
+</div>
+
+<div id="exit" class="tab-content">
+    <h2 class="section-header">Exit Ticket</h2>
+
+    <div class="exit-ticket">
+        <h3>TOK Reflection</h3>
+        <p style="margin-bottom: 15px; line-height: 1.6;">
+            In <strong>two sentences</strong>, explain why case studies can produce <strong>deep understanding</strong> but <strong>limited certainty</strong>
+            about what they reveal in the human sciences.
+        </p>
+        <p style="margin-bottom: 15px; font-size: 0.95em; opacity: 0.95;">
+            Use terms like <em>context</em>, <em>evidence</em>, <em>generalizability</em>, and <em>interpretation</em>.
+        </p>
+        <textarea id="cs_exitticket" placeholder="Type your answer here..."></textarea>
+    </div>
+
+    <div class="study-card">
+        <h3>Follow-up links for students</h3>
+        <ul>
+            <li><a href="https://www.britannica.com/science/case-study" target="_blank">Britannica: case study overview →</a></li>
+            <li><a href="https://www.simplypsychology.org/case-study.html" target="_blank">SimplyPsychology: case study method →</a></li>
+            <li><a href="https://helpfulprofessor.com/case-study-advantages-and-disadvantages/" target="_blank">Helpful Professor: strengths & limitations →</a></li>
+            <li><a href="https://www.sciencedirect.com/science/article/pii/S0039368119303334" target="_blank">ScienceDirect: case studies in social sciences →</a></li>
+        </ul>
+    </div>
+
+    <div class="generate-section">
+        <h3>🎉 Ready to Create Your Presentation?</h3>
+        <p>Generate slides based on your responses above.</p>
+        <div class="button-group">
+            <button class="generate-btn" id="viewSlidesBtn">📊 View Slideshow</button>
+            <button class="download-btn" id="downloadPptBtn">📥 Download PowerPoint</button>
+        </div>
+    </div>
+
+    <div class="slide-viewer" id="slideViewer">
+        <div class="slide-controls">
+            <button class="slide-nav-btn" id="prevSlideBtn">← Previous</button>
+            <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">0</span></span>
+            <button class="slide-nav-btn" id="nextSlideBtn">Next →</button>
+        </div>
+
+        <div id="slidesContainer"></div>
+    </div>
+</div>
+
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        let totalSlidesCount = 0;
+
+        // Auto-save functionality
+        const textareas = ['cs_def','cs_limits','cs_hm','cs_gage','cs_genie','cs_business','cs_activity1','cs_activity2','cs_exitticket'];
+
+        function saveData() {
+            const data = {};
+            textareas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+
+            const studentData = { answers: data, timestamp: new Date().toISOString() };
+            localStorage.setItem('tokCaseStudies', JSON.stringify(studentData));
+            showSaveIndicator();
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('tokCaseStudies');
+            if (!saved) return;
+            const studentData = JSON.parse(saved);
+            Object.keys(studentData.answers).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = studentData.answers[id];
+            });
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Add event listeners for auto-save
+        textareas.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('input', () => {
+                clearTimeout(el.saveTimeout);
+                el.saveTimeout = setTimeout(saveData, 1000);
+            });
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadData);
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        function collectAnswers() {
+            return {
+                cs_def: document.getElementById('cs_def').value || 'Not answered',
+                cs_limits: document.getElementById('cs_limits').value || 'Not answered',
+                cs_hm: document.getElementById('cs_hm').value || 'Not answered',
+                cs_gage: document.getElementById('cs_gage').value || 'Not answered',
+                cs_genie: document.getElementById('cs_genie').value || 'Not answered',
+                cs_business: document.getElementById('cs_business').value || 'Not answered',
+                cs_activity1: document.getElementById('cs_activity1').value || 'Not answered',
+                cs_activity2: document.getElementById('cs_activity2').value || 'Not answered',
+                cs_exitticket: document.getElementById('cs_exitticket').value || 'Not answered'
+            };
+        }
+
+        function showSlides() {
+            const data = collectAnswers();
+
+            const slidesHTML = `
+                <div class="slide active slide-title">
+                    <h2>Case Studies in the Human Sciences</h2>
+                    <p>What They Tell Us — and What They Don’t</p>
+                    <p style="margin-top: 30px; font-size: 1em;">A TOK Exploration</p>
+                </div>
+
+                <div class="slide">
+                    <h2>What is a Case Study?</h2>
+                    <h3>My definition:</h3>
+                    <p>${data.cs_def}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Limits and Certainty</h2>
+                    <h3>One key limitation:</h3>
+                    <p>${data.cs_limits}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Case Study: H.M.</h2>
+                    <h3>What we learned:</h3>
+                    <p>${data.cs_hm}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Case Study: Phineas Gage</h2>
+                    <h3>Strengths and limitations:</h3>
+                    <p>${data.cs_gage}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Case Study: Genie</h2>
+                    <h3>Value and ethics:</h3>
+                    <p>${data.cs_genie}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Business Case Studies</h2>
+                    <h3>Topic + evidence sources:</h3>
+                    <p>${data.cs_business}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Activity 1: Compare Methods</h2>
+                    <p>${data.cs_activity1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Activity 2: Evaluate a Case</h2>
+                    <p>${data.cs_activity2}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>Exit Ticket</h2>
+                    <h3>Deep understanding vs. limited certainty:</h3>
+                    <p>${data.cs_exitticket}</p>
+                </div>
+
+                <div class="slide slide-title">
+                    <h2>Questions?</h2>
+                    <p style="font-size: 1.2em;">Thank you for exploring case studies!</p>
+                </div>
+            `;
+
+            const slidesContainer = document.getElementById('slidesContainer');
+            slidesContainer.innerHTML = slidesHTML;
+
+            const slideViewer = document.getElementById('slideViewer');
+            slideViewer.classList.add('show');
+
+            const slides = slidesContainer.getElementsByClassName('slide');
+            totalSlidesCount = slides.length;
+            document.getElementById('totalSlides').textContent = totalSlidesCount;
+            currentSlideIndex = 0;
+            updateSlideDisplay();
+
+            slideViewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('#slidesContainer .slide');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlideIndex) slide.classList.add('active');
+            });
+
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+
+            const prevBtn = document.getElementById('prevSlideBtn');
+            const nextBtn = document.getElementById('nextSlideBtn');
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === totalSlidesCount - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlidesCount - 1) {
+                currentSlideIndex++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlideDisplay();
+            }
+        }
+
+        // --- FIXED: PowerPoint export ---
+        async function downloadPowerPoint() {
+            if (typeof window.PptxGenJS === 'undefined') {
+                alert('PowerPoint export library failed to load. Please refresh and try again.');
+                return;
+            }
+
+            const data = collectAnswers();
+            // Fixed the regex here to handle newlines correctly for PPT generation
+            const safeText = (t) => (t ?? '').toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+            try {
+                const pptx = new window.PptxGenJS();
+                pptx.layout = 'LAYOUT_WIDE';
+
+                pptx.author = 'TOK Student';
+                pptx.subject = 'Case Studies in the Human Sciences';
+                pptx.title = 'Case Studies in Human Sciences';
+
+                let slide = pptx.addSlide();
+                slide.background = { color: '667EEA' };
+                slide.addText('Case Studies in the Human Sciences', {
+                    x: 0.5, y: 2.0, w: 12.33, h: 1.2,
+                    fontSize: 40, bold: true, color: 'FFFFFF', align: 'center'
+                });
+                slide.addText('What They Tell Us — and What They Don’t', {
+                    x: 0.5, y: 3.3, w: 12.33, h: 0.6,
+                    fontSize: 22, color: 'FFFFFF', align: 'center'
+                });
+
+                const addQSlide = (title, body) => {
+                    const s = pptx.addSlide();
+                    s.addText(title, { x: 0.6, y: 0.5, w: 12.0, h: 0.8, fontSize: 30, bold: true, color: '2D3748' });
+                    s.addText(safeText(body), { x: 0.6, y: 1.4, w: 12.0, h: 5.4, fontSize: 18, color: '4A5568', valign: 'top', wrap: true });
+                };
+
+                addQSlide('What is a Case Study?', data.cs_def);
+                addQSlide('Limits and Certainty', data.cs_limits);
+                addQSlide('Case Study: H.M.', data.cs_hm);
+                addQSlide('Case Study: Phineas Gage', data.cs_gage);
+                addQSlide('Case Study: Genie', data.cs_genie);
+                addQSlide('Business Case Studies', data.cs_business);
+                addQSlide('Activity 1: Compare Methods', data.cs_activity1);
+                addQSlide('Activity 2: Evaluate a Case', data.cs_activity2);
+                addQSlide('Exit Ticket', data.cs_exitticket);
+
+                slide = pptx.addSlide();
+                slide.background = { color: '764BA2' };
+                slide.addText('Questions?', { x: 0.5, y: 2.5, w: 12.33, h: 1, fontSize: 48, bold: true, color: 'FFFFFF', align: 'center' });
+                slide.addText('Thank you for exploring case studies!', { x: 0.5, y: 3.8, w: 12.33, h: 0.5, fontSize: 20, color: 'FFFFFF', align: 'center' });
+
+                await pptx.writeFile({ fileName: 'Case_Studies_Human_Sciences.pptx' });
+            } catch (err) {
+                console.error('PowerPoint export error:', err);
+                alert('PowerPoint download failed. Open DevTools → Console to see the error details.');
+            }
+        }
+        // --- end fixed export ---
+
+        // Event listeners
+        document.getElementById('viewSlidesBtn').addEventListener('click', showSlides);
+        document.getElementById('downloadPptBtn').addEventListener('click', downloadPowerPoint);
+        document.getElementById('prevSlideBtn').addEventListener('click', previousSlide);
+        document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slideViewer = document.getElementById('slideViewer');
+            if (slideViewer && slideViewer.classList.contains('show')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                else if (e.key === 'ArrowLeft') previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>
