@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10. Sociology: Foundations, Identity Scripts, and Digital Agency</title>
+
+    <!-- PptxGenJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+
+    <style>
+        :root {
+            --primary: #1a202c;
+            --secondary: #2d3748;
+            --accent: #2b6cb0;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --bg: #f7fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #4a5568 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+        }
+
+        header h1 { color: var(--primary); font-size: 2.4em; margin-bottom: 10px; }
+        header p { color: #555; font-size: 1.2em; font-weight: 300; }
+
+        .video-section {
+            padding: 30px;
+            background: #edf2f7;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        .tabs {
+            display: flex;
+            background: #e2e8f0;
+            overflow-x: auto;
+            border-bottom: 2px solid #cbd5e0;
+        }
+
+        .tab-button {
+            padding: 18px 28px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 700;
+            color: #4a5568;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            background: white;
+            color: var(--accent);
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 45px;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .tab-content.active { display: block; }
+
+        .content-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .content-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4em; }
+
+        .tok-insight {
+            background: #fffaf0;
+            border-left: 6px solid var(--warning);
+            padding: 20px;
+            margin: 25px 0;
+            font-weight: 500;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-family: inherit;
+            margin-top: 12px;
+            font-size: 1.05em;
+            transition: 0.2s;
+        }
+
+        textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2); }
+
+        .btn-group {
+            text-align: center;
+            padding: 50px;
+            background: #f1f5f9;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            margin: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-main { background: var(--accent); color: white; }
+        .btn-download { background: var(--success); color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 7px 14px rgba(0,0,0,0.1); }
+
+        .slide-viewer {
+            display: none;
+            background: #1a202c;
+            padding: 60px;
+            margin-top: 30px;
+        }
+
+        .slide {
+            background: white;
+            padding: 60px;
+            min-height: 500px;
+            display: none;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .slide.active { display: block; }
+
+        @keyframes slideIn { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 25px; right: 25px;
+            background: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: 0.4s;
+            font-weight: bold;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="save-indicator" id="saveNote">✓ Draft Auto-Saved</div>
+
+    <div class="container">
+        <header>
+            <h1>Sociology: Power, Identity, and Agency</h1>
+            <p>From Social Construction to Identity Scripts and Digital Influence</p>
+        </header>
+
+        <div class="video-section">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/PZ07_mG9-1A" frameborder="0"></iframe>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/tkpUyB2xgTM" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="foundations">1. Scope</button>
+            <button class="tab-button" data-tab="power">2. Power & Ideology</button>
+            <button class="tab-button" data-tab="intersectionality">3. Intersectionality</button>
+            <button class="tab-button" data-tab="case">4. Global Case Study</button>
+            <button class="tab-button" data-tab="digital">5. Digital Identity</button>
+            <button class="tab-button" data-tab="final">6. TOK Synthesis</button>
+        </nav>
+
+        <!-- SECTION 1: FOUNDATIONS -->
+        <div id="foundations" class="tab-content active">
+            <h2>The Scope of Sociology</h2>
+            <div class="content-card">
+                <h3>What is Sociology?</h3>
+                <p>Sociology studies the invisible threads that bind individuals into groups and institutions. <strong>Demography</strong> provides the statistical evidence of these shifts—tracking birth rates, migration patterns, and wealth distribution.</p>
+            </div>
+            <p><strong>Slide 1: Definition & Scope</strong></p>
+            <textarea id="s1" placeholder="Define sociology and demography. Why must a sociologist look at the group rather than just the individual?"></textarea>
+            
+            <p style="margin-top:25px"><strong>Slide 2: Social Stratification & Merit</strong></p>
+            <textarea id="s2" placeholder="How do societies rank individuals (wealth, prestige, education)? Contrast a structural view (the system is rigged) with a meritocratic view (individual effort prevails)."></textarea>
+        </div>
+
+        <!-- SECTION 2: POWER -->
+        <div id="power" class="tab-content">
+            <h2>Sociological Power & The Ideological Lens</h2>
+            <div class="content-card">
+                <h3>Interpreting the Data</h3>
+                <p>In sociology, facts are rarely "raw." They are processed through <strong>Ideology</strong>.
+                <br>• <strong>The Structuralist Lens:</strong> Focuses on institutional power and historical barriers.
+                <br>• <strong>The Agency Lens:</strong> Emphasizes individual choices, cultural values, and the incentives provided by free markets.</p>
+            </div>
+            <p><strong>Slide 3: Types of Power</strong></p>
+            <textarea id="s3" placeholder="Distinguish between Authority (legal right to lead) and Systemic Power (shaping of cultural norms). How does power influence demographic data?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 4: Ideological Interpretation</strong></p>
+            <textarea id="s4" placeholder="How do your political assumptions change the way you define 'Success'? Use the wealth gap as an example."></textarea>
+        </div>
+
+        <!-- SECTION 3: INTERSECTIONALITY -->
+        <div id="intersectionality" class="tab-content">
+            <h2>The Evolution of Intersectionality</h2>
+            <div class="content-card">
+                <h3>History: From Concept to Script</h3>
+                <p>Coined by <strong>Kimberlé Crenshaw (1989)</strong>, intersectionality began as a specific legal tool to describe how black women faced overlapping discrimination that neither "race" nor "gender" laws alone captured. 
+                <br><br>Over time, the concept has migrated from a <em>descriptive</em> tool into a <em>prescriptive</em> script. Critics argue that it now often functions as a hierarchy of grievances, encouraging individuals to see themselves primarily through their tally of "oppressions" rather than their unique capabilities.</p>
+            </div>
+            <p><strong>Slide 5: The Origins of Intersectionality</strong></p>
+            <textarea id="s5" placeholder="Describe Crenshaw's original intent. How was it meant to solve a gap in the legal system?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 6: Intersectionality as an 'Identity Script'</strong></p>
+            <textarea id="s6" placeholder="Explain the critique that intersectionality has become a 'script for victimhood.' How does focus on group identity undermine individual agency and merit?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 7: The 'Oppression Olympics'</strong></p>
+            <textarea id="s7" placeholder="Discuss the social consequences of ranking people based on group status. Does this help social unity or create further division?"></textarea>
+        </div>
+
+        <!-- SECTION 4: GLOBAL CASE STUDY -->
+        <div id="case" class="tab-content">
+            <h2>Global Context: Diversity in Achievement</h2>
+            <div class="content-card">
+                <h3>Challenging the Standard Narrative</h3>
+                <p>The "Victim Script" often falls apart when we look at global demographic patterns. For instance, <strong>Nigerian Americans</strong> are one of the most successful groups in the US (64% college graduation rate). This achievement suggests that cultural values, selective migration, and individual drive can overcome historical structural barriers.</p>
+            </div>
+            <p><strong>Slide 8: Nigerian Immigrants Case Study</strong></p>
+            <textarea id="s8" placeholder="Summarize the achievement data for Nigerian Americans. Why is this a 'counter-narrative' to traditional sociological views on race?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 9: Selective Migration vs. Systemic Bias</strong></p>
+            <textarea id="s9" placeholder="How does the selection of highly skilled immigrants (selective migration) change the demographic outcome? How does this complicate the idea of 'systemic racism'?"></textarea>
+        </div>
+
+        <!-- SECTION 5: DIGITAL AGENCY -->
+        <div id="digital" class="tab-content">
+            <h2>Digital Manipulation & The Modern Identity</h2>
+            <div class="video-container" style="width: 60%; margin: 20px auto; padding-bottom: 33.75%;">
+                <iframe src="https://www.youtube.com/embed/fThtW_E9pvA" frameborder="0"></iframe>
+            </div>
+            <div class="content-card">
+                <h3>The New Doll Test</h3>
+                <p>History's "Doll Tests" showed how children were conditioned to value others more than themselves. Today, mobile addiction and gaming mechanics perform a similar trick—conditioning students to value a "digital script" over their own academic and personal health.</p>
+            </div>
+            <p><strong>Slide 10: Behavioral Exploitation</strong></p>
+            <textarea id="s10" placeholder="Compare the social pressure of the Doll Test with the psychological manipulation of mobile apps. Are we being conditioned to be addicts?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 11: Dark Patterns & Control</strong></p>
+            <textarea id="s11" placeholder="Define 'Dark Patterns.' How do tech companies use 'Variable Rewards' and FOMO to exercise power over your daily agency?"></textarea>
+        </div>
+
+        <!-- SECTION 6: TOK SYNTHESIS -->
+        <div id="final" class="tab-content">
+            <h2>TOK Synthesis & Methodology</h2>
+            <div class="tok-insight">
+                "The way we categorize humans is the way we control the knowledge about them."
+            </div>
+            <p><strong>Slide 12: Methodological Challenges</strong></p>
+            <textarea id="s12" placeholder="Discuss the difficulty of producing certain knowledge in Sociology. How does the observer's political ideology affect the 'certainty' of the results?"></textarea>
+
+            <p style="margin-top:25px"><strong>Slide 13: Summary: Reclaiming Agency</strong></p>
+            <textarea id="s13" placeholder="Final Synthesis: How can an individual reclaim agency from social scripts (intersectionality) and digital manipulation (mobile addiction)?"></textarea>
+
+            <div class="btn-group">
+                <button class="btn btn-main" id="viewSlides">📊 Preview Slides</button>
+                <button class="btn btn-download" id="downloadPpt">📥 Download 15-Slide PPT</button>
+            </div>
+        </div>
+
+        <div class="slide-viewer" id="viewer">
+            <div id="slideSpace"></div>
+            <div style="text-align:center; margin-top:30px">
+                <button class="btn btn-main" onclick="changeSlide(-1)">Back</button>
+                <button class="btn btn-main" onclick="changeSlide(1)">Next</button>
+                <p style="color:white; margin-top:10px" id="slideCount"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ids = ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13'];
+        
+        // Auto-save logic
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            el.value = localStorage.getItem('lesson_v3_'+id) || "";
+            el.addEventListener('input', () => {
+                localStorage.setItem('lesson_v3_'+id, el.value);
+                showSave();
+            });
+        });
+
+        function showSave() {
+            const sn = document.getElementById('saveNote');
+            sn.style.opacity = 1;
+            setTimeout(() => sn.style.opacity = 0, 1500);
+        }
+
+        // Tabs logic
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button, .tab-content').forEach(x => x.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Slideshow logic
+        let currentS = 0;
+        document.getElementById('viewSlides').addEventListener('click', () => {
+            const space = document.getElementById('slideSpace');
+            let html = `
+                <div class="slide active"><h1 style="color:#2b6cb0; font-size:3em">Sociology & Agency</h1><p style="font-size:1.5em; color:#444">Demographics, Identity Scripts, and Digital Choice</p></div>
+            `;
+            ids.forEach((id, idx) => {
+                html += `<div class="slide"><h2>Slide ${idx+2}</h2><p style="font-size:1.2em; line-height:1.8">${document.getElementById(id).value || "No content added."}</p></div>`;
+            });
+            html += `<div class="slide"><h2>Final Synthesis</h2><p>Discussion & Q&A</p></div>`;
+            space.innerHTML = html;
+            document.getElementById('viewer').style.display = 'block';
+            document.getElementById('viewer').scrollIntoView();
+            updateCount();
+        });
+
+        function changeSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentS].classList.remove('active');
+            currentS = (currentS + n + slides.length) % slides.length;
+            slides[currentS].classList.add('active');
+            updateCount();
+        }
+
+        function updateCount() {
+            const slides = document.querySelectorAll('.slide');
+            document.getElementById('slideCount').innerText = `Slide ${currentS + 1} of ${slides.length}`;
+        }
+
+        // PowerPoint Export
+        document.getElementById('downloadPpt').addEventListener('click', () => {
+            const pptx = new PptxGenJS();
+            pptx.layout = 'LAYOUT_WIDE';
+
+            // 1. Title
+            let s = pptx.addSlide();
+            s.background = { color: '1a202c' };
+            s.addText("Sociology: Power, Identity, & Agency", { x:1, y:2.5, w:'80%', fontSize:44, color:'ffffff', bold:true, align:'center' });
+            s.addText("A TOK-Informed Social Analysis", { x:1, y:3.5, w:'80%', fontSize:24, color:'38a169', align:'center' });
+
+            const titles = [
+                "1. Demographics & Scope", "2. Stratification & Merit", "3. Defining Systemic Power", 
+                "4. The Ideological Lens", "5. History of Intersectionality", "6. The Critique of Identity Scripts",
+                "7. Consequences of Groupism", "8. Case Study: Nigerian Achievement", "9. Selective Migration & Data",
+                "10. Digital Condition: The New Doll Test", "11. Behavioral Design & FOMO", "12. TOK Methodology", "13. Reclaiming Agency"
+            ];
+
+            // 2-14. Content Slides
+            ids.forEach((id, i) => {
+                let cs = pptx.addSlide();
+                cs.addText(titles[i], { x:0.5, y:0.4, w:12, fontSize:32, color:'2b6cb0', bold:true });
+                cs.addShape(pptx.ShapeType.line, { x:0.5, y:1.1, w:12, h:0.01, line:{color:'cbd5e0', width:2} });
+                cs.addText(document.getElementById(id).value || "Student Analysis draft...", { x:0.5, y:1.5, w:12, h:4, fontSize:21, color:'333333', valign:'top', wrap:true });
+            });
+
+            // 15. Closing Discussion
+            let f = pptx.addSlide();
+            f.addText("Final Discussion Topics", { x:0.5, y:0.4, fontSize:32, bold:true, color: 'd69e2e' });
+            f.addText("• Has intersectionality helped or hindered individual empowerment?\n• Is mobile usage a demographic metric of control?\n• How does selective data shape our worldview?", { x:1, y:2, w:11, fontSize:26 });
+
+            pptx.writeFile({ fileName: 'Sociology_And_Agency_Full_Lesson.pptx' });
+        });
+    </script>
+</body>
+</html>
