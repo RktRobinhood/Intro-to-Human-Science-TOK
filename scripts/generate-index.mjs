@@ -13,12 +13,27 @@ fs.rmSync(DIST, { recursive: true, force: true });
 if (fs.existsSync(PROJECTS_DIR)) fs.cpSync(PROJECTS_DIR, path.join(DIST, "projects"), { recursive: true });
 if (fs.existsSync(PICTURES_DIR)) fs.cpSync(PICTURES_DIR, path.join(DIST, "pictures"), { recursive: true });
 
-// 3. Process Projects
-const projects = fs.existsSync(PROJECTS_DIR) ? fs.readdirSync(PROJECTS_DIR).filter(f => fs.existsSync(path.join(PROJECTS_DIR, f, "index.html"))).map(folder => {
-  const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
-  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder.replace(/-/g, " ");
-  return `<li><a href="./projects/${folder}/index.html">${title}</a></li>`;
-}).sort().join("") : "<li>No projects found.</li>";
+// 3. Process Projects (with Natural Numerical Sorting)
+let projectsHTML = "<li>No projects found.</li>";
+
+if (fs.existsSync(PROJECTS_DIR)) {
+  const projectFolders = fs.readdirSync(PROJECTS_DIR).filter(f => 
+    fs.existsSync(path.join(PROJECTS_DIR, f, "index.html"))
+  );
+
+  const projectList = projectFolders.map(folder => {
+    const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
+    const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder.replace(/-/g, " ");
+    return { title, folder };
+  });
+
+  // Sort logic: "numeric: true" ensures 10 comes after 2
+  projectList.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }));
+
+  projectsHTML = projectList
+    .map(p => `<li><a href="./projects/${p.folder}/index.html">${p.title}</a></li>`)
+    .join("");
+}
 
 // 4. Process Gallery Images
 const imgExts = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
@@ -39,15 +54,13 @@ const fullHtml = `<!doctype html>
     body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 5vw; line-height: 1.6; }
     .container { max-width: 1000px; margin: 0 auto; }
     
-    /* Instructions Styling */
     .preamble { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 16px; margin-bottom: 50px; }
-    .preamble h2 { margin-top: 0; color: var(--accent); text-transform: none; letter-spacing: normal; font-size: 1.8rem; opacity: 1; border: none; }
+    .preamble h2 { margin-top: 0; color: var(--accent); font-size: 1.8rem; border: none; opacity: 1; text-transform: none; letter-spacing: normal; }
     .preamble p { margin-bottom: 1.2rem; font-size: 1.05rem; opacity: 0.9; }
-    .preamble ul { display: block; grid-template-columns: none; background: transparent; border: none; padding-left: 20px; }
-    .preamble li { background: transparent; border: none; padding: 5px 0; list-style: disc; display: list-item; }
+    .preamble ul { display: block; padding-left: 20px; }
+    .preamble li { background: transparent; border: none; padding: 5px 0; list-style: disc; display: list-item; text-align: left; }
     .important { border-left: 4px solid var(--accent); padding-left: 15px; font-style: italic; margin-top: 20px; }
 
-    /* Links & Gallery */
     a { color: var(--accent); text-decoration: none; font-weight: bold; }
     a:hover { text-decoration: underline; }
     section { margin-bottom: 60px; }
@@ -81,7 +94,7 @@ const fullHtml = `<!doctype html>
       </ul>
 
       <strong>Phase 2: Speed Dating (Next Lessons)</strong>
-      <p>The next classes will be a high-energy teaching session consisting of 5 rounds (20 minutes each). In each round:</p>
+      <p>The next classes will be high-energy teaching sessions consisting of 5 rounds (20 minutes each). In each round:</p>
       <ul>
         <li><strong>10 Minutes:</strong> You teach your topic to a group that hasn't seen it yet.</li>
         <li><strong>10 Minutes:</strong> They teach their topic to you.</li>
@@ -94,7 +107,7 @@ const fullHtml = `<!doctype html>
 
     <section>
       <h2>Research Topics</h2>
-      <ul class="project-grid">${projects}</ul>
+      <ul class="project-grid">${projectsHTML}</ul>
     </section>
 
     <section>
@@ -119,5 +132,4 @@ const fullHtml = `<!doctype html>
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 
-console.log(`Build complete: ${projects.length} topics and ${images.length} gallery images.`);
-
+c
