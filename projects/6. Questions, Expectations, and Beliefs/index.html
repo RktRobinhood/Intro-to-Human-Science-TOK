@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6. TOK: Questions, Expectations, and Beliefs in Human Sciences</title>
+
+    <!-- PptxGenJS (BUNDLE build includes required browser deps) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof window.PptxGenJS !== 'undefined') return;
+            const s = document.createElement('script');
+            s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';
+            s.defer = true;
+            document.head.appendChild(s);
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #2d3748;
+            --accent: #f472b6;
+            --bg-light: #f7fafc;
+            --success: #48bb78;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+
+        .video-section { padding: 40px; background: var(--bg-light); border-bottom: 3px solid var(--primary); }
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px;
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .tabs { display: flex; background: #edf2f7; border-bottom: 2px solid #cbd5e0; overflow-x: auto; }
+        .tab-button {
+            padding: 20px 25px; background: none; border: none; cursor: pointer;
+            font-size: 0.95em; font-weight: 700; color: #4a5568; transition: all 0.3s ease;
+            border-bottom: 3px solid transparent; white-space: nowrap;
+        }
+        .tab-button.active { color: var(--primary); border-bottom-color: var(--primary); background: white; }
+
+        .tab-content { display: none; padding: 40px; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-header { color: var(--primary-dark); font-size: 1.8em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); }
+        
+        /* Pedagogical Callout Box */
+        .scaffold-box {
+            background: #fffaf0;
+            border-left: 4px solid #ed8936;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            color: #744210;
+        }
+
+        .key-terms { background: #fff5f5; border-left: 4px solid #fc8181; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .key-terms h3 { color: #c53030; margin-bottom: 15px; }
+        .key-terms ul { list-style: none; padding-left: 0; }
+        .key-terms li { padding: 8px 0; border-bottom: 1px solid #fed7d7; }
+        .key-terms li strong { color: #742a2a; }
+
+        .question-box { background: var(--bg-light); border-left: 4px solid var(--primary); padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .question-box h4 { color: var(--primary-dark); margin-bottom: 12px; font-size: 1.1em; }
+        .question-box p.hint { font-size: 0.9em; color: #718096; margin-bottom: 10px; line-height: 1.4; }
+
+        textarea {
+            width: 100%; min-height: 130px; padding: 15px; border: 1px solid #cbd5e0;
+            border-radius: 8px; font-family: inherit; font-size: 1em; resize: vertical; line-height: 1.6;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+
+        .study-card { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 25px; margin: 20px 0; }
+        .study-card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3em; }
+
+        .resource-links { margin-top: 15px; padding: 12px; background: #fdf2f8; border-radius: 8px; border-left: 4px solid var(--accent); }
+        .resource-links strong { color: #be185d; font-size: 0.85em; display: block; margin-bottom: 5px; }
+        .resource-links a { margin-right: 15px; color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9em; }
+        .resource-links a:hover { text-decoration: underline; }
+
+        .exit-ticket { background: linear-gradient(135deg, var(--primary) 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-top: 30px; }
+        .exit-ticket h3 { margin-bottom: 15px; font-size: 1.5em; }
+        .exit-ticket textarea { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; }
+        .exit-ticket textarea::placeholder { color: rgba(255,255,255,0.5); }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+
+        .generate-section { background: #f0fff4; border: 2px solid var(--success); border-radius: 10px; padding: 30px; text-align: center; margin-top: 30px; }
+        .button-group { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .btn { padding: 12px 25px; font-weight: 700; border-radius: 8px; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+
+        .slide-viewer { background: #1a202c; border-radius: 10px; padding: 20px; margin-top: 30px; display: none; }
+        .slide-viewer.show { display: block; }
+        .slide { background: white; border-radius: 10px; padding: 50px; min-height: 480px; display: none; }
+        .slide.active { display: block; }
+        .slide h2 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; font-size: 2em; }
+        .slide p { line-height: 1.8; font-size: 1.15em; color: #4a5568; white-space: pre-wrap; }
+
+        .save-indicator { position: fixed; bottom: 20px; right: 20px; background: var(--success); color: white; padding: 10px 20px; border-radius: 5px; opacity: 0; transition: opacity 0.3s; z-index: 1000; }
+        .save-indicator.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="save-indicator" id="saveIndicator">✓ Progress Saved Automatically</div>
+
+    <div class="container">
+        <header>
+            <p>TOK Human Sciences Inquiry</p>
+            <h1>Questions, Expectations, and Beliefs</h1>
+        </header>
+
+        <!-- INTRO HOOK -->
+        <div class="video-section">
+            <span class="pill">The Hook</span>
+            <h2 style="margin-bottom: 15px;">📺 How Questions Shape Reality</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/G0ZZJXw4MTA" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="grid">
+                <div class="question-box">
+                    <h4>Video Reflection</h4>
+                    <p class="hint">Loftus shows that memory is 'reconstructive.' How does the use of a single word (like 'smashed' vs 'hit') change the knowledge stored in a person's head?</p>
+                    <textarea id="hookReaction" placeholder="Explain the impact of language on memory here..."></textarea>
+                </div>
+                <div class="question-box">
+                    <h4>TOK Concept Mapping</h4>
+                    <p class="hint">Identify 3 core TOK terms that apply here. (e.g., Is this a problem of <em>Reliability</em> or <em>Validity</em>? Does it affect <em>Certainty</em>?)</p>
+                    <textarea id="tokTerms" placeholder="List terms and explain their relevance..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="intro">1. Key Terms</button>
+            <button class="tab-button" data-tab="examples">2. Case Studies</button>
+            <button class="tab-button" data-tab="group">3. Evaluation & Thesis</button>
+            <button class="tab-button" data-tab="discussion">4. Final Discussion</button>
+            <button class="tab-button" data-tab="build">5. Slideshow Export</button>
+        </div>
+
+        <!-- TAB 1: SCOPE -->
+        <div id="intro" class="tab-content active">
+            <h2 class="section-header">The Vocabulary of Human Sciences</h2>
+            <p style="margin-bottom: 20px;">To discuss this topic like a TOK student, you must use precise language. Use these definitions to support your answers in the following tabs.</p>
+            
+            <div class="key-terms">
+                <h3>🔑 Essential TOK Terms</h3>
+                <ul>
+                    <li><strong>Validity:</strong> Does the experiment actually measure what it says it's measuring? (e.g., measuring 'intelligence' vs. measuring 'test-taking skill').</li>
+                    <li><strong>Reliability:</strong> If we repeat the study exactly, will we get the same results?</li>
+                    <li><strong>Observer Effect:</strong> The phenomenon where the act of observing a human behavior changes that behavior.</li>
+                    <li><strong>Leading Questions:</strong> Questions that suggest a particular answer or contain information the subject did not previously have.</li>
+                    <li><strong>Self-Fulfilling Prophecy:</strong> When a belief or expectation leads to its own fulfillment.</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h4>Methodological Paradox</h4>
+                <p class="hint">In Natural Sciences, an atom doesn't care if it's being watched. In Human Sciences, humans do. Why does this create a unique problem for finding 'Objective Truth' in Human Sciences?</p>
+                <textarea id="introReflection" placeholder="Discuss the difference between observing objects vs observing people..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 2: EXAMPLES -->
+        <div id="examples" class="tab-content">
+            <h2 class="section-header">Evidence Analysis</h2>
+
+            <div class="study-card">
+                <h3>Loftus & Palmer: Memory Construction</h3>
+                <div class="resource-links">
+                    <strong>🔗 RESEARCH LINKS:</strong>
+                    <a href="https://www.verywellmind.com/what-is-the-misinformation-effect-2795353" target="_blank">The Misinformation Effect</a>
+                    <a href="https://thedecisionlab.com/biases/misinformation-effect" target="_blank">Decision Lab Analysis</a>
+                </div>
+                <div class="grid">
+                    <div class="question-box">
+                        <h4>Specific Finding</h4>
+                        <p class="hint">Describe exactly what happened to the speed estimates based on the verb used.</p>
+                        <textarea id="loftusFinding"></textarea>
+                    </div>
+                    <div class="question-box">
+                        <h4>TOK Conclusion</h4>
+                        <p class="hint">If language can overwrite memory, what does this tell us about the <strong>Reliability</strong> of eyewitness testimony as evidence?</p>
+                        <textarea id="loftusTok"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>Clever Hans: The Observer Bias</h3>
+                <div class="resource-links">
+                    <strong>🔗 RESEARCH LINKS:</strong>
+                    <a href="https://thedecisionlab.com/biases/observer-expectancy-effect" target="_blank">Observer-Expectancy Profile</a>
+                </div>
+                <div class="grid">
+                    <div class="question-box">
+                        <h4>The 'Hans' Flaw</h4>
+                        <p class="hint">How did the researcher's <em>expectations</em> unconsciously signal the horse? What was the horse actually 'counting'?</p>
+                        <textarea id="hansWhatWrong"></textarea>
+                    </div>
+                    <div class="question-box">
+                        <h4>Methodological Solution</h4>
+                        <p class="hint">How do modern researchers use 'Double-Blind' studies to prevent this? Why is this necessary for <strong>Objectivity</strong>?</p>
+                        <textarea id="hansBetterMethod"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="study-card">
+                <h3>The Pygmalion Effect: Belief into Reality</h3>
+                <div class="grid">
+                    <div class="question-box">
+                        <h4>The Phenomenon</h4>
+                        <p class="hint">Explain how a teacher's belief about a student's potential (even if false) actually changes that student's test scores.</p>
+                        <textarea id="sfpExample1"></textarea>
+                    </div>
+                    <div class="question-box">
+                        <h4>Data Interpretation</h4>
+                        <p class="hint">If the belief <em>creates</em> the data, is the data a 'fact' about the student or a 'fact' about the teacher's expectation?</p>
+                        <textarea id="sfpTok"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="question-box">
+                    <h4>Dr. Fox (Perceived Credibility)</h4>
+                    <p class="hint">The Dr. Fox effect shows we trust 'enthusiasm' over 'content.' What does this say about our ability to identify <strong>Expertise</strong>?</p>
+                    <textarea id="foxTok"></textarea>
+                </div>
+                <div class="question-box">
+                    <h4>Stereotype Threat (Group Data)</h4>
+                    <p class="hint">How do social expectations 'clog' cognitive performance? How might this lead to biased data in Human Science?</p>
+                    <textarea id="stTok"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: EVALUATION - PEDAGOGICAL UPDATE -->
+        <div id="group" class="tab-content">
+            <h2 class="section-header">Developing a TOK Argument</h2>
+            <div class="scaffold-box">
+                <strong>💡 Pedagogical Tip:</strong> A strong TOK argument doesn't just say "bias is bad." It explores <em>how</em> bias limits knowledge and <em>why</em> we might still value that knowledge anyway.
+            </div>
+
+            <div class="question-box">
+                <h4>Step 1: The Thesis Statement</h4>
+                <p class="hint">Create a 'To what extent' claim. <strong>Example Starter:</strong> "To what extent can we trust Human Science findings if the method of data collection is inherently subjective?"</p>
+                <textarea id="groupThesis" placeholder="Develop your main Knowledge Claim here..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>Step 2: Scrutinizing the Evidence</h4>
+                <p class="hint">Look at the studies you analyzed (Loftus, Hans, etc.). <strong>Question:</strong> Are these studies just 'exceptions,' or do they represent a fundamental flaw in how we study humans? How robust is this evidence?</p>
+                <textarea id="evidenceTrust" placeholder="Critically analyze the quality of the case studies..."></textarea>
+            </div>
+
+            <div class="grid">
+                <div class="question-box">
+                    <h4>Step 3: The Counterclaim</h4>
+                    <p class="hint">Challenge your own thesis. <strong>Starter:</strong> "However, proponents of Human Science might argue that through rigorous controls (like double-blind trials) and peer review, we can achieve a level of objectivity that..."</p>
+                    <textarea id="counterclaim" placeholder="What is the strongest argument against your thesis?"></textarea>
+                </div>
+                <div class="question-box">
+                    <h4>Step 4: The Evaluation (The 'So What?')</h4>
+                    <p class="hint">Weigh the two sides. Given the problems of expectation and belief, should we still use Human Science to make policy or law? <strong>What is the final verdict?</strong></p>
+                    <textarea id="evaluation" placeholder="Synthesize your points into a final conclusion..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: DISCUSSION - PEDAGOGICAL UPDATE -->
+        <div id="discussion" class="tab-content">
+            <h2 class="section-header">Final TOK Reflections</h2>
+            <div class="scaffold-box">
+                <strong>🎯 Goal:</strong> Connect your findings to the broader "Areas of Knowledge."
+            </div>
+
+            <div class="question-box">
+                <h4>Reflecting on Language</h4>
+                <p class="hint">In TOK, we say "the map is not the territory." If language (questions) shapes memory, are human scientists just drawing 'maps' that create their own 'territories'? Does language <em>describe</em> truth or <em>create</em> it?</p>
+                <textarea id="dq1"></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>Reflecting on the Scientific Method</h4>
+                <p class="hint">Is the "Scientific Method" (Observation, Hypothesis, Experiment) less effective in Human Sciences because humans have 'Agency' (free will) and respond to expectations?</p>
+                <textarea id="dq3"></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>The Paradox of the Observer</h4>
+                <p class="hint">Which is the bigger threat to knowledge: the <strong>Observer</strong> (who sees what they want to see) or the <strong>Subject</strong> (who behaves how they think they should)? Why?</p>
+                <textarea id="lensHard"></textarea>
+            </div>
+
+            <div class="exit-ticket">
+                <h3>📝 Final TOK Judgment</h3>
+                <p style="margin-bottom: 15px;">"Knowledge in the Human Sciences is always a co-production between the researcher and the researched." <strong>To what extent do you agree with this statement?</strong></p>
+                <textarea id="exitTicket" placeholder="Provide a sophisticated 2-3 sentence judgment..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5: SLIDES -->
+        <div id="build" class="tab-content">
+            <h2 class="section-header">Presentation Engine</h2>
+            <div class="generate-section">
+                <h3>📊 Auto-Generated 15-Slide Presentation</h3>
+                <p>Every response you have typed has been mapped to a professional slide deck.</p>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="viewSlidesBtn">📊 Preview Slideshow</button>
+                    <button class="btn btn-success" id="downloadPptBtn">📥 Download .PPTX Deck</button>
+                </div>
+            </div>
+
+            <div class="slide-viewer" id="slideViewer">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: white;">
+                    <button class="btn btn-primary" id="prevSlideBtn">← Prev</button>
+                    <span id="slideCounter">Slide 1 of 15</span>
+                    <button class="btn btn-primary" id="nextSlideBtn">Next →</button>
+                </div>
+                <div id="slidesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All field IDs used in the form
+        const fieldIds = [
+            'hookReaction', 'tokTerms', 'introReflection', 'loftusFinding', 'loftusTok', 
+            'hansWhatWrong', 'hansBetterMethod', 'sfpExample1', 'sfpTok', 'foxTok', 
+            'stTok', 'groupThesis', 'evidenceTrust', 'counterclaim', 'evaluation', 
+            'dq1', 'dq3', 'lensHard', 'exitTicket'
+        ];
+
+        // --- AUTOSAVE ---
+        function saveData() {
+            const data = {};
+            fieldIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+            localStorage.setItem('tok_pedagogical_inquiry_save', JSON.stringify(data));
+            const ind = document.getElementById('saveIndicator');
+            ind.classList.add('show');
+            setTimeout(() => ind.classList.remove('show'), 2000);
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('tok_pedagogical_inquiry_save');
+            if (!saved) return;
+            const data = JSON.parse(saved);
+            fieldIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && data[id]) el.value = data[id];
+            });
+        }
+
+        fieldIds.forEach(id => {
+            document.getElementById(id).addEventListener('input', saveData);
+        });
+
+        // --- TABS ---
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // --- SLIDE ENGINE (15 Slides) ---
+        let currentSlide = 0;
+        
+        function getSlides() {
+            const val = (id) => document.getElementById(id).value || "[No data entered for this section]";
+            return [
+                { t: "1. Investigation Overview", b: "Inquiry: Questions, Expectations, and Beliefs in the Human Sciences\n\nExploring how human interaction limits objectivity." },
+                { t: "2. The Key TOK Vocabulary", b: "- Validity & Reliability\n- Observer/Expectancy Effect\n- Leading Questions\n- Self-Fulfilling Prophecies\n- Methodological Naturalism" },
+                { t: "3. Initial Hook: Language & Memory", b: `Reflections on the Loftus Experiment:\n\n${val('hookReaction')}` },
+                { t: "4. Concepts Identified", b: `Core TOK Terminology applied to this inquiry:\n\n${val('tokTerms')}` },
+                { t: "5. The Observer Paradox", b: `Reflecting on the unique challenge of studying humans vs objects:\n\n${val('introReflection')}` },
+                { t: "6. Case Study: Loftus & Palmer", b: `Specific Findings on Language:\n${val('loftusFinding')}\n\nTOK Conclusion on Reliability:\n${val('loftusTok')}` },
+                { t: "7. Case Study: Clever Hans", b: `Flaw in Observation:\n${val('hansWhatWrong')}\n\nMethodological Improvement:\n${val('hansBetterMethod')}` },
+                { t: "8. The Pygmalion Effect", b: `Belief as a variable in performance:\n${val('sfpExample1')}\n\nData Interpretation Note:\n${val('sfpTok')}` },
+                { t: "9. Styles of Credibility", b: `Reflecting on the Dr. Fox effect (Style vs Content):\n${val('foxTok')}` },
+                { t: "10. Stereotype & Data Bias", b: `How expectations distort group knowledge claims:\n${val('stTok')}` },
+                { t: "11. The Central Thesis", b: `Our Knowledge Claim:\n\n${val('groupThesis')}` },
+                { t: "12. Evidence Scrutiny", b: `Critical analysis of the robust nature of our evidence:\n\n${val('evidenceTrust')}` },
+                { t: "13. Counterclaim Analysis", b: `Arguments for the Objectivity of Human Science:\n\n${val('counterclaim')}` },
+                { t: "14. Final Evaluation", b: `Synthesis of Argument:\n${val('evaluation')}\n\nComparative Reflection:\n${val('dq3')}` },
+                { t: "15. The Final Verdict", b: `TOK Exit Ticket Judgment:\n\n${val('exitTicket')}` }
+            ];
+        }
+
+        function renderSlide() {
+            const slides = getSlides();
+            const container = document.getElementById('slidesContainer');
+            container.innerHTML = `<div class="slide active"><h2>${slides[currentSlide].t}</h2><p>${slides[currentSlide].b}</p></div>`;
+            document.getElementById('slideCounter').textContent = `Slide ${currentSlide + 1} of 15`;
+        }
+
+        document.getElementById('viewSlidesBtn').addEventListener('click', () => {
+            document.getElementById('slideViewer').classList.add('show');
+            renderSlide();
+            document.getElementById('slideViewer').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('nextSlideBtn').addEventListener('click', () => { if (currentSlide < 14) { currentSlide++; renderSlide(); } });
+        document.getElementById('prevSlideBtn').addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; renderSlide(); } });
+
+        async function downloadPpt() {
+            const pptx = new window.PptxGenJS();
+            const slides = getSlides();
+            slides.forEach(s => {
+                let slide = pptx.addSlide();
+                slide.addText(s.t, { x: 0.5, y: 0.5, w: '90%', fontSize: 28, bold: true, color: '667EEA' });
+                slide.addText(s.b, { x: 0.5, y: 1.5, w: '90%', h: 5, fontSize: 18, color: '4A5568', valign: 'top' });
+            });
+            pptx.writeFile({ fileName: 'TOK_Human_Sciences_Presentation.pptx' });
+        }
+
+        document.getElementById('downloadPptBtn').addEventListener('click', downloadPpt);
+        window.onload = loadData;
+    </script>
+</body>
+</html>
