@@ -69,16 +69,8 @@
         }
 
         .fallback-link {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            z-index: 1;
-            pointer-events: none;
+            display: none; /* Hidden by default since videos work */
         }
-
-        .fallback-link a { pointer-events: auto; }
 
         .continue-prompt {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
