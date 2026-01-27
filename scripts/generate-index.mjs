@@ -85,7 +85,7 @@ const fullHtml = `<!doctype html>
     
     <div class="preamble">
       <h2>Collaborative Teaching Project</h2>
-      <p>You will be put into 10 groups. Each group needs to watch their video and complete the tabs underneath that elaborate or extend the topic.</p>
+      <p>You will be put into groups. Each group needs to watch their video and complete the tabs underneath that elaborate or extend the topic.</p>
       
       <strong>Phase 1: Research & Preparation (Today)</strong>
       <ul>
@@ -134,4 +134,5 @@ const fullHtml = `<!doctype html>
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 console.log("Build Complete: Index and assets generated in /dist");
+
 
