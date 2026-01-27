@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     <title>9. Measuring the World: GDP, Inequality, and Lived Reality</title>
 
     <!-- PptxGenJS -->
@@ -51,7 +52,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 10px;
@@ -64,7 +65,20 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
+            border: 0;
         }
+
+        .fallback-link {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .fallback-link a { pointer-events: auto; }
 
         .continue-prompt {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -257,17 +271,17 @@
             <p>GDP, Inequality, and the Lived Experience</p>
         </header>
 
+        <!-- HOOK VIDEO SECTION -->
         <div class="video-section">
             <h2>📺 Watch First: Wealth vs. Equality</h2>
             <div class="video-container">
-                <!-- Hook Video: Richard Wilkinson TED Talk -->
-                <!-- Updated to nocookie and added referrer policy -->
+                <div class="fallback-link">
+                    <p>Can't see the video? <a href="https://www.youtube.com/watch?v=cZ7LzE3u7Bw" target="_blank" style="color: #4facfe;">Watch on YouTube</a></p>
+                </div>
                 <iframe 
                     src="https://www.youtube-nocookie.com/embed/cZ7LzE3u7Bw?rel=0" 
-                    frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin">
+                    allowfullscreen>
                 </iframe>
             </div>
             <div class="continue-prompt">
@@ -284,6 +298,7 @@
             <button class="tab-button" data-tab="exit">Exit Ticket</button>
         </div>
 
+        <!-- 1. INTRODUCTION -->
         <div id="intro" class="tab-content active">
             <h2 class="section-header">What are we actually measuring?</h2>
             <p style="line-height: 1.8; margin-bottom: 20px;">
@@ -294,13 +309,14 @@
                 <h3>🔑 Core Metrics to Know</h3>
                 <ul style="list-style: none; line-height: 1.8;">
                     <li><strong>GDP per capita:</strong> Total economic output divided by the population (an average).</li>
-                    <li><strong>Median Income:</strong> The "middle" income where half the people earn more and half earn less. Often more realistic than an average.</li>
+                    <li><strong>Median Income:</strong> The "middle" income where half the people earn more and half earn less.</li>
                     <li><strong>Gini Coefficient:</strong> A score from 0 to 1 representing how equally income is shared.</li>
-                    <li><strong>MPI (Multidimensional Poverty Index):</strong> A measure that looks at health, school, and living standards, not just cash.</li>
+                    <li><strong>MPI (Multidimensional Poverty Index):</strong> Looks at health, school, and living standards.</li>
                 </ul>
             </div>
         </div>
 
+        <!-- 2. DATA CONCEPTS -->
         <div id="questions" class="tab-content">
             <h2 class="section-header">Checking Your Understanding</h2>
             <div class="question-box">
@@ -317,86 +333,92 @@
             </div>
         </div>
 
+        <!-- 3. USA VS EUROPE -->
         <div id="usa" class="tab-content">
             <h2 class="section-header">The American Market vs. The World</h2>
             <p style="line-height: 1.8; margin-bottom: 20px;">
-                The United States has a massive GDP. If you compare individual US states to other countries, the numbers are shocking. For example, <strong>California's</strong> economy is larger than that of <strong>Germany</strong> or <strong>India</strong>.
+                The United States has a massive GDP. If you compare individual US states to other countries, the numbers are shocking. For example, <strong>California's</strong> economy is larger than that of <strong>Germany</strong>. However, metrics like "Social Progress" vary wildly.
             </p>
             <div class="study-card">
                 <h3>Comparison: USA and Denmark</h3>
-                <ul style="margin-left: 20px; line-height: 1.6; margin-bottom: 15px;">
-                    <li><strong>The Cost of Living:</strong> University debt and housing offset raw income.</li>
-                    <li><strong>The Safety Net:</strong> Denmark uses taxes for "free" services Americans buy individually.</li>
+                <p>The US has a higher GDP per capita, but Denmark ranks higher in "Happiness" indices. Why?</p>
+                <ul style="margin-left: 20px; line-height: 1.6; margin-top: 10px;">
+                    <li><strong>Cost of Living:</strong> University debt and housing often offset high American raw income.</li>
+                    <li><strong>Safety Net:</strong> Higher taxes in Denmark pay for services Americans must buy from the market.</li>
                 </ul>
             </div>
             <div class="question-box">
                 <h4>Critical Thinking:</h4>
-                <textarea id="q_usa" placeholder="Consider raw income vs quality of life..."></textarea>
+                <p>Does the high GDP of the US reflect a better quality of life for the average citizen compared to Denmark?</p>
+                <textarea id="q_usa" placeholder="Consider costs vs income..."></textarea>
             </div>
         </div>
 
+        <!-- 4. DOLLAR STREET (FIXED) -->
         <div id="dollarstreet" class="tab-content">
             <h2 class="section-header">Case Study: Dollar Street</h2>
-            <p style="margin-bottom: 20px;">
-                Broad statistics are abstract. <span class="highlight">Dollar Street</span> turns those numbers into photos. Watch the video below to see how families living on different income levels share similar lives.
-            </p>
-
+            <p style="margin-bottom: 20px;">Watch Anna Rosling Rönnlund explain how <span class="highlight">Dollar Street</span> turns statistics into photos to show how families actually live.</p>
+            
             <div class="video-container">
-                <!-- FIXED DOLLAR STREET VIDEO: Anna Rosling Rönnlund TED Talk -->
-                <!-- Use YouTube No-Cookie to bypass ad-blockers and strict origin settings -->
-                <iframe 
-                    src="https://www.youtube-nocookie.com/embed/472_n6S_9F8?rel=0" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin">
-                </iframe>
+                <div class="fallback-link">
+                    <p>Browser blocking the video? <a href="https://www.ted.com/talks/anna_rosling_ronnlund_see_how_the_rest_of_the_world_lives_organized_by_income" target="_blank" style="color: #4facfe;">Watch directly on TED.com</a></p>
+                </div>
+                <!-- FIXED TED EMBED -->
+                <iframe src="https://embed.ted.com/talks/anna_rosling_ronnlund_see_how_the_rest_of_the_world_lives_organized_by_income" allowfullscreen></iframe>
             </div>
 
             <div class="study-card">
-                <h3>Activity: Compare Lived Realities</h3>
-                <p>Visit <a href="https://www.gapminder.org/dollar-street" target="_blank">Dollar Street</a>. Choose two families with the same income. Look at their toothbrushes and beds.</p>
+                <h3>Activity: Visit <a href="https://www.gapminder.org/dollar-street" target="_blank">Gapminder Dollar Street</a></h3>
                 <div class="question-box">
                     <h4>Observation:</h4>
+                    <p>What surprised you about how people live at the same income level in different countries?</p>
                     <textarea id="study1" placeholder="Write your observations here..."></textarea>
                 </div>
             </div>
         </div>
 
+        <!-- 5. DEBATE -->
         <div id="debate" class="tab-content">
             <h2 class="section-header">The Progress Debate</h2>
-            <p>If you were a leader designing a new "Success Index", which metric would you prioritize?</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="study-card">
                     <h3>Genuine Progress Indicator (GPI)</h3>
-                    <p>Economic growth minus environmental/social costs.</p>
+                    <p>Includes economic growth but subtracts costs like pollution and crime.</p>
                 </div>
                 <div class="study-card">
                     <h3>Multidimensional Poverty Index (MPI)</h3>
-                    <p>Focuses on health, water, and schooling.</p>
+                    <p>Counts how many people lack clean water, electricity, or primary schooling.</p>
                 </div>
             </div>
             <div class="question-box">
                 <h4>Your Argument:</h4>
-                <textarea id="wrapup"></textarea>
+                <p>Which metric would you prioritize if you were a world leader?</p>
+                <textarea id="wrapup" placeholder="Provide a reasoned argument..."></textarea>
             </div>
         </div>
 
+        <!-- 6. EXIT TICKET -->
         <div id="exit" class="tab-content">
             <h2 class="section-header">Exit Ticket</h2>
             <div class="question-box" style="background: #fffbeb; border-color: #f59e0b;">
                 <h4>Final Reflection:</h4>
+                <p>Compare your own country's GDP vs its Median Income. What does this gap tell you about your society?</p>
                 <textarea id="exitticket"></textarea>
             </div>
+
             <div class="generate-section">
-                <button class="btn btn-primary" id="viewSlidesBtn">📊 Preview Slides</button>
-                <button class="btn btn-secondary" id="downloadPptBtn">📥 Download PowerPoint</button>
+                <h3>🚀 Ready to present?</h3>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="viewSlidesBtn">📊 Preview Slides</button>
+                    <button class="btn btn-secondary" id="downloadPptBtn">📥 Download PPT</button>
+                </div>
             </div>
+
             <div class="slide-viewer" id="slideViewer">
                 <div id="slidesContainer"></div>
-                <div class="button-group">
-                    <button class="btn" id="prevBtn">Previous</button>
-                    <button class="btn" id="nextBtn">Next</button>
+                <div class="button-group" style="margin-top: 20px;">
+                    <button class="btn" style="background: #475569; color: white;" id="prevBtn">Previous</button>
+                    <button class="btn" style="background: #475569; color: white;" id="nextBtn">Next</button>
                 </div>
             </div>
         </div>
@@ -409,14 +431,14 @@
         function saveData() {
             const data = {};
             fieldIds.forEach(id => { data[id] = document.getElementById(id).value; });
-            localStorage.setItem('measuringWorldData_V3', JSON.stringify(data));
+            localStorage.setItem('measuringWorldData_V2', JSON.stringify(data));
             const indicator = document.getElementById('saveIndicator');
             indicator.classList.add('show');
             setTimeout(() => indicator.classList.remove('show'), 2000);
         }
 
         function loadData() {
-            const saved = localStorage.getItem('measuringWorldData_V3');
+            const saved = localStorage.getItem('measuringWorldData_V2');
             if (saved) {
                 const data = JSON.parse(saved);
                 fieldIds.forEach(id => { if (data[id]) document.getElementById(id).value = data[id]; });
@@ -441,38 +463,47 @@
             });
         });
 
-        // Slides & PowerPoint functionality preserved from previous version
+        // Slides logic
         let currentSlide = 0;
-        function getSlideData() {
-            return {
-                q1: document.getElementById('q1').value || "[No answer]",
-                q2: document.getElementById('q2').value || "[No answer]",
-                q3: document.getElementById('q3').value || "[No answer]",
-                qusa: document.getElementById('q_usa').value || "[No answer]",
-                study1: document.getElementById('study1').value || "[No answer]",
-                wrapup: document.getElementById('wrapup').value || "[No answer]",
-                exit: document.getElementById('exitticket').value || "[No answer]"
-            };
-        }
-
         document.getElementById('viewSlidesBtn').addEventListener('click', () => {
-            const data = getSlideData();
+            const d = fieldIds.reduce((acc, id) => ({...acc, [id]: document.getElementById(id).value || "[No answer]"}), {});
             document.getElementById('slidesContainer').innerHTML = `
-                <div class="slide active"><h1>Measuring the World</h1><p>Economic Success vs. Experience</p></div>
-                <div class="slide"><h2>Wealth vs. Distribution</h2><p>${data.q1}</p></div>
-                <div class="slide"><h2>The Reality of Metrics</h2><p>${data.q2}</p></div>
-                <div class="slide"><h2>Lived Reality (Dollar Street)</h2><p>${data.study1}</p></div>
+                <div class="slide active"><h1>Measuring the World</h1><p>Economic Reflection</p></div>
+                <div class="slide"><h2>Wealth vs Health</h2><p>${d.q1}</p></div>
+                <div class="slide"><h2>Median vs Average</h2><p>${d.q2}</p></div>
+                <div class="slide"><h2>USA vs Denmark</h2><p>${d.q_usa}</p></div>
+                <div class="slide"><h2>Dollar Street</h2><p>${d.study1}</p></div>
+                <div class="slide"><h2>Metric Argument</h2><p>${d.wrapup}</p></div>
+                <div class="slide"><h2>Local Context</h2><p>${d.exitticket}</p></div>
             `;
             document.getElementById('slideViewer').classList.add('show');
+            currentSlide = 0;
+            updateSlides();
         });
 
-        document.getElementById('downloadPptBtn').addEventListener('click', async () => {
-            const data = getSlideData();
+        function updateSlides() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const slides = document.querySelectorAll('.slide');
+            if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSlide > 0) { currentSlide--; updateSlides(); }
+        });
+
+        // PPT logic
+        document.getElementById('downloadPptBtn').addEventListener('click', () => {
             const pptx = new window.PptxGenJS();
-            let slide = pptx.addSlide();
-            slide.addText("Economic Success Summary", { x: 0.5, y: 0.5, fontSize: 24 });
-            slide.addText(data.q1, { x: 0.5, y: 1.5, fontSize: 14 });
-            pptx.writeFile({ fileName: 'Global_Economics.pptx' });
+            fieldIds.forEach(id => {
+                let slide = pptx.addSlide();
+                slide.addText(id.toUpperCase(), { x:0.5, y:0.5, fontSize:20, bold:true });
+                slide.addText(document.getElementById(id).value, { x:0.5, y:1.5, fontSize:14 });
+            });
+            pptx.writeFile({ fileName: 'Global_Economics_Lesson.pptx' });
         });
     </script>
 </body>
