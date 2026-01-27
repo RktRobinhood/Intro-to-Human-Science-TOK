@@ -5,59 +5,61 @@ import path from "path";
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, "dist");
 const PROJECTS_DIR = path.join(ROOT, "projects");
-const PICTURES_DIR = path.join(ROOT, "pictures");
-const VIDEOS_DIR = path.join(ROOT, "videos"); // Added videos path
+const GALLERY_DIR = path.join(ROOT, "gallery"); // Unified folder
+const TOOLS_DIR = path.join(ROOT, "tools");     // New tools folder
 
 // 1. Setup Dist (Clean and Recreate)
 if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(path.join(DIST, "projects"), { recursive: true });
-fs.mkdirSync(path.join(DIST, "pictures"), { recursive: true });
-fs.mkdirSync(path.join(DIST, "videos"), { recursive: true }); // Create dist/videos
+fs.mkdirSync(path.join(DIST, "gallery"), { recursive: true });
+fs.mkdirSync(path.join(DIST, "tools"), { recursive: true });
 
 // 2. Copy Assets
 if (fs.existsSync(PROJECTS_DIR)) fs.cpSync(PROJECTS_DIR, path.join(DIST, "projects"), { recursive: true });
-if (fs.existsSync(PICTURES_DIR)) fs.cpSync(PICTURES_DIR, path.join(DIST, "pictures"), { recursive: true });
-if (fs.existsSync(VIDEOS_DIR)) fs.cpSync(VIDEOS_DIR, path.join(DIST, "videos"), { recursive: true }); // Copy videos folder
+if (fs.existsSync(GALLERY_DIR)) fs.cpSync(GALLERY_DIR, path.join(DIST, "gallery"), { recursive: true });
+if (fs.existsSync(TOOLS_DIR)) fs.cpSync(TOOLS_DIR, path.join(DIST, "tools"), { recursive: true });
 
-// 3. Process Projects with Natural Numerical Sorting
-let projectsHTML = "<li>No projects found.</li>";
-if (fs.existsSync(PROJECTS_DIR)) {
-  const list = fs.readdirSync(PROJECTS_DIR)
-    .filter(f => fs.existsSync(path.join(PROJECTS_DIR, f, "index.html")))
+// Helper to process folder-based HTML lists (Projects & Tools)
+function getHtmlList(directory, distName) {
+  if (!fs.existsSync(directory)) return "<li>None found.</li>";
+  
+  const list = fs.readdirSync(directory)
+    .filter(f => fs.existsSync(path.join(directory, f, "index.html")))
     .map(folder => {
-      const html = fs.readFileSync(path.join(PROJECTS_DIR, folder, "index.html"), "utf8");
+      const html = fs.readFileSync(path.join(directory, folder, "index.html"), "utf8");
       const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder;
       return { title, folder };
     })
     .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }));
 
-  if (list.length > 0) {
-    projectsHTML = list.map(p => `<li><a href="./projects/${p.folder}/index.html">${p.title}</a></li>`).join("");
-  }
+  if (list.length === 0) return "<li>None found.</li>";
+  return list.map(p => `<li><a href="./${distName}/${p.folder}/index.html">${p.title}</a></li>`).join("");
 }
 
-// 4. Process Gallery (Images and Videos)
+// 3. Process Projects & Tools
+const projectsHTML = getHtmlList(PROJECTS_DIR, "projects");
+const toolsHTML = getHtmlList(TOOLS_DIR, "tools");
+
+// 4. Process Unified Gallery (Images + Videos)
 const imgExts = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
-const vidExts = ['.mp4', '.webm', '.ogg']; // Supported video formats
-let galleryItems = [];
+const vidExts = ['.mp4', '.webm', '.ogg'];
+let galleryHTML = "<p>No media found in /gallery.</p>";
 
-// Get Images
-if (fs.existsSync(PICTURES_DIR)) {
-  const imgs = fs.readdirSync(PICTURES_DIR)
-    .filter(file => imgExts.includes(path.extname(file).toLowerCase()))
-    .map(img => `<img src="./pictures/${img}" onclick="zoom(this)" alt="Gallery Image" role="button">`);
-  galleryItems.push(...imgs);
+if (fs.existsSync(GALLERY_DIR)) {
+  const files = fs.readdirSync(GALLERY_DIR).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  
+  const items = files.map(file => {
+    const ext = path.extname(file).toLowerCase();
+    if (imgExts.includes(ext)) {
+      return `<img src="./gallery/${file}" onclick="zoom(this)" alt="Gallery Image" role="button">`;
+    } else if (vidExts.includes(ext)) {
+      return `<video src="./gallery/${file}" controls preload="metadata"></video>`;
+    }
+    return null;
+  }).filter(Boolean);
+
+  if (items.length > 0) galleryHTML = items.join("");
 }
-
-// Get Videos
-if (fs.existsSync(VIDEOS_DIR)) {
-  const vids = fs.readdirSync(VIDEOS_DIR)
-    .filter(file => vidExts.includes(path.extname(file).toLowerCase()))
-    .map(vid => `<video src="./videos/${vid}" controls preload="metadata"></video>`);
-  galleryItems.push(...vids);
-}
-
-const galleryHTML = galleryItems.length > 0 ? galleryItems.join("") : "<p>No media found in /pictures or /videos.</p>";
 
 // 5. Build the Final Page
 const fullHtml = `<!doctype html>
@@ -73,21 +75,16 @@ const fullHtml = `<!doctype html>
     
     .preamble { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 16px; margin-bottom: 50px; }
     .preamble h2 { margin-top: 0; color: var(--accent); font-size: 1.8rem; border: none; opacity: 1; text-transform: none; letter-spacing: normal; }
-    .preamble p { margin-bottom: 1.2rem; font-size: 1.05rem; opacity: 0.9; }
-    .preamble ul { display: block; padding-left: 20px; margin: 10px 0; }
-    .preamble li { background: transparent; border: none; padding: 5px 0; list-style: disc; display: list-item; text-align: left; }
-    .important { border-left: 4px solid var(--accent); padding-left: 15px; font-style: italic; margin-top: 20px; }
-
+    
     a { color: var(--accent); text-decoration: none; font-weight: bold; }
     a:hover { text-decoration: underline; }
     section { margin-bottom: 60px; }
     h2 { opacity: 0.6; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 20px; }
     
-    .project-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-    .project-grid li { background: var(--card); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+    .grid li { background: var(--card); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
 
     .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
-    /* Added video to the gallery styling */
     .gallery img, .gallery video { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; transition: transform 0.2s; border: 1px solid rgba(255,255,255,0.1); background: #000; }
     .gallery img { cursor: zoom-in; }
     .gallery img:hover { transform: scale(1.02); }
@@ -102,31 +99,17 @@ const fullHtml = `<!doctype html>
     
     <div class="preamble">
       <h2>Collaborative Teaching Project</h2>
-      <p>You will be put into groups. Each group needs to watch their video and complete the tabs underneath that elaborate or extend the topic.</p>
-      
-      <strong>Phase 1: Research & Preparation (Today)</strong>
-      <ul>
-        <li>Finalize a slide deck (10-15 slides) based on the content and your own extensions.</li>
-        <li><strong>Don't just read your slides:</strong> Try to explain the concept, what was interesting, and what did not make sense or what you disagree with.</li>
-        <li>If you did not like the hook video or follow-up, suggest what might you use instead. Is there a better modern reference?</li>
-        <li>This lesson must be used to learn the topic and finalize slides; we jump straight into teaching next class.</li>
-      </ul>
-
-      <strong>Phase 2: Speed Dating (Next Lessons)</strong>
-      <p>Next two classes will be set up as speed dating with 5 rounds in total (20 minutes each):</p>
-      <ul>
-        <li><strong>10 Minutes:</strong> You teach them your topic based on your produced slides.</li>
-        <li><strong>10 Minutes:</strong> They teach you their topic.</li>
-      </ul>
-
-      <div class="important">
-        <strong>Digital Accountability:</strong> This material needs to be shared digitally among your group. There is no excuse if one group member is missing next time—ensure everyone has the file.
-      </div>
+      <p>Follow the research phase to finalize your slides, then prepare for the speed-dating teaching rounds.</p>
     </div>
 
     <section>
       <h2>Research Topics</h2>
-      <ul class="project-grid">${projectsHTML}</ul>
+      <ul class="grid">${projectsHTML}</ul>
+    </section>
+
+    <section>
+      <h2>Utility Tools</h2>
+      <ul class="grid">${toolsHTML}</ul>
     </section>
 
     <section>
@@ -150,4 +133,4 @@ const fullHtml = `<!doctype html>
 
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
-console.log("Build Complete: Index and assets generated in /dist");
+console.log("Build Complete: /dist updated with unified gallery and tools.");
