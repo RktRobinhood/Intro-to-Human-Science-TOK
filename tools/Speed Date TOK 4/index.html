@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TOK Speed Dating — TOK 4 - Peer Teaching</title>
+  <style>
+    :root{
+      --bg1:#0b1020; --bg2:#070a12; --card:#121a2f;
+      --text:#eef2ff; --muted:#b7c0e0; --accent:#7aa2ff;
+      --teaching:#7CFFB2; 
+      --line: rgba(255,255,255,0.12); --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, sans-serif; color:var(--text);
+      background: linear-gradient(160deg, var(--bg1), var(--bg2));
+      height: 100vh; overflow: hidden;
+    }
+    .deck{ height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px; }
+    
+    .slide{
+      width: min(1400px, 98vw); height: min(900px, 96vh);
+      background: rgba(18, 26, 47, 0.85); backdrop-filter: blur(25px);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 25px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 15px;
+      transition: background 0.5s ease;
+    }
+
+    .topbar{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+    #timerDisplay { font-size: 52px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--accent); line-height: 1; text-shadow: 0 0 20px rgba(122,162,255,0.3); }
+    .timer-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .tStep { 
+        padding: 10px; border: 1px solid var(--line); border-radius: 12px; 
+        background: rgba(255,255,255,0.03); cursor: pointer; text-align: center; transition: 0.3s;
+    }
+    .tStep.active { border-color: var(--accent); background: rgba(122,162,255,0.15); }
+
+    .station-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+        gap: 15px; overflow-y: auto; padding-right: 10px;
+        align-content: start;
+    }
+    .station-card { 
+        background: rgba(0,0,0,0.25); border: 1px solid var(--line); 
+        border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 15px;
+    }
+    
+    .versus { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .group-mini { flex: 1; display: flex; flex-direction: column; transition: transform 0.3s ease; }
+    .group-num { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 2px; }
+    .group-topic { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 10px; line-height: 1.2; min-height: 2.4em; }
+    
+    .members-list { 
+        font-size: 12px; color: var(--muted); line-height: 1.6; 
+        border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; font-weight: 500;
+    }
+
+    .vs-circle { align-self: center; background: var(--line); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; flex-shrink: 0; margin-top: 50px;}
+
+    /* Active Teaching Styles */
+    .group-mini.teaching { transform: scale(1.03); }
+    .group-mini.teaching .group-num { color: var(--teaching); text-shadow: 0 0 10px rgba(124,255,178,0.4); }
+    .group-mini.teaching .members-list { color: #fff; }
+
+    .phase-bar { display: flex; background: rgba(0,0,0,0.5); border-radius: 10px; overflow: hidden; height: 32px; margin-top: 5px;}
+    .phase { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; opacity: 0.15; transition: 0.4s; }
+    .phase.active { 
+        opacity: 1; background: var(--teaching); color: #000; 
+        animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { filter: brightness(1); }
+        50% { filter: brightness(1.2); }
+        100% { filter: brightness(1); }
+    }
+
+    .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 15px; }
+    button { 
+        background: var(--accent); color: #000; border: none; padding: 12px 24px; 
+        border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s;
+    }
+    button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    button.secondary { background: rgba(255,255,255,0.1); color: white; margin-right: 8px; }
+
+    .modalOverlay{ position:fixed; inset:0; background: rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index: 100; padding: 20px; }
+    .modalOverlay.active { display: flex; }
+    .modal { background: var(--card); border: 1px solid var(--line); width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 24px; }
+    .groupGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+    .gCard { border: 1px solid var(--line); padding: 15px; border-radius: 16px; background: rgba(255,255,255,0.02); }
+  </style>
+</head>
+<body>
+
+<div class="deck">
+    <div class="slide" id="mainContainer">
+        <div class="topbar">
+            <div>
+                <h1 style="margin:0; font-size: 26px; letter-spacing: -0.5px;">1i TOK 4: Peer Teaching</h1>
+                <div style="color:var(--muted); font-size: 14px;" id="statusMsg">Round 1: Initializing...</div>
+            </div>
+            <div style="text-align: right;">
+                <div class="timer-label" id="phaseLabel">Group A Teaching</div>
+                <div id="timerDisplay">10:00</div>
+            </div>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+
+        <div class="station-grid" id="stationGrid"></div>
+
+        <div class="footer">
+            <div>
+                <button class="secondary" onclick="toggleModal()">View Class Roster</button>
+                <button class="secondary" onclick="resetTimer()">Reset Round</button>
+                <button onclick="startTimer()" id="startBtn">Start Timer</button>
+            </div>
+            <div>
+                <button class="secondary" onclick="changeRound(-1)">Prev</button>
+                <button class="secondary" onclick="changeRound(1)">Next Round</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modalOverlay" id="modal">
+    <div class="modal">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+            <h2 style="margin:0">Class 4: Research Groups</h2>
+            <button onclick="toggleModal()">Close</button>
+        </div>
+        <div class="groupGrid" id="fullListGrid"></div>
+    </div>
+</div>
+
+<script>
+    const groupData = {
+        "1": { topic: "Replication Crisis", names: ["Nikki Mòro", "Alex Herskovic", "Filip Banetka", "Karolina Jalová"] },
+        "2": { topic: "WEIRD Bias", names: ["Juraj Marek", "Bela Kupková", "Nicoleta Savva"] },
+        "3": { topic: "Defining Normality & DSM", names: ["Aidyn Soheily Kadijany", "Konstantinas Zaveckas", "Susanna Gómez Sarrión"] },
+        "4": { topic: "Physics Envy & Mathiness", names: ["Volodymyr Yasko", "Oliver Kotásek", "Sebastian Staub"] },
+        "5": { topic: "Longitudinal vs Cross-sectional", names: ["Luke Sualog Harris", "József Tas Komáromi", "Darragh Cillian Gunkel"] },
+        "6": { topic: "Questions & Beliefs", names: ["Matej Kmeto", "Jacobo Rodriguez Lanza", "Carlos De Arriba Lopez"] },
+        "7": { topic: "Case Studies", names: ["Lucia Martin Rodriguez", "Jaume Palom Sánchez", "Motiejus Vilkas"] },
+        "8": { topic: "Climate & Giving", names: ["Eliska Prihodova", "Freja Gisele Shan Storm", "Nicola Junior Andriulli"] }
+    };
+
+    // Pairing logic for 8 groups over 5 rounds
+    const rounds = [
+        [[1,8], [2,7], [3,6], [4,5]], // Round 1
+        [[1,7], [8,6], [2,5], [3,4]], // Round 2
+        [[1,6], [7,5], [8,4], [2,3]], // Round 3
+        [[1,5], [6,4], [7,3], [8,2]], // Round 4
+        [[1,4], [5,3], [6,2], [7,8]]  // Round 5
+    ];
+
+    let currentRound = 0;
+    let phaseDuration = 600; 
+    let currentPhase = 1; 
+    let timerRunning = false;
+    let endTime = null;
+    let timerRequest = null;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBell() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const strike = (time) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(440, time);
+            osc.frequency.exponentialRampToValueAtTime(100, time + 0.8);
+            gain.gain.setValueAtTime(0.5, time);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + 0.8);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(time);
+            osc.stop(time + 0.8);
+        };
+        strike(audioCtx.currentTime);
+        strike(audioCtx.currentTime + 0.3);
+    }
+
+    function render() {
+        document.getElementById('statusMsg').innerText = `Round ${currentRound + 1}: Teaching Phase`;
+        
+        const timeline = document.getElementById('timeline');
+        timeline.innerHTML = '';
+        for(let i=0; i<5; i++) {
+            const step = document.createElement('div');
+            step.className = `tStep ${i === currentRound ? 'active' : ''}`;
+            step.innerHTML = `<div style="font-size:9px; opacity:0.6">ROUND</div><div style="font-weight:800">${i+1}</div>`;
+            step.onclick = () => { currentRound = i; resetTimer(); render(); };
+            timeline.appendChild(step);
+        }
+
+        const grid = document.getElementById('stationGrid');
+        grid.innerHTML = '';
+        rounds[currentRound].forEach((pair, idx) => {
+            const g1 = groupData[pair[0]];
+            const g2 = groupData[pair[1]];
+            const card = document.createElement('div');
+            card.className = 'station-card';
+            card.innerHTML = `
+                <div class="versus">
+                    <div class="group-mini ${currentPhase === 1 ? 'teaching' : ''}">
+                        <div class="group-num">Group ${pair[0]}</div>
+                        <div class="group-topic">${g1.topic}</div>
+                        <div class="members-list">${g1.names.join("<br>")}</div>
+                    </div>
+                    <div class="vs-circle">VS</div>
+                    <div class="group-mini ${currentPhase === 2 ? 'teaching' : ''}" style="text-align:right">
+                        <div class="group-num">Group ${pair[1]}</div>
+                        <div class="group-topic">${g2.topic}</div>
+                        <div class="members-list">${g2.names.join("<br>")}</div>
+                    </div>
+                </div>
+                <div class="phase-bar">
+                    <div class="phase ${currentPhase === 1 ? 'active' : ''}">TEACHING: GROUP ${pair[0]}</div>
+                    <div class="phase ${currentPhase === 2 ? 'active' : ''}">TEACHING: GROUP ${pair[1]}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function tick() {
+        if (!timerRunning) return;
+        const now = Date.now();
+        const remaining = Math.max(0, Math.ceil((endTime - now) / 1000));
+        const mins = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        document.getElementById('timerDisplay').innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+        if (remaining <= 0) {
+            playBell();
+            if (currentPhase === 1) {
+                currentPhase = 2;
+                endTime = Date.now() + (phaseDuration * 1000);
+                flashScreen("#7CFFB2");
+                render();
+            } else {
+                timerRunning = false;
+                document.getElementById('startBtn').innerText = "Start Timer";
+                flashScreen("#ff7a7a");
+                document.getElementById('statusMsg').innerText = "Round Finished! Switch Stations.";
+            }
+        }
+        timerRequest = requestAnimationFrame(tick);
+    }
+
+    function startTimer() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        if (timerRunning) {
+            timerRunning = false;
+            cancelAnimationFrame(timerRequest);
+            document.getElementById('startBtn').innerText = "Resume Timer";
+        } else {
+            timerRunning = true;
+            const currentDisplay = document.getElementById('timerDisplay').innerText.split(':');
+            const currentSecs = (parseInt(currentDisplay[0]) * 60) + parseInt(currentDisplay[1]);
+            endTime = Date.now() + (currentSecs * 1000);
+            document.getElementById('startBtn').innerText = "Pause Timer";
+            tick();
+        }
+    }
+
+    function resetTimer() {
+        timerRunning = false;
+        cancelAnimationFrame(timerRequest);
+        currentPhase = 1;
+        document.getElementById('timerDisplay').innerText = "10:00";
+        document.getElementById('startBtn').innerText = "Start Timer";
+        render();
+    }
+
+    function flashScreen(color) {
+        const el = document.getElementById('mainContainer');
+        const original = el.style.background;
+        el.style.background = color;
+        setTimeout(() => { el.style.background = original; }, 1000);
+    }
+
+    function changeRound(dir) {
+        currentRound = Math.max(0, Math.min(4, currentRound + dir));
+        resetTimer();
+    }
+
+    function toggleModal() {
+        document.getElementById('modal').classList.toggle('active');
+    }
+
+    const fullListGrid = document.getElementById('fullListGrid');
+    Object.keys(groupData).forEach(key => {
+        const g = groupData[key];
+        fullListGrid.innerHTML += `
+            <div class="gCard">
+                <div style="font-weight:900; color:var(--accent); font-size: 16px;">Group ${key}</div>
+                <div style="font-size:13px; font-weight:700; margin:4px 0 10px 0; color:#fff;">${g.topic}</div>
+                <div style="font-size:12px; color:var(--muted); line-height: 1.6;">${g.names.join("<br>")}</div>
+            </div>
+        `;
+    });
+
+    render();
+</script>
+
+</body>
+</html>

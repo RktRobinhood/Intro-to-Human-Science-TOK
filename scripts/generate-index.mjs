@@ -5,8 +5,8 @@ import path from "path";
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, "dist");
 const PROJECTS_DIR = path.join(ROOT, "projects");
-const GALLERY_DIR = path.join(ROOT, "gallery"); // Unified folder
-const TOOLS_DIR = path.join(ROOT, "tools");     // New tools folder
+const GALLERY_DIR = path.join(ROOT, "gallery"); // Unified folder for images/videos
+const TOOLS_DIR = path.join(ROOT, "tools");     // Folder for utility HTML tools
 
 // 1. Setup Dist (Clean and Recreate)
 if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true, force: true });
@@ -75,7 +75,11 @@ const fullHtml = `<!doctype html>
     
     .preamble { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 16px; margin-bottom: 50px; }
     .preamble h2 { margin-top: 0; color: var(--accent); font-size: 1.8rem; border: none; opacity: 1; text-transform: none; letter-spacing: normal; }
-    
+    .preamble p { margin-bottom: 1.2rem; font-size: 1.05rem; opacity: 0.9; }
+    .preamble ul { display: block; padding-left: 20px; margin: 10px 0; }
+    .preamble li { background: transparent; border: none; padding: 5px 0; list-style: disc; display: list-item; text-align: left; }
+    .important { border-left: 4px solid var(--accent); padding-left: 15px; font-style: italic; margin-top: 20px; }
+
     a { color: var(--accent); text-decoration: none; font-weight: bold; }
     a:hover { text-decoration: underline; }
     section { margin-bottom: 60px; }
@@ -99,7 +103,26 @@ const fullHtml = `<!doctype html>
     
     <div class="preamble">
       <h2>Collaborative Teaching Project</h2>
-      <p>Follow the research phase to finalize your slides, then prepare for the speed-dating teaching rounds.</p>
+      <p>You will be put into groups. Each group needs to watch their video and complete the tabs underneath that elaborate or extend the topic.</p>
+      
+      <strong>Phase 1: Research & Preparation (Today)</strong>
+      <ul>
+        <li>Finalize a slide deck (10-15 slides) based on the content and your own extensions.</li>
+        <li><strong>Don't just read your slides:</strong> Try to explain the concept, what was interesting, and what did not make sense or what you disagree with.</li>
+        <li>If you did not like the hook video or follow-up, suggest what might you use instead. Is there a better modern reference?</li>
+        <li>This lesson must be used to learn the topic and finalize slides; we jump straight into teaching next class.</li>
+      </ul>
+
+      <strong>Phase 2: Speed Dating (Next Lessons)</strong>
+      <p>Next two classes will be set up as speed dating with 5 rounds in total (20 minutes each):</p>
+      <ul>
+        <li><strong>10 Minutes:</strong> You teach them your topic based on your produced slides.</li>
+        <li><strong>10 Minutes:</strong> They teach you their topic.</li>
+      </ul>
+
+      <div class="important">
+        <strong>Digital Accountability:</strong> This material needs to be shared digitally among your group. There is no excuse if one group member is missing next time—ensure everyone has the file.
+      </div>
     </div>
 
     <section>
@@ -108,13 +131,13 @@ const fullHtml = `<!doctype html>
     </section>
 
     <section>
-      <h2>Utility Tools</h2>
-      <ul class="grid">${toolsHTML}</ul>
+      <h2>Visual Gallery</h2>
+      <div class="gallery">${galleryHTML}</div>
     </section>
 
     <section>
-      <h2>Visual Gallery</h2>
-      <div class="gallery">${galleryHTML}</div>
+      <h2>Utility Tools</h2>
+      <ul class="grid">${toolsHTML}</ul>
     </section>
   </div>
 
@@ -133,4 +156,4 @@ const fullHtml = `<!doctype html>
 
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
-console.log("Build Complete: /dist updated with unified gallery and tools.");
+console.log("Build Complete: /dist generated with unified gallery and footer tools.");
