@@ -6,17 +6,20 @@ const ROOT = process.cwd();
 const DIST = path.join(ROOT, "dist");
 const PROJECTS_DIR = path.join(ROOT, "projects");
 const PICTURES_DIR = path.join(ROOT, "pictures");
+const VIDEOS_DIR = path.join(ROOT, "videos"); // Added videos path
 
 // 1. Setup Dist (Clean and Recreate)
 if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(path.join(DIST, "projects"), { recursive: true });
 fs.mkdirSync(path.join(DIST, "pictures"), { recursive: true });
+fs.mkdirSync(path.join(DIST, "videos"), { recursive: true }); // Create dist/videos
 
 // 2. Copy Assets
 if (fs.existsSync(PROJECTS_DIR)) fs.cpSync(PROJECTS_DIR, path.join(DIST, "projects"), { recursive: true });
 if (fs.existsSync(PICTURES_DIR)) fs.cpSync(PICTURES_DIR, path.join(DIST, "pictures"), { recursive: true });
+if (fs.existsSync(VIDEOS_DIR)) fs.cpSync(VIDEOS_DIR, path.join(DIST, "videos"), { recursive: true }); // Copy videos folder
 
-// 3. Process Projects with Natural Numerical Sorting (1, 2, 10...)
+// 3. Process Projects with Natural Numerical Sorting
 let projectsHTML = "<li>No projects found.</li>";
 if (fs.existsSync(PROJECTS_DIR)) {
   const list = fs.readdirSync(PROJECTS_DIR)
@@ -26,7 +29,6 @@ if (fs.existsSync(PROJECTS_DIR)) {
       const title = html.match(/<title>([^<]+)<\/title>/i)?.[1].trim() || folder;
       return { title, folder };
     })
-    // The "numeric: true" option fixes the 1, 2, 10 sorting issue
     .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }));
 
   if (list.length > 0) {
@@ -34,15 +36,28 @@ if (fs.existsSync(PROJECTS_DIR)) {
   }
 }
 
-// 4. Process Gallery Images
+// 4. Process Gallery (Images and Videos)
 const imgExts = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
-let galleryHTML = "<p>No images found in /pictures.</p>";
+const vidExts = ['.mp4', '.webm', '.ogg']; // Supported video formats
+let galleryItems = [];
+
+// Get Images
 if (fs.existsSync(PICTURES_DIR)) {
   const imgs = fs.readdirSync(PICTURES_DIR)
     .filter(file => imgExts.includes(path.extname(file).toLowerCase()))
     .map(img => `<img src="./pictures/${img}" onclick="zoom(this)" alt="Gallery Image" role="button">`);
-  if (imgs.length > 0) galleryHTML = imgs.join("");
+  galleryItems.push(...imgs);
 }
+
+// Get Videos
+if (fs.existsSync(VIDEOS_DIR)) {
+  const vids = fs.readdirSync(VIDEOS_DIR)
+    .filter(file => vidExts.includes(path.extname(file).toLowerCase()))
+    .map(vid => `<video src="./videos/${vid}" controls preload="metadata"></video>`);
+  galleryItems.push(...vids);
+}
+
+const galleryHTML = galleryItems.length > 0 ? galleryItems.join("") : "<p>No media found in /pictures or /videos.</p>";
 
 // 5. Build the Final Page
 const fullHtml = `<!doctype html>
@@ -72,7 +87,9 @@ const fullHtml = `<!doctype html>
     .project-grid li { background: var(--card); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
 
     .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
-    .gallery img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; cursor: zoom-in; transition: transform 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+    /* Added video to the gallery styling */
+    .gallery img, .gallery video { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; transition: transform 0.2s; border: 1px solid rgba(255,255,255,0.1); background: #000; }
+    .gallery img { cursor: zoom-in; }
     .gallery img:hover { transform: scale(1.02); }
 
     #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 1000; cursor: zoom-out; }
@@ -134,5 +151,3 @@ const fullHtml = `<!doctype html>
 fs.writeFileSync(path.join(DIST, "index.html"), fullHtml);
 fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
 console.log("Build Complete: Index and assets generated in /dist");
-
-
