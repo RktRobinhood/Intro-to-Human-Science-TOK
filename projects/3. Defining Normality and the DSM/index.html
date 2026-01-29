@@ -476,6 +476,7 @@
         <div class="tabs">
             <button class="tab-button active" data-tab="intro">Introduction</button>
             <button class="tab-button" data-tab="questions">Guided Questions</button>
+            <button class="tab-button" data-tab="bellcurve">The Bell Curve Controversy</button>
             <button class="tab-button" data-tab="studies">Group Tasks</button>
             <button class="tab-button" data-tab="wrapup">Wrap-Up</button>
             <button class="tab-button" data-tab="exit">Exit Ticket</button>
@@ -515,6 +516,7 @@
                     <li><a href="https://en.wikipedia.org/wiki/Abnormality_(behavior)" target="_blank">Abnormality (behaviour) — overview of definitions</a></li>
                     <li><a href="https://en.wikipedia.org/wiki/Normality_(behavior)" target="_blank">Normality (behaviour) — why “normal” is contextual</a></li>
                     <li><a href="https://en.wikipedia.org/wiki/Homosexuality_in_the_DSM" target="_blank">Homosexuality in the DSM — reclassification case study</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Female_hysteria" target="_blank">Female Hysteria — the history of a gender-biased classification failure</a></li>
                 </ul>
                 <p style="margin-top: 10px; color: #4a5568; line-height: 1.6;">
                     Use these for background only. Your answers should focus on the video and your TOK reasoning.
@@ -561,6 +563,43 @@
             <div class="question-box">
                 <h4>7. When is labeling useful, and when can it be harmful? Give a balanced answer.</h4>
                 <textarea id="q7" placeholder="Type your answer here..."></textarea>
+            </div>
+        </div>
+
+        <!-- NEW TAB: THE BELL CURVE CONTROVERSY -->
+        <div id="bellcurve" class="tab-content">
+            <h2 class="section-header">Case Study: The Bell Curve and Problematic Labeling</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 20px;">
+                While the DSM attempts to classify behaviour for clinical help, other classification systems in the human sciences have been used to rank and marginalize. 
+                The 1994 book <em>The Bell Curve</em> by Herrnstein and Murray is a primary example of how <strong>labels</strong> (like IQ scores) can be used to construct knowledge claims that have significant social consequences.
+            </p>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/UBc7qBS1Ujo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 4px solid #fc8181; padding: 20px; margin-bottom: 30px; border-radius: 5px;">
+                <p style="color: #c53030; font-weight: bold;">⚠️ Student Note:</p>
+                <p style="color: #2d3748; line-height: 1.6;">The primary context and core arguments of the controversy are covered in the <strong>first 6 minutes</strong> of the video above. The remainder of the footage provides a deeper analysis and is for reference only.</p>
+            </div>
+
+            <div class="study-card">
+                <h3>Benefits vs. Risks of Normalizing</h3>
+                <p style="line-height: 1.8;">
+                    In TOK, we evaluate <strong>benefits</strong> (e.g., DSM labels that lead to better treatment and shared clinical language) against <strong>risks</strong> (e.g., *The Bell Curve* using labels like IQ to justify social stratification). 
+                    When a human trait is mapped onto a "Bell Curve," the statistical definition of normality can be used to label entire groups as "naturally" less successful, often ignoring environmental variables like socioeconomic status or bias in testing.
+                </p>
+            </div>
+
+            <div class="question-box">
+                <h4>8. Based on the first 6 minutes of the video, how do the authors of *The Bell Curve* use classification to argue that social inequality is natural?</h4>
+                <textarea id="bc1" placeholder="Reflect on their arguments regarding 'g' and the heritability of intelligence..."></textarea>
+            </div>
+
+            <div class="question-box">
+                <h4>9. Frame the Risk: How does this controversy show that labeling someone with a 'scientific' number (like an IQ score) might distort our understanding of the knowledge claim?</h4>
+                <textarea id="bc2" placeholder="Consider the difference between a label that helps a patient (DSM) vs. a label that ranks a person (Bell Curve)..."></textarea>
             </div>
         </div>
 
@@ -641,7 +680,7 @@
             </div>
 
             <div class="response-area">
-                <textarea id="wrapup" placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
+                <textarea id="wrapup_text" placeholder="Write your paragraph here..." style="min-height: 200px;"></textarea>
             </div>
         </div>
 
@@ -716,7 +755,7 @@
         let totalSlidesCount = 0;
 
         // Auto-save functionality
-        const textareas = ['q1','q2','q3','q4','q5','q6','q7','study1','study2','study3','study4','wrapup','exitticket'];
+        const textareas = ['q1','q2','q3','q4','q5','q6','q7','bc1','bc2','study1','study2','study3','study4','wrapup_text','exitticket'];
 
         function saveData() {
             const data = {};
@@ -781,11 +820,13 @@
                 q5: document.getElementById('q5').value || 'Not answered',
                 q6: document.getElementById('q6').value || 'Not answered',
                 q7: document.getElementById('q7').value || 'Not answered',
+                bc1: document.getElementById('bc1').value || 'Not answered',
+                bc2: document.getElementById('bc2').value || 'Not answered',
                 study1: document.getElementById('study1').value || 'Not answered',
                 study2: document.getElementById('study2').value || 'Not answered',
                 study3: document.getElementById('study3').value || 'Not answered',
                 study4: document.getElementById('study4').value || 'Not answered',
-                wrapup: document.getElementById('wrapup').value || 'Not answered',
+                wrapup: document.getElementById('wrapup_text').value || 'Not answered',
                 exitticket: document.getElementById('exitticket').value || 'Not answered'
             };
         }
@@ -840,6 +881,18 @@
                     <h2>Benefits and Harms of Labels</h2>
                     <h3>Balanced Judgment:</h3>
                     <p>${data.q7}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>The Bell Curve: Argument</h2>
+                    <h3>Classification as Strategy:</h3>
+                    <p>${data.bc1}</p>
+                </div>
+
+                <div class="slide">
+                    <h2>The Bell Curve: Risk</h2>
+                    <h3>The Dangers of Numerical Labeling:</h3>
+                    <p>${data.bc2}</p>
                 </div>
 
                 <div class="slide">
@@ -975,6 +1028,8 @@
                 addQSlide('Defining “Disorder”', 'Science and Interpretation:', data.q5);
                 addQSlide('Evidence + Interpretation', 'DSM Revisions and Knowledge Claims:', data.q6);
                 addQSlide('Benefits and Harms of Labels', 'Balanced Judgment:', data.q7);
+                addQSlide('The Bell Curve: Argument', 'Classification as Strategy:', data.bc1);
+                addQSlide('The Bell Curve: Risk', 'The Dangers of Numerical Labeling:', data.bc2);
 
                 addQSlide('Group Task Plan (A)', 'Definitions Across DSM Editions:', data.study1);
                 addQSlide('Group Task Plan (B)', 'Normal vs Abnormal Frameworks:', data.study2);
